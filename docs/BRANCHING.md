@@ -37,6 +37,36 @@
 - Al menos 1 aprobacion por PR.
 - Checks de CI requeridos (tests/lint) antes de merge.
 
+### Configuracion sugerida en GitHub
+
+- Regla para `main`:
+   - Require a pull request before merging: activado.
+   - Require approvals: 2 (o 1 si el equipo es pequeno).
+   - Dismiss stale pull request approvals when new commits are pushed: activado.
+   - Require conversation resolution before merging: activado.
+   - Require status checks to pass before merging: activado.
+   - Require branches to be up to date before merging: activado.
+   - Restrict who can push to matching branches: activado.
+   - Allow force pushes: desactivado.
+   - Allow deletions: desactivado.
+
+- Regla para `staging`:
+   - Require a pull request before merging: activado.
+   - Require approvals: 1.
+   - Require conversation resolution before merging: activado.
+   - Require status checks to pass before merging: activado.
+   - Require branches to be up to date before merging: activado.
+   - Restrict who can push to matching branches: recomendado.
+   - Allow force pushes: desactivado.
+   - Allow deletions: desactivado.
+
+### Checks de CI para marcar como requeridos
+
+- `repo-health`
+- `markdown-lint`
+
+Los jobs `node-ci`, `python-ci` y `php-ci` se ejecutan solo si detectan sus archivos de stack (`package.json`, `requirements.txt`/`pyproject.toml`, `composer.json`).
+
 ## Mapeo sugerido en cPanel
 
 - Produccion: despliegue desde `main`.
