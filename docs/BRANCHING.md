@@ -40,25 +40,25 @@
 ### Configuracion sugerida en GitHub
 
 - Regla para `main`:
-   - Require a pull request before merging: activado.
-   - Require approvals: 2 (o 1 si el equipo es pequeno).
-   - Dismiss stale pull request approvals when new commits are pushed: activado.
-   - Require conversation resolution before merging: activado.
-   - Require status checks to pass before merging: activado.
-   - Require branches to be up to date before merging: activado.
-   - Restrict who can push to matching branches: activado.
-   - Allow force pushes: desactivado.
-   - Allow deletions: desactivado.
+  - Require a pull request before merging: activado.
+  - Require approvals: 2 (o 1 si el equipo es pequeno).
+  - Dismiss stale pull request approvals when new commits are pushed: activado.
+  - Require conversation resolution before merging: activado.
+  - Require status checks to pass before merging: activado.
+  - Require branches to be up to date before merging: activado.
+  - Restrict who can push to matching branches: activado.
+  - Allow force pushes: desactivado.
+  - Allow deletions: desactivado.
 
 - Regla para `staging`:
-   - Require a pull request before merging: activado.
-   - Require approvals: 1.
-   - Require conversation resolution before merging: activado.
-   - Require status checks to pass before merging: activado.
-   - Require branches to be up to date before merging: activado.
-   - Restrict who can push to matching branches: recomendado.
-   - Allow force pushes: desactivado.
-   - Allow deletions: desactivado.
+  - Require a pull request before merging: activado.
+  - Require approvals: 1.
+  - Require conversation resolution before merging: activado.
+  - Require status checks to pass before merging: activado.
+  - Require branches to be up to date before merging: activado.
+  - Restrict who can push to matching branches: recomendado.
+  - Allow force pushes: desactivado.
+  - Allow deletions: desactivado.
 
 ### Checks de CI para marcar como requeridos
 
