@@ -14,7 +14,7 @@ Construir una plataforma inmobiliaria premium **HAVRE ESTATES** desde cero, sin 
 ### Entregables requeridos
 
 | # | Entregable | Mínimo |
-|---|---|---|
+| --- | --- | --- |
 | 1 | Repo GitHub **público** con URL | Obligatorio |
 | 2 | Commits Conventional Commits | ≥40 commits |
 | 3 | PRs documentados y mergeados | ≥5 PRs |
@@ -45,7 +45,7 @@ Construir una plataforma inmobiliaria premium **HAVRE ESTATES** desde cero, sin 
 ### ❌ No permitido
 
 | Prohibido | Alternativa |
-|---|---|
+| --- | --- |
 | IA para generar código (Copilot, ChatGPT) | Escribir manualmente |
 | React, Vue, Angular, Svelte | Alpine.js + JS vanilla |
 | UI kits / component libraries | Tailwind + CSS custom |
@@ -166,12 +166,15 @@ Checklist:
   - `@fontsource/ibm-plex-mono` — precios, datos técnicos
 - [ ] `font-display: swap` en **todas** las declaraciones `@font-face`
 - [ ] Preload del subset crítico (latin, 400 woff2) en `<head>`:
+
   ```html
   <link rel="preload" as="font" type="font/woff2" crossorigin
         href="/assets/playfair-display-latin-400.woff2">
   ```
+
 - [ ] **Variable fonts** cuando estén disponibles (Playfair Display es variable)
 - [ ] **Escala tipográfica modular** con ratio **1.25** (Major Third):
+
   ```css
   --text-xs:   0.64rem;   /* 1rem ÷ 1.25² */
   --text-sm:   0.8rem;    /* 1rem ÷ 1.25 */
@@ -182,6 +185,7 @@ Checklist:
   --text-2xl:  2.441rem;  /* 1rem × 1.25⁴ */
   --text-3xl:  3.052rem;  /* 1rem × 1.25⁵ */
   ```
+
 - [ ] Cero requests a `fonts.googleapis.com` ni `fonts.gstatic.com`
 
 ### RETO 7 — Arquitectura PHP MVC Artesanal
@@ -222,7 +226,7 @@ Checklist:
 ## 8 PUNTOS BONUS (opcionales)
 
 | # | Bonus | Descripción |
-|---|---|---|
+| --- | --- | --- |
 | 1 | HTTP/2 Server Push | Precargar CSS/JS crítico en la primera respuesta HTTP |
 | 2 | Brotli compression | Habilitar Brotli en cPanel además de gzip (`.htaccess`) |
 | 3 | Meta descriptions únicas PHP | Generar con NLP/templates en PHP, sin hardcodear |
@@ -239,7 +243,7 @@ Checklist:
 ### Web Vitals obligatorios (medidos en conexión 3G desde CDMX)
 
 | Métrica | Umbral | Herramienta |
-|---|---|---|
+| --- | --- | --- |
 | LCP (Largest Contentful Paint) | **< 1.8s** | Lighthouse / WebPageTest |
 | CLS (Cumulative Layout Shift) | **= 0** | Lighthouse |
 | INP (Interaction to Next Paint) | **< 100ms** | Chrome DevTools (Lab data) |
@@ -248,7 +252,7 @@ Checklist:
 ### Lighthouse scores (mínimos requeridos)
 
 | Categoría | Score mínimo |
-|---|---|
+| --- | --- |
 | Performance | **≥ 95** |
 | Accessibility | **≥ 95** |
 | Best Practices | **≥ 95** |
@@ -267,7 +271,7 @@ Checklist:
 
 ## FLUJO DE BRANCHES (obligatorio)
 
-```
+```text
 main ←─── develop ←─── feature/landing-home
                   ←─── feature/landing-venta
                   ←─── feature/landing-renta
@@ -278,6 +282,7 @@ main ←─── develop ←─── feature/landing-home
 ```
 
 **Reglas**:
+
 1. **Nunca** push directo a `main` ni `develop` — siempre vía PR
 2. Features van a `develop`, **no a `main`**
 3. Solo cuando `develop` esté completo y verificado, se abre PR `develop → main` para el deploy final
@@ -315,6 +320,7 @@ main ←─── develop ←─── feature/landing-home
 - [ ] Descargar desde <https://git-scm.com>
 - [ ] Verificar: `git --version`
 - [ ] Configurar identidad:
+
   ```bash
   git config --global user.name "Tu Nombre"
   git config --global user.email "tu@email.com"
@@ -352,6 +358,7 @@ main ←─── develop ←─── feature/landing-home
 - [ ] Visibilidad: **Public** (obligatorio)
 - [ ] Inicializar con README
 - [ ] Clonar localmente:
+
   ```bash
   git clone https://github.com/TU-USUARIO/havre-estates.git
   cd havre-estates
@@ -366,34 +373,42 @@ main ←─── develop ←─── feature/landing-home
 ### 1.3 Inicializar Composer (PHP)
 
 - [ ] Crear `composer.json`:
+
   ```bash
   composer init
   ```
+
   - Package name: `havre/estates`
   - Description: plataforma inmobiliaria
   - PHP version: `^8.3`
 - [ ] Agregar dependencias:
+
   ```bash
   composer require geoip2/geoip2 symfony/dotenv
   composer require --dev phpunit/phpunit:^11
   ```
+
 - [ ] Configurar autoload PSR-4 en `composer.json`:
+
   ```json
   "autoload": {
     "psr-4": { "App\\": "src/" }
   }
   ```
+
 - [ ] `composer dump-autoload`
 
 ### 1.4 Inicializar npm y Vite
 
 - [ ] `npm init -y`
 - [ ] Instalar dependencias:
+
   ```bash
   npm install alpinejs leaflet tailwindcss
   npm install @fontsource/playfair-display @fontsource/ibm-plex-sans @fontsource/ibm-plex-mono
   npm install --save-dev vite @tailwindcss/vite
   ```
+
 - [ ] Verificar versiones en `package.json`:
   - `vite: ^6.x`
   - `tailwindcss: ^4.x`
@@ -447,7 +462,8 @@ export default {
 ### 1.7 Crear `.env` y `.env.example`
 
 - [ ] Variables mínimas:
-  ```
+
+  ```dotenv
   APP_URL=http://localhost:8000
   APP_ENV=local
   DB_HOST=127.0.0.1
@@ -459,6 +475,7 @@ export default {
   RECAPTCHA_SECRET_KEY=
   MAIL_FROM=noreply@havre-estates.com
   ```
+
 - [ ] Añadir `.env` a `.gitignore` (nunca commitear credenciales)
 
 ### 1.8 Primer commit
@@ -640,6 +657,7 @@ CREATE DATABASE IF NOT EXISTS havre_estates CHARACTER SET utf8mb4 COLLATE utf8mb
 - [ ] `@import 'tailwindcss'` (Tailwind v4)
 - [ ] Variables CSS custom: `--color-gold`, `--color-ink`, `--color-paper`, etc.
 - [ ] **Escala tipográfica modular** (ratio 1.25 — Major Third):
+
   ```css
   :root {
     --text-xs:   0.64rem;
@@ -652,6 +670,7 @@ CREATE DATABASE IF NOT EXISTS havre_estates CHARACTER SET utf8mb4 COLLATE utf8mb
     --text-3xl:  3.052rem;
   }
   ```
+
 - [ ] Componentes base: botones, badges, cards
 
 ### 5.2 `resources/fonts/index.css`
@@ -927,7 +946,8 @@ git pull origin main
 
 - [ ] `npm.cmd run build` → genera `public/assets/` con manifest
 - [ ] Configurar `.env` de producción:
-  ```
+
+  ```dotenv
   APP_URL=https://distribuidoroficial.mx
   APP_ENV=production
   DB_HOST=localhost
@@ -937,11 +957,13 @@ git pull origin main
   RECAPTCHA_SITE_KEY=<key_real>
   RECAPTCHA_SECRET_KEY=<secret_real>
   ```
+
 - [ ] Verificar que `storage/cache/` y `storage/geo/` tienen permisos de escritura (`chmod 775`)
 
 ### 14.2 Subir a cPanel (`distribuidoroficial.mx`)
 
 **Datos de acceso:**
+
 - URL del proyecto: `https://distribuidoroficial.mx/`
 - cPanel: `https://distribuidoroficial.mx:2087`
 - Usuario: `usrdist`
@@ -1041,7 +1063,7 @@ git pull origin main
 ## RESUMEN DE ENTREGABLES FINALES
 
 | # | Entregable | Mínimo requerido | Estado |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | Repo GitHub público con URL | Obligatorio | ⬜ |
 | 2 | Commits Conventional Commits | ≥40 commits | ⬜ |
 | 3 | PRs documentados y mergeados | ≥5 PRs feature→develop + 1 develop→main | ⬜ |
@@ -1058,7 +1080,7 @@ git pull origin main
 ### Métricas Core Web Vitals (todas las landings)
 
 | Métrica | Umbral | Estado |
-|---|---|---|
+| --- | --- | --- |
 | LCP | < 1.8s en 3G | ⬜ |
 | CLS | = 0 | ⬜ |
 | INP | < 100ms | ⬜ |
