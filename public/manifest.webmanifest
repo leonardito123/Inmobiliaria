@@ -1,0 +1,19 @@
+{
+  "name": "HAVRE ESTATES",
+  "short_name": "HAVRE",
+  "description": "Plataforma inmobiliaria premium en MX, CO y CL",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#0a0a0a",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/images/property-fallback.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

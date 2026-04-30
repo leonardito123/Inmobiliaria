@@ -1,0 +1,76 @@
+/* HAVRE ESTATES - Main Stylesheet */
+
+@config "../../tailwind.config.js";
+@source "../../src/Views/**/*.php";
+@import "tailwindcss";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/playfair-display/900.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-sans/300.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+
+@layer base {
+  body {
+    @apply font-sans bg-paper text-ink;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold;
+  }
+
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 font-sans font-medium rounded transition-colors;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 font-sans font-medium rounded transition-colors bg-gold text-ink hover:opacity-90;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 font-sans font-medium rounded transition-colors border-2 border-ink text-ink hover:bg-ink hover:text-paper;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 font-sans font-medium rounded transition-colors text-ink hover:bg-ink;
+  }
+
+  .card {
+    @apply p-6 border border-rule bg-paper;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 border border-rule rounded focus:outline-none focus:ring-2 focus:ring-gold;
+  }
+
+  .badge {
+    @apply inline-block px-3 py-1 text-sm font-mono font-medium rounded text-gold;
+  }
+}
+
+/* Utilities */
+.section {
+  @apply max-w-screen-xl mx-auto px-6 py-12;
+}
+
+.rule {
+  @apply border-t border-rule my-8;
+}
