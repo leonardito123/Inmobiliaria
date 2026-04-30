@@ -16,7 +16,7 @@ Plataforma inmobiliaria premium construida con PHP MVC artesanal, Vite y MySQL.
 
 ## Stack
 
-- PHP 8.2+
+- PHP 8.3+
 - MySQL 8+
 - Node.js 18+
 - Vite

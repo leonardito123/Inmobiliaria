@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import '../fonts/index.css'
 import '../css/app.css'
 import './pages/home.js'
 
