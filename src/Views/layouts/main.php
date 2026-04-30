@@ -33,7 +33,15 @@ if (file_exists($manifestPath)) {
     
     <!-- SEO Tags -->
     <?php echo $seo_tags ?? ''; ?>
-    
+
+    <!-- Preload critical fonts (Playfair Display subset) -->
+    <link rel="preload" as="font" type="font/woff2"
+          href="/assets/fonts/playfair-display-latin-400-normal.woff2"
+          crossorigin="anonymous">
+    <link rel="preload" as="font" type="font/woff2"
+          href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2"
+          crossorigin="anonymous">
+
     <?php foreach ($mainCssAssets as $cssAsset): ?>
         <link rel="stylesheet" href="<?php echo htmlspecialchars($cssAsset); ?>">
     <?php endforeach; ?>

@@ -4,7 +4,7 @@
   "type": "project",
   "license": "proprietary",
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
     "geoip2/geoip2": "^2.13",
     "symfony/dotenv": "^6.0"
   },
