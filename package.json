@@ -1,0 +1,23 @@
+{
+  "name": "havre-estates",
+  "version": "1.0.0",
+  "description": "HAVRE ESTATES - Plataforma inmobiliaria de lujo",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3",
+    "leaflet": "^1.9.4",
+    "@fontsource/playfair-display": "^5.0.18",
+    "@fontsource/ibm-plex-mono": "^5.0.18",
+    "@fontsource/ibm-plex-sans": "^5.0.18",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "vite": "^6.0.0"
+  }
+}
