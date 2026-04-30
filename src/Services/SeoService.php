@@ -122,6 +122,101 @@ class SeoService
     }
 
     /**
+     * FAQPage schema
+     *
+     * @param array<array{question: string, answer: string}> $faqs
+     */
+    public function faqSchema(array $faqs): array
+    {
+        $entities = array_map(fn($faq) => [
+            "@type"          => "Question",
+            "name"           => $faq['question'],
+            "acceptedAnswer" => ["@type" => "Answer", "text" => $faq['answer']],
+        ], $faqs);
+
+        return [
+            "@context"   => "https://schema.org",
+            "@type"      => "FAQPage",
+            "mainEntity" => $entities,
+        ];
+    }
+
+    /**
+     * BreadcrumbList schema
+     *
+     * @param array<array{name: string, url: string}> $items
+     */
+    public function breadcrumbSchema(array $items): array
+    {
+        $elements = [];
+        foreach ($items as $pos => $item) {
+            $elements[] = [
+                "@type"    => "ListItem",
+                "position" => $pos + 1,
+                "name"     => $item['name'],
+                "item"     => $item['url'],
+            ];
+        }
+
+        return [
+            "@context"        => "https://schema.org",
+            "@type"           => "BreadcrumbList",
+            "itemListElement" => $elements,
+        ];
+    }
+
+    /**
+     * Person schema (for agents)
+     */
+    public function personSchema(array $agent): array
+    {
+        return [
+            "@context"   => "https://schema.org",
+            "@type"      => "Person",
+            "name"       => $agent['name'] ?? '',
+            "jobTitle"   => $agent['specialties'][0] ?? 'Agente Inmobiliario',
+            "email"      => $agent['email'] ?? '',
+            "telephone"  => $agent['phone'] ?? '',
+            "worksFor"   => [
+                "@type" => "Organization",
+                "name"  => "HAVRE ESTATES",
+            ],
+            "knowsLanguage" => $agent['languages'] ?? ['es'],
+        ];
+    }
+
+    /**
+     * Review / AggregateRating schema
+     *
+     * @param array<array{author: string, rating: int, body: string}> $reviews
+     */
+    public function reviewSchema(array $reviews, string $itemName = 'HAVRE ESTATES'): array
+    {
+        $reviewItems = array_map(fn($r) => [
+            "@type"         => "Review",
+            "author"        => ["@type" => "Person", "name" => $r['author']],
+            "reviewRating"  => ["@type" => "Rating", "ratingValue" => $r['rating'], "bestRating" => 5],
+            "reviewBody"    => $r['body'],
+        ], $reviews);
+
+        $avgRating = count($reviews)
+            ? array_sum(array_column($reviews, 'rating')) / count($reviews)
+            : 5;
+
+        return [
+            "@context"        => "https://schema.org",
+            "@type"           => "LocalBusiness",
+            "name"            => $itemName,
+            "aggregateRating" => [
+                "@type"       => "AggregateRating",
+                "ratingValue" => round($avgRating, 1),
+                "reviewCount" => count($reviews),
+            ],
+            "review" => $reviewItems,
+        ];
+    }
+
+    /**
      * Render meta tags HTML
      */
     public function renderMetaTags(): string
