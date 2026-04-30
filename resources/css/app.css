@@ -13,64 +13,84 @@
 @import "@fontsource/ibm-plex-sans/500.css";
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
     @apply font-sans bg-paper text-ink;
     font-size: 15px;
-    line-height: 1.7;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif font-bold;
+    line-height: 1.1;
   }
 
-  h1 {
-    @apply text-5xl;
-  }
+  h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); }
+  h3 { @apply text-xl; }
 
-  h2 {
-    @apply text-3xl;
-  }
-
-  h3 {
-    @apply text-xl;
+  ::selection {
+    background-color: #b8942a33;
+    color: inherit;
   }
 }
 
 @layer components {
   .btn {
-    @apply px-6 py-3 font-sans font-medium rounded transition-colors;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 font-sans font-bold text-sm tracking-[0.1em] uppercase transition-all duration-300;
   }
 
   .btn-primary {
-    @apply px-6 py-3 font-sans font-medium rounded transition-colors bg-gold text-ink hover:opacity-90;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 font-sans font-bold text-sm tracking-[0.1em] uppercase transition-all duration-300 bg-gold text-ink hover:bg-gold/85;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 font-sans font-medium rounded transition-colors border-2 border-ink text-ink hover:bg-ink hover:text-paper;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 font-sans font-bold text-sm tracking-[0.1em] uppercase transition-all duration-300 border border-ink text-ink hover:bg-ink hover:text-paper;
   }
 
   .btn-ghost {
-    @apply px-6 py-3 font-sans font-medium rounded transition-colors text-ink hover:bg-ink;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 font-sans font-bold text-sm tracking-[0.1em] uppercase transition-all duration-300 border border-paper/30 text-paper hover:border-paper/60;
   }
 
   .card {
-    @apply p-6 border border-rule bg-paper;
+    @apply border border-rule bg-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
   }
 
   .input {
-    @apply w-full px-4 py-2 border border-rule rounded focus:outline-none focus:ring-2 focus:ring-gold;
+    @apply w-full px-5 py-4 border border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold;
   }
 
   .badge {
-    @apply inline-block px-3 py-1 text-sm font-mono font-medium rounded text-gold;
+    @apply inline-flex items-center px-3 py-1 text-xs font-mono tracking-[0.2em] uppercase;
+  }
+
+  /* Section eyebrow label */
+  .section-label {
+    @apply flex items-center gap-4 font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3;
+  }
+
+  .section-label::before {
+    content: '';
+    @apply block h-px w-8 bg-gold flex-shrink-0;
   }
 }
 
 /* Utilities */
 .section {
-  @apply max-w-screen-xl mx-auto px-6 py-12;
+  @apply max-w-7xl mx-auto px-8 lg:px-16 py-28;
 }
 
 .rule {
   @apply border-t border-rule my-8;
+}
+
+/* Premium hover shimmer effect for cards */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }

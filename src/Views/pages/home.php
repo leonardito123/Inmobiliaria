@@ -18,122 +18,180 @@ $countryName = match($country ?? 'MX') {
 ?>
 
 <!-- ══════════════════════════════════
-     1. HERO — Video background
+     1. HERO — Split layout premium
      ══════════════════════════════════ -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-ink text-paper" aria-label="Hero principal">
+<section class="relative min-h-[100dvh] flex items-center overflow-hidden bg-ink text-paper" aria-label="Hero principal">
 
-    <!-- Video poster / fallback -->
-    <div class="absolute inset-0 bg-gradient-to-br from-ink via-accent/60 to-ink" aria-hidden="true">
-        <div class="absolute inset-0 opacity-20 bg-[url('/images/hero-poster.svg')] bg-cover bg-center"></div>
+    <!-- Background layers -->
+    <div class="absolute inset-0" aria-hidden="true">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#050505] via-accent/40 to-[#050505]"></div>
+        <div class="absolute inset-0 opacity-[0.06] bg-[url('/images/hero-poster.svg')] bg-cover bg-center"></div>
+        <!-- Atmospheric glows -->
+        <div class="absolute top-0 right-0 w-[50vw] h-[60vh] bg-gold/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[40vw] h-[50vh] bg-accent/10 rounded-full blur-[100px]"></div>
+        <!-- Subtle grid pattern -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 80px 80px;"></div>
     </div>
-    <!-- Animated overlay -->
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div class="absolute top-20 right-32 w-72 h-72 rounded-full bg-gold/10 blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-24 left-16 w-96 h-96 rounded-full bg-accent/15 blur-3xl animate-pulse [animation-delay:1s]"></div>
-    </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center md:text-left">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-5" data-geo-country="<?php echo htmlspecialchars($country ?? 'MX'); ?>">
-            🏗 Plataforma Inmobiliaria Premium · <?php echo htmlspecialchars($countryName); ?>
-        </p>
-        <h1 class="text-5xl md:text-7xl font-serif font-black leading-[1.05] mb-6 max-w-4xl">
-            Propiedades de Lujo en
-            <span class="text-gold italic"> <?php echo htmlspecialchars($countryName); ?></span>
-        </h1>
-        <p class="text-lg text-paper/75 mb-10 max-w-2xl leading-relaxed">
-            Descubre una selección exclusiva de inmuebles premium con GEO targeting, SEO avanzado y experiencia de clase mundial.
-        </p>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-8 lg:px-16 py-32 lg:py-0 min-h-[100dvh] flex items-center">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
 
-        <div class="flex flex-wrap gap-4">
-            <a href="/venta"
-               class="px-8 py-4 bg-gold text-ink font-bold rounded hover:bg-gold/90 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                Ver Propiedades
-            </a>
-            <a href="/contacto"
-               class="px-8 py-4 border-2 border-paper/60 text-paper font-bold rounded hover:bg-paper hover:text-ink transition focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">
-                Hablar con un Agente
-            </a>
+            <!-- ── Left content (7 cols) ── -->
+            <div class="lg:col-span-7">
+                <!-- Eyebrow with rule -->
+                <div class="flex items-center gap-5 mb-10" data-geo-country="<?php echo htmlspecialchars($country ?? 'MX'); ?>">
+                    <span class="block h-px w-10 bg-gold flex-shrink-0" aria-hidden="true"></span>
+                    <p class="text-gold font-mono text-[11px] tracking-[0.35em] uppercase">
+                        Inmobiliaria Premium &nbsp;·&nbsp; <?php echo htmlspecialchars($countryName); ?>
+                    </p>
+                </div>
+
+                <!-- Display heading -->
+                <h1 class="font-serif font-black leading-[0.92] mb-8 max-w-2xl"
+                    style="font-size: clamp(3.2rem, 7.5vw, 5.8rem);">
+                    Propiedades<br>
+                    de Lujo en<br>
+                    <em class="text-gold not-italic"><?php echo htmlspecialchars($countryName); ?></em>
+                </h1>
+
+                <!-- Gold divider -->
+                <div class="w-14 h-[2px] bg-gold mb-10" aria-hidden="true"></div>
+
+                <!-- Body -->
+                <p class="text-paper/65 mb-12 max-w-lg leading-relaxed font-light"
+                   style="font-size: clamp(1rem, 1.3vw, 1.15rem);">
+                    Selección exclusiva de inmuebles premium con GEO targeting,
+                    SEO avanzado y experiencia de clase mundial en 3 mercados.
+                </p>
+
+                <!-- CTAs -->
+                <div class="flex flex-wrap gap-4 mb-12">
+                    <a href="/venta"
+                       class="inline-flex items-center gap-3 px-10 py-4 bg-gold text-ink font-bold text-sm tracking-[0.1em] uppercase hover:bg-gold/85 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                        Ver Propiedades
+                        <span aria-hidden="true">→</span>
+                    </a>
+                    <a href="/contacto"
+                       class="inline-flex items-center gap-3 px-10 py-4 border border-paper/25 text-paper font-bold text-sm tracking-[0.1em] uppercase hover:border-paper/60 hover:bg-paper/8 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">
+                        Hablar con un Agente
+                    </a>
+                </div>
+
+                <!-- GEO phone -->
+                <p class="text-paper/30 font-mono text-xs tracking-[0.25em]">
+                    <span id="geoPhone"><?php echo htmlspecialchars($phone ?? '+52 55 4169 8259'); ?></span>
+                    &nbsp;&nbsp;/&nbsp;&nbsp;<?php echo htmlspecialchars($currency ?? 'MXN'); ?>
+                </p>
+            </div>
+
+            <!-- ── Right panel (5 cols) — Disponibilidad quick-stats ── -->
+            <div class="lg:col-span-5 hidden lg:flex justify-end">
+                <div class="w-full max-w-[360px] border border-white/10 bg-white/[0.03] backdrop-blur-sm p-8 space-y-0">
+                    <!-- Panel header -->
+                    <p class="font-mono text-[10px] text-paper/35 tracking-[0.4em] uppercase mb-8">Disponibilidad · <?php echo date('Y'); ?></p>
+
+                    <!-- Stats list -->
+                    <?php
+                    $heroStats = [
+                        ['label' => 'Propiedades activas', 'value' => '450+'],
+                        ['label' => 'Ciudades cubiertas', 'value' => '12'],
+                        ['label' => 'Países de operación', 'value' => '3'],
+                        ['label' => 'Años en el mercado', 'value' => '15'],
+                    ];
+                    ?>
+                    <?php foreach ($heroStats as $i => $stat): ?>
+                    <div class="flex justify-between items-baseline py-5 <?php echo $i < count($heroStats) - 1 ? 'border-b border-white/8' : ''; ?>">
+                        <span class="text-paper/50 text-sm font-light"><?php echo htmlspecialchars($stat['label']); ?></span>
+                        <span class="text-gold font-serif font-black text-3xl leading-none"><?php echo htmlspecialchars($stat['value']); ?></span>
+                    </div>
+                    <?php endforeach; ?>
+
+                    <!-- CTA button -->
+                    <a href="/contacto"
+                       class="block mt-8 py-4 border border-gold/60 text-gold text-[11px] font-mono tracking-[0.35em] uppercase text-center hover:bg-gold hover:text-ink transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                        AGENDA UNA VISITA
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <!-- GEO info badge -->
-        <p class="mt-8 text-xs text-paper/40 font-mono">
-            <span id="geoPhone"><?php echo htmlspecialchars($phone ?? '+52 55 4169 8259'); ?></span>
-            &nbsp;·&nbsp; <?php echo htmlspecialchars($currency ?? 'MXN'); ?>
-        </p>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-paper/40" aria-hidden="true">
-        <span class="text-xs font-mono tracking-widest uppercase">scroll</span>
-        <span class="block w-px h-8 bg-paper/30 animate-bounce"></span>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-paper/30" aria-hidden="true">
+        <span class="text-[10px] font-mono tracking-[0.4em] uppercase">Explorar</span>
+        <span class="block w-px h-10 bg-gradient-to-b from-paper/25 to-transparent"></span>
     </div>
 </section>
 
 <!-- ══════════════════════════════════
      2. BUSCADOR AJAX
      ══════════════════════════════════ -->
-<section class="py-14 bg-white border-y border-rule" id="search" aria-label="Buscador de propiedades">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="mb-8">
-            <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">02 · Búsqueda</p>
-            <h2 class="text-3xl font-serif font-bold">Encuentra tu propiedad ideal</h2>
+<section class="py-20 bg-paper border-b border-rule" id="search" aria-label="Buscador de propiedades">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <!-- Header row -->
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+            <div>
+                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">02 &nbsp;/&nbsp; Búsqueda</p>
+                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight text-ink">Encuentra tu<br>propiedad ideal</h2>
+            </div>
+            <p class="text-muted text-sm max-w-xs leading-relaxed lg:text-right">Filtra por tipo, país, precio y metraje. Resultados en tiempo real.</p>
         </div>
 
         <form id="searchForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" role="search" aria-label="Filtros de búsqueda">
-            <select name="type" class="px-4 py-3 border border-rule rounded-lg bg-white" aria-label="Tipo de propiedad">
-                <option value="">Tipo</option>
+            <select name="type" class="px-5 py-4 border border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Tipo de propiedad">
+                <option value="">Tipo de propiedad</option>
                 <option value="venta">Venta</option>
                 <option value="renta">Renta</option>
                 <option value="desarrollo">Desarrollo</option>
             </select>
 
-            <select name="country" class="px-4 py-3 border border-rule rounded-lg bg-white" aria-label="País">
+            <select name="country" class="px-5 py-4 border border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="País">
                 <option value="MX" <?php if (($country ?? 'MX') === 'MX') echo 'selected'; ?>>México</option>
                 <option value="CO" <?php if (($country ?? '') === 'CO') echo 'selected'; ?>>Colombia</option>
                 <option value="CL" <?php if (($country ?? '') === 'CL') echo 'selected'; ?>>Chile</option>
             </select>
 
             <input type="number" name="min_price" placeholder="Precio mínimo"
-                   class="px-4 py-3 border border-rule rounded-lg" aria-label="Precio mínimo">
+                   class="px-5 py-4 border border-rule bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Precio mínimo">
 
-            <input type="number" name="max_sqm" placeholder="m² máximo"
-                   class="px-4 py-3 border border-rule rounded-lg" aria-label="Metros cuadrados máximo">
+            <input type="number" name="max_sqm" placeholder="Metros cuadrados máx."
+                   class="px-5 py-4 border border-rule bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Metros cuadrados máximo">
 
             <button type="submit"
-                    class="px-6 py-3 bg-ink text-paper font-bold rounded-lg hover:bg-accent transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                Buscar
+                    class="px-8 py-4 bg-ink text-paper font-bold text-sm tracking-[0.1em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                Buscar →
             </button>
         </form>
 
         <!-- Resultados AJAX -->
         <div id="searchResults" role="region" aria-live="polite" aria-label="Resultados de búsqueda"
-             class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+             class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
         </div>
-        <div id="searchLoader" aria-live="polite" class="mt-8 text-center text-muted hidden">
-            <span class="inline-block w-6 h-6 border-2 border-gold border-t-transparent rounded-full animate-spin mr-2" aria-hidden="true"></span>
+        <div id="searchLoader" aria-live="polite" class="mt-10 text-center text-muted hidden">
+            <span class="inline-block w-5 h-5 border-2 border-gold border-t-transparent rounded-full animate-spin mr-2" aria-hidden="true"></span>
             Buscando propiedades…
         </div>
-        <p id="searchEmpty" class="mt-8 text-center text-muted hidden">No se encontraron propiedades con esos filtros.</p>
+        <p id="searchEmpty" class="mt-10 text-center text-muted hidden">No se encontraron propiedades con esos filtros.</p>
     </div>
 </section>
 
 <!-- ══════════════════════════════════
      3. CAROUSEL — Propiedades destacadas
      ══════════════════════════════════ -->
-<section class="py-20 bg-paper" id="destacadas" aria-label="Propiedades destacadas">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-end justify-between mb-12">
+<section class="py-28 bg-white" id="destacadas" aria-label="Propiedades destacadas">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <div class="flex items-end justify-between mb-14">
             <div>
-                <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">03 · Destacadas</p>
-                <h2 class="text-4xl font-serif font-bold">Propiedades Premium en <?php echo htmlspecialchars($countryName); ?></h2>
+                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">03 &nbsp;/&nbsp; Destacadas</p>
+                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Propiedades Premium<br><em class="not-italic text-muted font-light" style="font-size:0.75em;">en <?php echo htmlspecialchars($countryName); ?></em></h2>
             </div>
-            <div class="flex gap-2" role="group" aria-label="Controles del carrusel">
+            <div class="flex gap-3" role="group" aria-label="Controles del carrusel">
                 <button id="prevSlide" aria-label="Anterior propiedad"
-                        class="w-10 h-10 flex items-center justify-center border border-rule rounded-full hover:bg-ink hover:text-paper transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                        class="w-11 h-11 flex items-center justify-center border border-rule text-ink text-xl hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                     ‹
                 </button>
                 <button id="nextSlide" aria-label="Siguiente propiedad"
-                        class="w-10 h-10 flex items-center justify-center border border-rule rounded-full hover:bg-ink hover:text-paper transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                        class="w-11 h-11 flex items-center justify-center border border-rule text-ink text-xl hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                     ›
                 </button>
             </div>
@@ -154,36 +212,38 @@ $countryName = match($country ?? 'MX') {
                     aria-roledescription="slide"
                     aria-label="<?php echo $idx + 1; ?> de <?php echo count($featured_properties); ?>"
                     class="carousel-item flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-                    <div class="bg-white border border-rule rounded-xl overflow-hidden hover:shadow-xl transition h-full flex flex-col">
-                        <div class="aspect-[4/3] bg-gradient-to-br from-muted/20 to-rule overflow-hidden">
+                    <div class="group bg-white border border-rule overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full flex flex-col">
+                        <!-- Image -->
+                        <div class="aspect-[4/3] bg-gradient-to-br from-muted/15 to-rule overflow-hidden">
                             <img src="<?php echo htmlspecialchars($imgUrl); ?>"
                                  alt="<?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad destacada'); ?>"
-                                 class="w-full h-full object-cover"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                  loading="lazy"
                                  onerror="this.src='/images/property-fallback.svg'">
                         </div>
-                        <div class="p-6 flex flex-col flex-1">
-                            <h3 class="text-xl font-serif font-bold mb-1"><?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?></h3>
-                            <p class="text-muted text-sm mb-4"><?php echo htmlspecialchars($prop['city'] ?? 'Ubicación'); ?></p>
-                            <div class="flex gap-4 mb-4 text-sm flex-wrap">
+                        <!-- Content -->
+                        <div class="p-7 flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug mb-1"><?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?></h3>
+                            <p class="text-muted text-sm font-mono tracking-wide mb-5"><?php echo htmlspecialchars($prop['city'] ?? 'Ubicación'); ?></p>
+                            <div class="flex gap-5 mb-5 text-xs text-muted flex-wrap border-b border-rule pb-5">
                                 <?php if ($prop['bedrooms'] ?? 0): ?>
-                                <span><strong><?php echo (int)$prop['bedrooms']; ?></strong> Hab.</span>
+                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo (int)$prop['bedrooms']; ?></strong> Habitaciones</span>
                                 <?php endif; ?>
                                 <?php if ($prop['bathrooms'] ?? 0): ?>
-                                <span><strong><?php echo (int)$prop['bathrooms']; ?></strong> Baños</span>
+                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo (int)$prop['bathrooms']; ?></strong> Baños</span>
                                 <?php endif; ?>
                                 <?php if ($prop['sqm'] ?? 0): ?>
-                                <span><strong><?php echo number_format($prop['sqm'], 0); ?></strong> m²</span>
+                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo number_format($prop['sqm'], 0); ?></strong> m²</span>
                                 <?php endif; ?>
                             </div>
-                            <div class="mt-auto border-t border-rule pt-4">
-                                <p class="text-2xl font-serif font-bold text-gold">
+                            <div class="mt-auto">
+                                <p class="font-serif font-black text-gold leading-none" style="font-size:clamp(1.5rem,2.5vw,2rem);">
                                     <?php echo number_format($prop['price'] ?? 0, 0, '.', ','); ?>
-                                    <span class="text-sm text-muted font-sans font-normal"><?php echo htmlspecialchars($prop['currency'] ?? $currency ?? 'MXN'); ?></span>
+                                    <span class="text-xs text-muted font-sans font-normal ml-1"><?php echo htmlspecialchars($prop['currency'] ?? $currency ?? 'MXN'); ?></span>
                                 </p>
                             </div>
                             <a href="/venta?id=<?php echo (int)($prop['id'] ?? 0); ?>"
-                               class="block mt-4 text-center py-3 bg-ink text-paper font-bold rounded hover:bg-accent transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                               class="block mt-5 text-center py-3.5 bg-ink text-paper text-sm font-bold tracking-[0.08em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                                 Ver Detalles
                             </a>
                         </div>
@@ -194,13 +254,13 @@ $countryName = match($country ?? 'MX') {
         </div>
 
         <!-- Dots navigation -->
-        <div class="flex justify-center gap-2 mt-6" role="tablist" aria-label="Navegación del carrusel">
+        <div class="flex justify-center gap-2 mt-8" role="tablist" aria-label="Navegación del carrusel">
             <?php foreach ($featured_properties as $idx => $prop): ?>
             <button role="tab"
                     aria-selected="<?php echo $idx === 0 ? 'true' : 'false'; ?>"
                     aria-controls="slide-<?php echo $idx; ?>"
                     data-slide="<?php echo $idx; ?>"
-                    class="carousel-dot w-2 h-2 rounded-full transition <?php echo $idx === 0 ? 'bg-gold w-4' : 'bg-rule'; ?>"
+                    class="carousel-dot h-[3px] transition-all duration-300 <?php echo $idx === 0 ? 'bg-gold w-8' : 'bg-rule w-4'; ?>"
                     aria-label="Ir a la propiedad <?php echo $idx + 1; ?>">
             </button>
             <?php endforeach; ?>
@@ -208,21 +268,38 @@ $countryName = match($country ?? 'MX') {
         <?php else: ?>
         <p class="text-center text-muted py-12">No hay propiedades destacadas disponibles.</p>
         <?php endif; ?>
+
+        <!-- Ver todas -->
+        <div class="mt-14 text-center">
+            <a href="/venta" class="inline-flex items-center gap-3 text-sm font-mono text-muted tracking-[0.2em] uppercase hover:text-ink transition-colors">
+                <span class="block h-px w-8 bg-current"></span>
+                Ver todas las propiedades
+                <span class="block h-px w-8 bg-current"></span>
+            </a>
+        </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════
      4. MAPA LEAFLET — Clusters por ciudad
      ══════════════════════════════════ -->
-<section class="py-20 bg-ink text-paper" id="mapa" aria-label="Mapa de propiedades">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="mb-10">
-            <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">04 · Mapa</p>
-            <h2 class="text-4xl font-serif font-bold">Propiedades por ubicación</h2>
-            <p class="text-paper/60 mt-2">Explora propiedades disponibles en los tres mercados de HAVRE ESTATES.</p>
+<section class="py-28 bg-ink text-paper" id="mapa" aria-label="Mapa de propiedades">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <!-- Header split -->
+        <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+            <div class="lg:col-span-7">
+                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">04 &nbsp;/&nbsp; Mapa</p>
+                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Propiedades<br>por ubicación</h2>
+            </div>
+            <div class="lg:col-span-5">
+                <p class="text-paper/50 leading-relaxed">Explora propiedades disponibles en los tres mercados de HAVRE ESTATES. Navega el mapa y haz clic en cualquier marcador para ver detalles.</p>
+            </div>
         </div>
-        <div id="propertyMap" class="rounded-xl overflow-hidden border border-white/10"
-             style="height:480px;" role="application" aria-label="Mapa interactivo de propiedades">
+
+        <!-- Map container with border treatment -->
+        <div class="border border-white/10 overflow-hidden">
+            <div id="propertyMap" style="height:520px;" role="application" aria-label="Mapa interactivo de propiedades">
+            </div>
         </div>
     </div>
 </section>
@@ -230,31 +307,37 @@ $countryName = match($country ?? 'MX') {
 <!-- ══════════════════════════════════
      5. CONTADORES ANIMADOS
      ══════════════════════════════════ -->
-<section class="py-20 bg-white" id="metricas" aria-label="Métricas de la empresa">
-    <div class="max-w-7xl mx-auto px-6">
-        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 text-center">05 · Métricas</p>
-        <h2 class="text-4xl font-serif font-bold text-center mb-14">Números que hablan</h2>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center" id="statsGrid">
-            <div class="stat-block">
-                <p class="text-5xl font-serif font-black text-gold mb-2"
-                   data-target="450" data-suffix="+" aria-label="450 propiedades listadas">0</p>
-                <p class="text-muted font-mono text-sm uppercase tracking-wider">Propiedades Listadas</p>
+<section class="py-28 bg-paper" id="metricas" aria-label="Métricas de la empresa">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <!-- Header centered -->
+        <div class="text-center mb-16">
+            <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">05 &nbsp;/&nbsp; Métricas</p>
+            <h2 class="text-4xl lg:text-5xl font-serif font-black">Números que hablan</h2>
+        </div>
+
+        <!-- Stats grid with separators -->
+        <div class="grid grid-cols-2 lg:grid-cols-4" id="statsGrid">
+            <?php
+            $statsItems = [
+                ['target'=>'450',   'suffix'=>'+',       'label'=>'Propiedades Listadas'],
+                ['target'=>'12000', 'suffix'=>'+',       'label'=>'Clientes Satisfechos'],
+                ['target'=>'15',    'suffix'=>' años',   'label'=>'En el Mercado'],
+                ['target'=>'3',     'suffix'=>' países', 'label'=>'Mercados Activos'],
+            ];
+            ?>
+            <?php foreach ($statsItems as $si => $stat): ?>
+            <div class="stat-block flex flex-col items-center justify-center py-14 px-6 text-center
+                        <?php echo $si < count($statsItems) - 1 ? 'border-r border-rule' : ''; ?>
+                        <?php echo $si < 2 ? 'border-b border-rule lg:border-b-0' : ''; ?>
+                        group hover:bg-ink/[0.03] transition-colors duration-300">
+                <p class="font-serif font-black text-gold mb-3 leading-none"
+                   style="font-size: clamp(3rem, 5vw, 4.5rem);"
+                   data-target="<?php echo $stat['target']; ?>"
+                   data-suffix="<?php echo $stat['suffix']; ?>"
+                   aria-label="<?php echo $stat['target'] . $stat['suffix'] . ' ' . $stat['label']; ?>">0</p>
+                <p class="font-mono text-xs text-muted tracking-[0.25em] uppercase"><?php echo $stat['label']; ?></p>
             </div>
-            <div class="stat-block">
-                <p class="text-5xl font-serif font-black text-gold mb-2"
-                   data-target="12000" data-suffix="+" aria-label="12000 clientes satisfechos">0</p>
-                <p class="text-muted font-mono text-sm uppercase tracking-wider">Clientes Satisfechos</p>
-            </div>
-            <div class="stat-block">
-                <p class="text-5xl font-serif font-black text-gold mb-2"
-                   data-target="15" data-suffix=" años" aria-label="15 años en el mercado">0</p>
-                <p class="text-muted font-mono text-sm uppercase tracking-wider">En el Mercado</p>
-            </div>
-            <div class="stat-block">
-                <p class="text-5xl font-serif font-black text-gold mb-2"
-                   data-target="3" data-suffix=" países" aria-label="3 países de operación">0</p>
-                <p class="text-muted font-mono text-sm uppercase tracking-wider">Mercados Activos</p>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -262,10 +345,19 @@ $countryName = match($country ?? 'MX') {
 <!-- ══════════════════════════════════
      6. TESTIMONIOS — schema Review
      ══════════════════════════════════ -->
-<section class="py-20 bg-paper" id="testimonios" aria-label="Testimonios de clientes">
-    <div class="max-w-7xl mx-auto px-6">
-        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">06 · Testimonios</p>
-        <h2 class="text-4xl font-serif font-bold mb-12">Lo que dicen nuestros clientes</h2>
+<!-- ══════════════════════════════════
+     6. TESTIMONIOS — schema Review
+     ══════════════════════════════════ -->
+<section class="py-28 bg-ink text-paper" id="testimonios" aria-label="Testimonios de clientes">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <!-- Header -->
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+            <div>
+                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">06 &nbsp;/&nbsp; Testimonios</p>
+                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Lo que dicen<br>nuestros clientes</h2>
+            </div>
+            <p class="text-paper/40 text-sm max-w-xs leading-relaxed lg:text-right">Más de 12,000 familias e inversores confían en HAVRE ESTATES.</p>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <?php
@@ -276,20 +368,25 @@ $countryName = match($country ?? 'MX') {
             ];
             ?>
             <?php foreach ($testimonials as $t): ?>
-            <article class="bg-white border border-rule rounded-xl p-6 flex flex-col" itemscope itemtype="https://schema.org/Review">
-                <div class="flex gap-1 mb-4" aria-label="Calificación <?php echo (int)$t['rating']; ?> de 5 estrellas">
+            <article class="border border-white/10 p-8 flex flex-col hover:border-gold/30 transition-colors duration-300" itemscope itemtype="https://schema.org/Review">
+                <!-- Decorative quote -->
+                <div class="text-gold/15 font-serif leading-none mb-4 select-none" style="font-size:5rem;" aria-hidden="true">"</div>
+                <!-- Stars -->
+                <div class="flex gap-1 mb-5" aria-label="Calificación <?php echo (int)$t['rating']; ?> de 5 estrellas">
                     <?php for ($s = 0; $s < ($t['rating'] ?? 5); $s++): ?>
-                    <span class="text-gold" aria-hidden="true">★</span>
+                    <span class="text-gold text-sm" aria-hidden="true">★</span>
                     <?php endfor; ?>
                 </div>
-                <blockquote class="text-sm text-ink/80 leading-relaxed flex-1 mb-4" itemprop="reviewBody">
-                    "<?php echo htmlspecialchars($t['body']); ?>"
+                <!-- Body -->
+                <blockquote class="text-paper/65 leading-relaxed flex-1 mb-8 text-[0.95rem]" itemprop="reviewBody">
+                    <?php echo htmlspecialchars($t['body']); ?>
                 </blockquote>
-                <footer>
-                    <p class="font-semibold font-serif" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <!-- Author -->
+                <footer class="border-t border-white/10 pt-5">
+                    <p class="font-serif font-bold text-paper" itemprop="author" itemscope itemtype="https://schema.org/Person">
                         <span itemprop="name"><?php echo htmlspecialchars($t['author']); ?></span>
                     </p>
-                    <p class="text-xs text-muted"><?php echo htmlspecialchars($t['title']); ?></p>
+                    <p class="text-xs text-paper/40 font-mono tracking-wide mt-1"><?php echo htmlspecialchars($t['title']); ?></p>
                 </footer>
             </article>
             <?php endforeach; ?>
@@ -298,46 +395,55 @@ $countryName = match($country ?? 'MX') {
 </section>
 
 <!-- ══════════════════════════════════
-     7. NEWSLETTER (existente)
+     7. NEWSLETTER
      ══════════════════════════════════ -->
-<section class="py-16 bg-white border-t border-rule" aria-label="Suscripción al newsletter">
-    <div class="max-w-3xl mx-auto px-6">
-        <div class="text-center mb-8">
-            <p class="text-gold font-mono text-xs tracking-widest uppercase mb-2">07 · Newsletter</p>
-            <h2 class="text-3xl font-serif font-bold mb-3">Recibe Nuevas Propiedades Premium</h2>
-            <p class="text-muted">Actualizaciones semanales por país, tipo de propiedad y rangos de precio.</p>
-        </div>
-
-        <?php if (($newsletter_status ?? '') === 'ok'): ?>
-            <div role="alert" class="mb-4 p-3 border border-green-300 bg-green-50 text-green-800 rounded-lg text-sm">Suscripción completada con éxito.</div>
-        <?php elseif (($newsletter_status ?? '') === 'invalid_email'): ?>
-            <div role="alert" class="mb-4 p-3 border border-red-300 bg-red-50 text-red-700 rounded-lg text-sm">Correo inválido. Intenta de nuevo.</div>
-        <?php elseif (($newsletter_status ?? '') === 'rate_limited'): ?>
-            <div role="alert" class="mb-4 p-3 border border-amber-300 bg-amber-50 text-amber-800 rounded-lg text-sm">Demasiados intentos. Espera antes de reintentar.</div>
-        <?php elseif (($newsletter_status ?? '') === 'csrf_error'): ?>
-            <div role="alert" class="mb-4 p-3 border border-red-300 bg-red-50 text-red-700 rounded-lg text-sm">Sesión inválida. Recarga la página.</div>
-        <?php elseif (($newsletter_status ?? '') === 'server_error'): ?>
-            <div role="alert" class="mb-4 p-3 border border-red-300 bg-red-50 text-red-700 rounded-lg text-sm">No se pudo registrar la suscripción en este momento.</div>
-        <?php endif; ?>
-
-        <form action="/newsletter/subscribe" method="POST"
-              class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-paper border border-rule rounded-xl p-4">
-            <input type="hidden" name="csrf_token"
-                   value="<?php echo htmlspecialchars($newsletter_csrf_token ?? ''); ?>">
-            <input type="text" name="name" placeholder="Nombre (opcional)"
-                   class="px-4 py-3 border border-rule rounded-lg md:col-span-1">
-            <input type="email" name="email" required placeholder="tu@email.com"
-                   class="px-4 py-3 border border-rule rounded-lg md:col-span-1">
-            <button type="submit"
-                    class="px-4 py-3 bg-ink text-paper rounded-lg font-semibold hover:bg-accent transition md:col-span-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                Suscribirme
-            </button>
-            <!-- Honeypot anti-spam -->
-            <div class="hidden" aria-hidden="true">
-                <label for="website">No llenar</label>
-                <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+<section class="py-28 bg-paper border-t border-rule" aria-label="Suscripción al newsletter">
+    <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <!-- Left copy -->
+            <div class="lg:col-span-5">
+                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">07 &nbsp;/&nbsp; Newsletter</p>
+                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight mb-5">Recibe propiedades<br>antes que nadie</h2>
+                <p class="text-muted leading-relaxed max-w-sm">Actualizaciones semanales por país, tipo de propiedad y rangos de precio. Sin spam.</p>
             </div>
-        </form>
+            <!-- Right form -->
+            <div class="lg:col-span-7">
+                <?php if (($newsletter_status ?? '') === 'ok'): ?>
+                    <div role="alert" class="p-6 border border-gold/40 bg-gold/5 text-gold font-mono text-sm tracking-wide">
+                        ✓ &nbsp;Suscripción confirmada. ¡Bienvenido a HAVRE ESTATES!
+                    </div>
+                <?php else: ?>
+                    <?php if (($newsletter_status ?? '') === 'invalid_email'): ?>
+                        <div role="alert" class="mb-4 p-4 border border-amber-400/40 bg-amber-50 text-amber-800 text-sm">Correo inválido. Verifica e intenta de nuevo.</div>
+                    <?php elseif (($newsletter_status ?? '') === 'rate_limited'): ?>
+                        <div role="alert" class="mb-4 p-4 border border-amber-400/40 bg-amber-50 text-amber-800 text-sm">Demasiados intentos. Espera antes de reintentar.</div>
+                    <?php elseif (($newsletter_status ?? '') === 'csrf_error'): ?>
+                        <div role="alert" class="mb-4 p-4 border border-red-300 bg-red-50 text-red-700 text-sm">Sesión inválida. Recarga la página.</div>
+                    <?php elseif (($newsletter_status ?? '') === 'server_error'): ?>
+                        <div role="alert" class="mb-4 p-4 border border-red-300 bg-red-50 text-red-700 text-sm">No se pudo registrar la suscripción.</div>
+                    <?php endif; ?>
+                    <form action="/newsletter/subscribe" method="POST"
+                          class="flex flex-col sm:flex-row gap-0 border border-rule overflow-hidden">
+                        <input type="hidden" name="csrf_token"
+                               value="<?php echo htmlspecialchars($newsletter_csrf_token ?? ''); ?>">
+                        <input type="text" name="name" placeholder="Nombre"
+                               class="flex-1 px-6 py-5 border-0 border-r border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+                        <input type="email" name="email" required placeholder="tu@email.com"
+                               class="flex-1 px-6 py-5 border-0 border-r border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold">
+                        <button type="submit"
+                                class="px-8 py-5 bg-ink text-paper text-sm font-bold tracking-[0.1em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink whitespace-nowrap">
+                            Suscribirse →
+                        </button>
+                        <!-- Honeypot anti-spam -->
+                        <div class="hidden" aria-hidden="true">
+                            <label for="website">No llenar</label>
+                            <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+                    </form>
+                    <p class="mt-4 text-xs text-muted font-mono">Sin spam · Cancela cuando quieras</p>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 </section>
 
