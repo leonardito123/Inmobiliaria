@@ -2,7 +2,21 @@
 <?php
 $mainJsAsset = '/assets/main.js';
 $mainCssAssets = [];
+$preloadFontAssets = [];
 $manifestPath = ROOT_PATH . '/public/assets/.vite/manifest.json';
+
+$fontPatterns = [
+    'playfair-display-latin-400-normal.*.woff2',
+    'ibm-plex-sans-latin-400-normal.*.woff2',
+];
+
+foreach ($fontPatterns as $pattern) {
+    $matches = glob(ROOT_PATH . '/public/assets/' . $pattern);
+
+    if (!empty($matches)) {
+        $preloadFontAssets[] = '/assets/' . basename($matches[0]);
+    }
+}
 
 if (file_exists($manifestPath)) {
     $manifestRaw = file_get_contents($manifestPath);
@@ -34,13 +48,12 @@ if (file_exists($manifestPath)) {
     <!-- SEO Tags -->
     <?php echo $seo_tags ?? ''; ?>
 
-    <!-- Preload critical fonts (Playfair Display subset) -->
-    <link rel="preload" as="font" type="font/woff2"
-          href="/assets/fonts/playfair-display-latin-400-normal.woff2"
-          crossorigin="anonymous">
-    <link rel="preload" as="font" type="font/woff2"
-          href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2"
-          crossorigin="anonymous">
+        <!-- Preload critical fonts -->
+        <?php foreach ($preloadFontAssets as $fontAsset): ?>
+          <link rel="preload" as="font" type="font/woff2"
+              href="<?php echo htmlspecialchars($fontAsset); ?>"
+              crossorigin="anonymous">
+        <?php endforeach; ?>
 
     <?php foreach ($mainCssAssets as $cssAsset): ?>
         <link rel="stylesheet" href="<?php echo htmlspecialchars($cssAsset); ?>">
@@ -50,19 +63,19 @@ if (file_exists($manifestPath)) {
 </head>
 <body class="font-sans bg-paper text-ink">
     <!-- Navigation -->
-    <nav class="bg-ink text-paper py-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-            <h1 class="text-2xl font-serif font-bold">
-                <a href="/">HAVRE ESTATES</a>
-            </h1>
-            <ul class="flex gap-8">
-                <li><a href="/" class="hover:text-gold transition">Home</a></li>
-                <li><a href="/venta" class="hover:text-gold transition">Venta</a></li>
-                <li><a href="/renta" class="hover:text-gold transition">Renta</a></li>
-                <li><a href="/desarrollos" class="hover:text-gold transition">Desarrollos</a></li>
-                <li><a href="/contacto" class="hover:text-gold transition">Contacto</a></li>
+    <nav class="bg-ink text-paper py-5 sticky top-0 z-50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-between">
+            <a href="/" class="text-xl font-serif font-black tracking-[0.08em] uppercase hover:text-gold transition-colors duration-200">
+                HAVRE<span class="text-gold">·</span>ESTATES
+            </a>
+            <ul class="hidden md:flex gap-8 items-center">
+                <li><a href="/" class="text-sm font-mono tracking-[0.12em] uppercase text-paper/70 hover:text-gold transition-colors duration-200">Home</a></li>
+                <li><a href="/venta" class="text-sm font-mono tracking-[0.12em] uppercase text-paper/70 hover:text-gold transition-colors duration-200">Venta</a></li>
+                <li><a href="/renta" class="text-sm font-mono tracking-[0.12em] uppercase text-paper/70 hover:text-gold transition-colors duration-200">Renta</a></li>
+                <li><a href="/desarrollos" class="text-sm font-mono tracking-[0.12em] uppercase text-paper/70 hover:text-gold transition-colors duration-200">Desarrollos</a></li>
+                <li><a href="/contacto" class="text-sm font-mono tracking-[0.12em] uppercase text-paper/70 hover:text-gold transition-colors duration-200">Contacto</a></li>
             </ul>
-            <span class="text-sm text-gold"><?php echo $country ?? 'MX'; ?> · <?php echo $currency ?? 'MXN'; ?></span>
+            <span class="text-xs font-mono text-gold/70 tracking-[0.2em]"><?php echo $country ?? 'MX'; ?>&nbsp;·&nbsp;<?php echo $currency ?? 'MXN'; ?></span>
         </div>
     </nav>
 
@@ -72,39 +85,41 @@ if (file_exists($manifestPath)) {
     </main>
 
     <!-- Footer -->
-    <footer class="bg-ink text-muted py-8 border-t-4 border-gold">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="text-paper font-serif font-bold mb-4">HAVRE ESTATES</h3>
-                    <p class="text-sm">Plataforma inmobiliaria de lujo en 3 países.</p>
+    <footer class="bg-ink text-muted border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-8 lg:px-16">
+            <!-- Top grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 py-16">
+                <div class="col-span-2 lg:col-span-1">
+                    <p class="text-xl font-serif font-black tracking-[0.08em] uppercase text-paper mb-4">HAVRE<span class="text-gold">·</span>ESTATES</p>
+                    <p class="text-sm leading-relaxed text-paper/40">Plataforma inmobiliaria de lujo en México, Colombia y Chile.</p>
                 </div>
                 <div>
-                    <h4 class="text-paper font-mono text-sm font-bold mb-4 uppercase">SERVICIOS</h4>
-                    <ul class="text-sm space-y-2">
-                        <li><a href="/venta" class="hover:text-gold">Venta</a></li>
-                        <li><a href="/renta" class="hover:text-gold">Renta</a></li>
-                        <li><a href="/desarrollos" class="hover:text-gold">Desarrollos</a></li>
+                    <h4 class="text-paper/60 font-mono text-[11px] tracking-[0.3em] uppercase mb-5">Servicios</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="/venta" class="text-paper/40 hover:text-gold transition-colors">Venta</a></li>
+                        <li><a href="/renta" class="text-paper/40 hover:text-gold transition-colors">Renta</a></li>
+                        <li><a href="/desarrollos" class="text-paper/40 hover:text-gold transition-colors">Desarrollos</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-paper font-mono text-sm font-bold mb-4 uppercase">EMPRESA</h4>
-                    <ul class="text-sm space-y-2">
-                        <li><a href="/contacto" class="hover:text-gold">Contacto</a></li>
-                        <li><a href="#" class="hover:text-gold">Prensa</a></li>
-                        <li><a href="#" class="hover:text-gold">Blog</a></li>
+                    <h4 class="text-paper/60 font-mono text-[11px] tracking-[0.3em] uppercase mb-5">Empresa</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="/contacto" class="text-paper/40 hover:text-gold transition-colors">Contacto</a></li>
+                        <li><a href="#" class="text-paper/40 hover:text-gold transition-colors">Prensa</a></li>
+                        <li><a href="#" class="text-paper/40 hover:text-gold transition-colors">Blog</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-paper font-mono text-sm font-bold mb-4 uppercase">LEGAL</h4>
-                    <ul class="text-sm space-y-2">
-                        <li><a href="#" class="hover:text-gold">Privacidad</a></li>
-                        <li><a href="#" class="hover:text-gold">Términos</a></li>
-                        <li><a href="#" class="hover:text-gold">Cookies</a></li>
+                    <h4 class="text-paper/60 font-mono text-[11px] tracking-[0.3em] uppercase mb-5">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-paper/40 hover:text-gold transition-colors">Privacidad</a></li>
+                        <li><a href="#" class="text-paper/40 hover:text-gold transition-colors">Términos</a></li>
+                        <li><a href="#" class="text-paper/40 hover:text-gold transition-colors">Cookies</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-rule pt-8 text-center">
+            <!-- Bottom bar -->
+            <div class="border-t border-white/8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p class="text-xs">© 2026 HAVRE ESTATES. All rights reserved.</p>
             </div>
         </div>
