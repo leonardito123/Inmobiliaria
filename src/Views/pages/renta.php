@@ -219,6 +219,7 @@ $temporadas = [
         <div x-data="{
             step: 1,
             visitDate: '',
+            visitTime: '',
             guests: 1,
             pets: false,
             name: '',
@@ -261,14 +262,23 @@ $temporadas = [
                 <div x-show="step === 1" x-transition>
                     <h3 class="font-serif font-bold text-xl mb-2">Selecciona la fecha de tu visita</h3>
                     <p class="text-muted text-sm mb-6">Elige el día en que te gustaría agendar el recorrido con un agente.</p>
-                    <div class="mb-6">
-                        <label for="ms_visitdate" class="block text-sm font-semibold text-muted mb-2">Fecha de la visita</label>
-                        <input id="ms_visitdate" type="date" x-model="visitDate"
-                               :min="new Date().toISOString().split('T')[0]"
-                               class="w-full px-4 py-3 border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold"
-                               required>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="ms_visitdate" class="block text-sm font-semibold text-muted mb-2">Fecha de la visita</label>
+                            <input id="ms_visitdate" type="date" x-model="visitDate"
+                                   :min="new Date().toISOString().split('T')[0]"
+                                   class="w-full px-4 py-3 border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold"
+                                   required>
+                        </div>
+                        <div>
+                            <label for="ms_visittime" class="block text-sm font-semibold text-muted mb-2">Hora preferida</label>
+                            <input id="ms_visittime" type="time" x-model="visitTime"
+                                   min="09:00" max="19:00"
+                                   class="w-full px-4 py-3 border border-black/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold"
+                                   required>
+                        </div>
                     </div>
-                    <button @click="next()" :disabled="!visitDate"
+                    <button @click="next()" :disabled="!visitDate || !visitTime"
                             class="inline-flex items-center justify-center min-w-[180px] px-8 py-3 bg-ink text-paper font-bold rounded-full hover:bg-accent transition disabled:opacity-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                         Siguiente →
                     </button>
@@ -336,7 +346,7 @@ $temporadas = [
                             <!-- Resumen -->
                             <div class="bg-[#faf6ee] border border-black/8 rounded-xl p-4 text-sm">
                                 <p class="font-semibold mb-2">Resumen de solicitud</p>
-                                <p class="text-muted">Fecha de visita: <strong x-text="visitDate"></strong></p>
+                                <p class="text-muted">Fecha de visita: <strong x-text="visitDate"></strong> · <strong x-text="visitTime"></strong></p>
                                 <p class="text-muted">Huéspedes: <strong x-text="guests"></strong> <span x-show="pets">· Con mascotas</span></p>
                             </div>
                             <div class="flex flex-col sm:flex-row gap-3">
