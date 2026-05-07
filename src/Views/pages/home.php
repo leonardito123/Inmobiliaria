@@ -49,7 +49,7 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
             </span>
         </p>
 
-        <h1 class="font-serif font-black leading-[0.94] mb-6 max-w-4xl"
+        <h1 id="homeHeroTitle" class="font-serif font-black leading-[0.94] mb-6 max-w-4xl"
             style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 10px 35px rgba(0,0,0,.75);">
             <span class="anim-word" style="animation-delay:0.16s;">Bienvenido</span>
             <span class="anim-word" style="animation-delay:0.24s;">a</span><br>
@@ -59,7 +59,7 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
 
         <div class="w-24 h-px bg-gold mb-8 anim-copy" style="animation-delay:0.5s;" aria-hidden="true"></div>
 
-        <p class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.56s;">
+        <p id="homeHeroDescription" class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.56s;">
             Curamos residencias, inversión y experiencias inmobiliarias con criterio editorial, atención boutique y ejecución sin fricción en cada etapa.
         </p>
 

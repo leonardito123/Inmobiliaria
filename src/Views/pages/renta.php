@@ -100,8 +100,8 @@ $temporadas = [
     <div class="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/40 to-ink/80" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;">01 · Renta Premium</p>
-        <h1 class="font-serif font-black leading-[0.94] mb-4 max-w-4xl"
+        <p id="rentaHeroKicker" class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;">01 · Renta Premium</p>
+        <h1 id="rentaHeroTitle" class="font-serif font-black leading-[0.94] mb-4 max-w-4xl"
             style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 8px 30px rgba(0,0,0,.45);">
             <span class="anim-word" style="animation-delay:0.18s;">Tu</span>
             <span class="anim-word" style="animation-delay:0.26s;">próximo</span>
@@ -109,7 +109,7 @@ $temporadas = [
             <span class="anim-word text-gold italic" style="animation-delay:0.46s;">sin</span>
             <span class="anim-word text-gold italic" style="animation-delay:0.56s;">compromiso</span>
         </h1>
-        <p class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.68s;">
+        <p id="rentaHeroDescription" class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.68s;">
             Renta mensual y vacacional en <?php echo escR($country_code ?? 'MX'); ?>. Selecciona fechas, elige huéspedes y reserva al instante.
         </p>
         <a href="#multistep" class="inline-block px-8 py-4 bg-gold text-ink font-bold rounded-full hover:bg-gold/90 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">

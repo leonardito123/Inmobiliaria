@@ -59,14 +59,14 @@ $amenidades = [
                 </li>
             </ol>
         </nav>
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
-        <h1 class="font-serif font-black leading-[0.94] mb-4 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+        <p id="desarrollosHeroKicker" class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
+        <h1 id="desarrollosHeroTitle" class="font-serif font-black leading-[0.94] mb-4 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
             <span class="anim-word" style="animation-delay:0.18s;">Arquitectura</span>
             <span class="anim-word" style="animation-delay:0.28s;">de</span>
             <span class="anim-word text-gold italic" style="animation-delay:0.4s;">nueva</span><br>
             <span class="anim-word text-gold italic" style="animation-delay:0.52s;">generación</span>
         </h1>
-        <p class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+        <p id="desarrollosHeroDescription" class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Preventa, construcción y entrega en <?php echo escD($country_code ?? 'MX'); ?>. Plano interactivo, conteo regresivo y formulario de interés.
         </p>
     </div>

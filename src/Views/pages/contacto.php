@@ -50,7 +50,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      1. HERO EDITORIAL — Tipografía animada
      ══════════════════════════════════ -->
-<section class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
+<section id="contactoHero" class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
     <!-- Imagen de fondo -->
     <div class="absolute inset-0" aria-hidden="true">
         <img src="/images/hero/contacto-hero.jpg"
@@ -62,15 +62,14 @@ $personSchemas = array_map(fn($a) => [
     <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/25" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Contacto</p>
-        <h1 class="font-serif font-black leading-[0.94] mb-6 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
-            <?php $words = ['Asesoría', 'inmobiliaria', 'en', 'tiempo', 'real'];
-            foreach ($words as $i => $w): ?>
-            <span class="anim-word" style="animation-delay:<?php echo 0.2 + $i * 0.1; ?>s"><?php echo escC($w); ?> </span>
-            <?php endforeach; ?>
+        <p id="contactoHeroKicker" class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Contacto</p>
+        <h1 id="contactoHeroTitle" class="font-serif font-black leading-[0.94] mb-6 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+            <span class="anim-word" style="animation-delay:0.18s;">Asesoría</span>
+            <span class="anim-word" style="animation-delay:0.28s;">inmobiliaria</span><br>
+            <span class="anim-word text-gold italic" style="animation-delay:0.42s;">en tiempo real</span>
         </h1>
-        <p class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
-            Chat SSE en vivo, red de agentes especializados y oficinas en 3 países. Sin tiempos de espera.
+        <p id="contactoHeroDescription" class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+            Atención consultiva, red de agentes especializados y oficinas en 3 países para acelerar cada decisión.
         </p>
     </div>
 </section>
