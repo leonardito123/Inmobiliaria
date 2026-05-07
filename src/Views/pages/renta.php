@@ -407,41 +407,9 @@ $temporadas = [
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-[0.28em] uppercase mb-1">05 · Disponibilidad</p>
         <h2 class="text-3xl font-serif font-black uppercase tracking-[0.03em] mb-10">Propiedades disponibles en <?php echo escR($country_code ?? 'MX'); ?></h2>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Calendario vanilla JS -->
-            <div class="bg-white border border-black/8 rounded-2xl overflow-hidden h-fit shadow-[0_14px_40px_rgba(15,15,15,0.05)]">
-                <div class="relative aspect-[16/8] overflow-hidden">
-                    <img src="/images/renta-secciones/agenda-visita.jpg"
-                         alt="Agenda una visita a una propiedad en renta"
-                         class="w-full h-full object-cover"
-                         loading="lazy"
-                         onerror="this.onerror=null;this.src='/images/property-fallback.svg'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-5 text-paper">
-                        <h3 class="text-xl font-serif font-bold mb-2">Calendario de visitas</h3>
-                        <p class="text-[11px] text-paper/70 uppercase tracking-[0.14em]">Selecciona llegada y salida para programar recorrido.</p>
-                    </div>
-                </div>
-                <div class="p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <button id="prevMonth" class="px-3 py-1 border border-black/10 rounded-full text-sm hover:bg-black/5 transition focus:outline-none" aria-label="Mes anterior">‹</button>
-                    <h4 id="calendarTitle" class="font-semibold text-sm uppercase tracking-[0.12em]"></h4>
-                    <button id="nextMonth" class="px-3 py-1 border border-black/10 rounded-full text-sm hover:bg-black/5 transition focus:outline-none" aria-label="Mes siguiente">›</button>
-                </div>
-                <div class="grid grid-cols-7 text-xs text-center text-muted mb-2 gap-1">
-                    <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
-                </div>
-                <div id="calendarGrid" class="grid grid-cols-7 gap-1"></div>
-                <div class="mt-4 border-t border-black/8 pt-4 text-sm space-y-1">
-                    <p><strong>Entrada:</strong> <span id="checkInLabel" class="text-muted">Sin seleccionar</span></p>
-                    <p><strong>Salida:</strong> <span id="checkOutLabel" class="text-muted">Sin seleccionar</span></p>
-                    <button id="clearDates" class="mt-2 px-4 py-2 border border-black/10 rounded-full text-xs hover:bg-black/5 transition">Limpiar fechas</button>
-                </div>
-                </div>
-            </div>
-
-            <!-- Grid propiedades -->
-            <div class="lg:col-span-2">
+        <div style="display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start;">
+            <!-- Cards: crecen para llenar el espacio -->
+            <div style="flex:1;min-width:280px;">
                 <?php if (empty($properties)): ?>
                 <div class="bg-white border border-black/8 rounded-2xl p-10 text-center shadow-[0_14px_40px_rgba(15,15,15,0.05)]">
                     <p class="font-serif font-bold text-xl mb-3">Sin propiedades disponibles</p>
@@ -449,7 +417,7 @@ $temporadas = [
                     <p class="text-muted">Sin propiedades de renta en este país.</p>
                 </div>
                 <?php else: ?>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;">
                     <?php foreach ($properties as $prop):
                         $cardImg = resolveRentaCardImage($prop);
                     ?>
@@ -484,7 +452,7 @@ $temporadas = [
                                 $<?php echo number_format((float)($prop['price'] ?? 0), 0, '.', ','); ?>
                                 <span class="text-xs font-sans font-normal text-muted"><?php echo escR($currency ?? 'MXN'); ?>/mes</span>
                                 </p>
-                                <a href="#multistep" class="inline-flex items-center justify-center min-w-[168px] px-5 py-3 border border-ink text-ink rounded-full font-mono text-[10px] tracking-[0.24em] uppercase hover:bg-ink hover:text-paper transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                                <a href="#multistep" class="inline-flex items-center justify-center min-w-[140px] px-5 py-3 border border-ink text-ink rounded-full font-mono text-[10px] tracking-[0.24em] uppercase hover:bg-ink hover:text-paper transition focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                                     Solicitar visita
                                 </a>
                             </div>
@@ -493,6 +461,37 @@ $temporadas = [
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
+            </div>
+
+            <!-- Calendario: columna lateral fija -->
+            <div style="width:100%;max-width:320px;flex-shrink:0;" class="bg-white border border-black/8 rounded-2xl overflow-hidden shadow-[0_14px_40px_rgba(15,15,15,0.05)]">
+                <div class="relative overflow-hidden" style="aspect-ratio:16/8;">
+                    <img src="/images/renta-secciones/agenda-visita.jpg"
+                         alt="Agenda una visita a una propiedad en renta"
+                         class="w-full h-full object-cover"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='/images/property-fallback.svg'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-5 text-paper">
+                        <h3 class="text-xl font-serif font-bold mb-1">Calendario de visitas</h3>
+                        <p class="text-[11px] text-paper/70 uppercase tracking-[0.14em]">Elige una fecha para tu recorrido.</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="prevMonth" class="px-3 py-1 border border-black/10 rounded-full text-sm hover:bg-black/5 transition focus:outline-none" aria-label="Mes anterior">‹</button>
+                        <h4 id="calendarTitle" class="font-semibold text-sm uppercase tracking-[0.12em]"></h4>
+                        <button id="nextMonth" class="px-3 py-1 border border-black/10 rounded-full text-sm hover:bg-black/5 transition focus:outline-none" aria-label="Mes siguiente">›</button>
+                    </div>
+                    <div class="grid grid-cols-7 text-xs text-center text-muted mb-2 gap-1">
+                        <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
+                    </div>
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-1"></div>
+                    <div class="mt-4 border-t border-black/8 pt-4 text-sm space-y-1">
+                        <p><strong>Seleccionado:</strong> <span id="checkInLabel" class="text-muted">Sin seleccionar</span></p>
+                        <button id="clearDates" class="mt-2 px-4 py-2 border border-black/10 rounded-full text-xs hover:bg-black/5 transition">Limpiar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -628,13 +627,12 @@ $temporadas = [
     const nextBtn      = document.getElementById('nextMonth');
     const clearBtn     = document.getElementById('clearDates');
     const checkInLbl   = document.getElementById('checkInLabel');
-    const checkOutLbl  = document.getElementById('checkOutLabel');
 
     if (!title || !grid) return;
 
     const now = new Date();
     let yr = now.getFullYear(), mo = now.getMonth();
-    let checkIn = null, checkOut = null;
+    let selected = null;
 
     function fmt(d) { return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' }); }
     function sameDay(a, b) { return a && b && a.toDateString() === b.toDateString(); }
@@ -658,26 +656,19 @@ $temporadas = [
             btn.type      = 'button';
             btn.textContent = d;
             const past    = dateObj < today;
-            const isIn    = sameDay(dateObj, checkIn);
-            const isOut   = sameDay(dateObj, checkOut);
-            const inRange = checkIn && checkOut && dateObj > checkIn && dateObj < checkOut;
+            const isSel   = sameDay(dateObj, selected);
 
             btn.className = [
                 'h-8 w-full rounded text-xs transition focus:outline-none',
-                past    ? 'opacity-30 cursor-not-allowed text-muted' : 'hover:bg-gold/30',
-                isIn    ? 'bg-ink text-paper font-bold' : '',
-                isOut   ? 'bg-gold text-ink font-bold' : '',
-                inRange ? 'bg-gold/20' : '',
+                past   ? 'opacity-30 cursor-not-allowed text-muted' : 'hover:bg-gold/30',
+                isSel  ? 'bg-gold text-ink font-bold' : '',
             ].join(' ');
             btn.disabled = past;
             btn.setAttribute('aria-label', dateObj.toLocaleDateString('es-MX'));
 
             btn.addEventListener('click', function () {
-                if (!checkIn || (checkIn && checkOut)) { checkIn = dateObj; checkOut = null; }
-                else if (dateObj >= checkIn)            { checkOut = dateObj; }
-                else                                    { checkIn = dateObj; checkOut = null; }
-                checkInLbl.textContent  = checkIn  ? fmt(checkIn)  : 'Sin seleccionar';
-                checkOutLbl.textContent = checkOut ? fmt(checkOut) : 'Sin seleccionar';
+                selected = dateObj;
+                checkInLbl.textContent = fmt(selected);
                 render();
             });
             grid.appendChild(btn);
@@ -687,9 +678,8 @@ $temporadas = [
     prevBtn.addEventListener('click', function () { mo--; if (mo < 0) { mo = 11; yr--; } render(); });
     nextBtn.addEventListener('click', function () { mo++; if (mo > 11) { mo = 0;  yr++; } render(); });
     clearBtn.addEventListener('click', function () {
-        checkIn = null; checkOut = null;
+        selected = null;
         checkInLbl.textContent = 'Sin seleccionar';
-        checkOutLbl.textContent = 'Sin seleccionar';
         render();
     });
 
