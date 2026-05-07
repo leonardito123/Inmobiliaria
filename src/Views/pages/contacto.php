@@ -347,7 +347,12 @@ $personSchemas = array_map(fn($a) => [
     // ── MAPA LEAFLET — OFICINAS ───────────────────────────────────
     var mapEl    = document.getElementById('officesMap');
     var dataEl   = document.getElementById('officesData');
-    if (mapEl && dataEl && window.L) {
+    var mapReady = false;
+
+    function initOfficesMap() {
+        if (mapReady || !mapEl || !dataEl || !window.L) return;
+        mapReady = true;
+
         var offices = JSON.parse(dataEl.textContent || '[]');
         var map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -362,6 +367,12 @@ $personSchemas = array_map(fn($a) => [
             bounds.push([o.lat, o.lng]);
         });
         if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    if (window.L) {
+        initOfficesMap();
+    } else {
+        window.addEventListener('load', initOfficesMap, { once: true });
     }
 
     // ── SCROLL-REVEAL (manifiesto) ────────────────────────────────
