@@ -99,17 +99,6 @@ $temporadas = [
     </div>
     <div class="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/40 to-ink/80" aria-hidden="true"></div>
 
-    <!-- Dots navigation -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10" role="tablist" aria-label="Slides del hero">
-        <?php foreach ($slides as $i => $_): ?>
-        <button role="tab"
-                aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                data-slide="<?php echo $i; ?>"
-                class="slide-dot w-2 h-2 rounded-full bg-paper transition <?php echo $i === 0 ? 'opacity-100 scale-125' : 'opacity-40'; ?>"
-                aria-label="Slide <?php echo $i + 1; ?>"></button>
-        <?php endforeach; ?>
-    </div>
-
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
         <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3">01 · Renta Premium</p>
         <h1 class="text-5xl md:text-6xl font-serif font-black leading-tight mb-4 max-w-3xl">
@@ -132,8 +121,8 @@ $temporadas = [
         <p class="text-gold font-mono text-xs tracking-[0.28em] uppercase mb-1">02 · Temporadas</p>
         <h2 class="text-3xl font-serif font-black uppercase tracking-[0.03em] mb-8">Precios dinámicos según temporada</h2>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10 items-stretch">
-            <div class="lg:col-span-8 rounded-2xl overflow-hidden relative min-h-[260px] border border-black/8 shadow-[0_16px_40px_rgba(15,15,15,0.06)]">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
+            <div class="lg:col-span-2 rounded-2xl overflow-hidden relative min-h-[260px] border border-black/8 shadow-[0_16px_40px_rgba(15,15,15,0.06)]">
                 <img src="/images/renta-secciones/temporadas-luxury-stay.jpg"
                      alt="Estancia premium para temporada de renta"
                      class="absolute inset-0 w-full h-full object-cover"
@@ -147,7 +136,7 @@ $temporadas = [
                 </div>
             </div>
 
-            <div class="lg:col-span-4 grid grid-cols-1 gap-4 self-start">
+            <div class="lg:col-span-1 grid grid-cols-1 gap-4 self-start">
                 <?php foreach ($temporadas as $t): ?>
                 <div class="bg-white border border-black/8 rounded-2xl p-5 min-h-[152px] shadow-[0_12px_32px_rgba(15,15,15,0.05)]">
                     <div class="flex items-start justify-between gap-4 mb-4">
@@ -600,17 +589,22 @@ $temporadas = [
     let timer    = null;
 
     function showSlide(idx) {
+        if (!slides.length) return;
         slides[current].classList.replace('opacity-100', 'opacity-0');
-        dots[current].classList.remove('opacity-100', 'scale-125');
-        dots[current].classList.add('opacity-40');
-        dots[current].setAttribute('aria-selected', 'false');
+        if (dots[current]) {
+            dots[current].classList.remove('opacity-100', 'scale-125');
+            dots[current].classList.add('opacity-40');
+            dots[current].setAttribute('aria-selected', 'false');
+        }
 
         current = (idx + slides.length) % slides.length;
 
         slides[current].classList.replace('opacity-0', 'opacity-100');
-        dots[current].classList.remove('opacity-40');
-        dots[current].classList.add('opacity-100', 'scale-125');
-        dots[current].setAttribute('aria-selected', 'true');
+        if (dots[current]) {
+            dots[current].classList.remove('opacity-40');
+            dots[current].classList.add('opacity-100', 'scale-125');
+            dots[current].setAttribute('aria-selected', 'true');
+        }
     }
 
     function startTimer() { timer = setInterval(function () { showSlide(current + 1); }, 5000); }
