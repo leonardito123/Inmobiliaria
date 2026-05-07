@@ -239,8 +239,8 @@ $personSchemas = array_map(fn($a) => [
      6. MANIFIESTO DE MARCA — scroll-reveal
      ══════════════════════════════════ -->
 <section class="py-24 bg-ink text-paper overflow-hidden" id="manifiesto" aria-label="Manifiesto de marca">
-    <div class="max-w-4xl mx-auto px-6">
-        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-4 opacity-0 reveal-item">06 · Manifiesto</p>
+    <div class="max-w-5xl mx-auto px-6">
+        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-6">06 · Manifiesto</p>
         <?php
         $manifesto_lines = [
             'Creemos que cada hogar cuenta una historia.',
@@ -248,13 +248,16 @@ $personSchemas = array_map(fn($a) => [
             'Que la transparencia es la base de la confianza.',
             'Que el lujo es una experiencia, no solo un precio.',
         ];
-        foreach ($manifesto_lines as $i => $line): ?>
-        <p class="text-3xl md:text-5xl font-serif font-bold leading-snug mb-6 opacity-0 reveal-item" style="transition-delay:<?php echo $i * 0.15; ?>s">
-            <?php echo escC($line); ?>
-        </p>
-        <?php endforeach; ?>
-        <p class="text-paper/40 text-sm font-mono mt-10 opacity-0 reveal-item" style="transition-delay:0.6s">
-            — Havre Estates · <?php echo date('Y'); ?>
+        ?>
+        <div class="space-y-6 md:space-y-8 max-w-4xl">
+            <?php foreach ($manifesto_lines as $line): ?>
+            <p class="text-3xl md:text-5xl font-serif font-bold leading-[1.12] text-paper/95">
+                <?php echo escC($line); ?>
+            </p>
+            <?php endforeach; ?>
+        </div>
+        <p class="text-paper/55 text-sm font-mono mt-10 tracking-[0.12em] uppercase">
+            Havre Estates · <?php echo date('Y'); ?>
         </p>
     </div>
 </section>
