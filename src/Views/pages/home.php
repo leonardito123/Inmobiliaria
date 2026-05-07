@@ -59,8 +59,12 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
 
         <div class="w-24 h-px bg-gold mb-8 anim-copy" style="animation-delay:0.5s;" aria-hidden="true"></div>
 
+        <p class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.56s;">
+            Curamos residencias, inversión y experiencias inmobiliarias con criterio editorial, atención boutique y ejecución sin fricción en cada etapa.
+        </p>
+
         <a href="/contacto"
-           class="inline-flex items-center gap-3 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300 mb-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold anim-copy"
+           class="inline-flex items-center gap-3 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300 mb-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold anim-copy"
            style="animation-delay:0.62s;">
             AGENDA UNA VISITA
         </a>

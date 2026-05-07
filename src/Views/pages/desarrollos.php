@@ -182,7 +182,7 @@ $amenidades = [
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">04 · Vista 360°</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Explora el espacio en 360°</h2>
 
-        <div class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:380px;perspective:1100px;">
+        <div id="cube360Wrap" class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:380px;perspective:1100px;">
             <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
                  style="background:radial-gradient(circle at center, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.08) 24%, rgba(10,10,10,0) 62%);"></div>
             <!-- Carrusel 3D CSS puro -->
@@ -360,13 +360,31 @@ $amenidades = [
 
     // ── GALERÍA 360° ──────────────────────────────────────────────
     var cube  = document.getElementById('cube360');
+    var cubeWrap = document.getElementById('cube360Wrap');
     var angle = -18;
+    var cubeTimer = null;
     function renderCube() {
         if (cube) cube.style.transform = 'rotateX(-10deg) rotateY(' + angle + 'deg)';
+    }
+    function stopCubeAuto() {
+        if (cubeTimer) {
+            clearInterval(cubeTimer);
+            cubeTimer = null;
+        }
+    }
+    function startCubeAuto() {
+        if (!cube || cubeTimer) return;
+        cubeTimer = setInterval(function () {
+            if (cubeWrap && cubeWrap.matches(':hover')) return;
+            if (cubeWrap && cubeWrap.contains(document.activeElement)) return;
+            angle += 90;
+            renderCube();
+        }, 4200);
     }
     renderCube();
     document.getElementById('cube360Next')?.addEventListener('click', function () { angle += 90; renderCube(); });
     document.getElementById('cube360Prev')?.addEventListener('click', function () { angle -= 90; renderCube(); });
+    startCubeAuto();
 
     // ── LEAD SCORE INDICATOR ──────────────────────────────────────
     var form      = document.getElementById('leadForm');
