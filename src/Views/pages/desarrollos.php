@@ -193,7 +193,7 @@ $amenidades = [
                     ['rot' => 'rotateY(0deg) translateZ(' . $cubeDepth . 'px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala',     'isImage' => true,  'shade' => 0.22],
                     ['rot' => 'rotateY(90deg) translateZ(' . $cubeDepth . 'px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina',   'isImage' => true,  'shade' => 0.56],
                     ['rot' => 'rotateY(180deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara', 'isImage' => true,  'shade' => 0.7],
-                    ['rot' => 'rotateY(270deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza',  'isImage' => true,  'shade' => 0.5],
+                    ['rot' => 'rotateY(270deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/hero/desarrollos-terraza.jpg',            'label' => 'Terraza',  'isImage' => true,  'shade' => 0.5],
                     ['rot' => 'rotateX(90deg) translateZ(' . $cubeDepth . 'px)',  'bg'  => 'linear-gradient(180deg, rgba(216,188,96,.9), rgba(86,67,24,.96))', 'label' => 'Techo', 'isImage' => false],
                     ['rot' => 'rotateX(-90deg) translateZ(' . $cubeDepth . 'px)', 'bg'  => 'linear-gradient(180deg, rgba(14,14,14,.98), rgba(34,28,18,.98))',   'label' => 'Base',  'isImage' => false],
                 ];
