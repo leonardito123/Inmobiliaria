@@ -13,7 +13,6 @@ $countryLabel = match($country_code ?? 'MX') {
     'CL' => 'Chile',
     default => 'México',
 };
-$heroVentaImg = '/images/hero/cdmx-hero-2.jpg';
 
 function resolveVentaReferenceImage(string $title): string {
     $t = mb_strtolower($title, 'UTF-8');
@@ -65,15 +64,27 @@ function resolveVentaInteriorImage(string $title): string {
 ?>
 
 <!-- 1. HERO -->
-<section class="relative min-h-[58vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Venta">
-    <div class="absolute inset-0" aria-hidden="true">
-        <img src="<?php echo $heroVentaImg; ?>" alt="Propiedades premium en venta"
-             class="w-full h-full object-cover opacity-40" loading="eager">
-        <div class="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80"></div>
-        <div class="absolute inset-0 opacity-[0.04]"
-             style="background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);background-size:32px 32px;"></div>
-        <div class="absolute top-0 right-0 w-1/2 h-2/3 bg-amber-900/20 rounded-full blur-[150px] pointer-events-none"></div>
+<section class="relative min-h-[58vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Venta" id="ventaHero">
+    <!-- Carrusel de fondo -->
+    <div class="absolute inset-0" id="ventaCarousel" aria-hidden="true">
+        <?php
+        $ventaSlides = [
+            ['img' => '/images/hero/cdmx-hero-2.jpg', 'alt' => 'Propiedades premium en venta — CDMX noche'],
+            ['img' => '/images/hero/cdmx-hero-1.jpg', 'alt' => 'Skyline de Ciudad de México al atardecer'],
+            ['img' => '/images/hero/cdmx-hero-3.jpg', 'alt' => 'Arquitectura moderna para inversión'],
+            ['img' => '/images/hero/cdmx-hero-4.jpg', 'alt' => 'Desarrollos y penthouses con plusvalía'],
+        ];
+        foreach ($ventaSlides as $vi => $vs):
+        ?>
+        <div class="venta-slide absolute inset-0 transition-opacity duration-1000 <?php echo $vi === 0 ? 'opacity-100' : 'opacity-0'; ?>">
+            <img src="<?php echo $vs['img']; ?>" alt="<?php echo escHtml($vs['alt']); ?>"
+                 class="w-full h-full object-cover opacity-40"
+                 <?php echo $vi === 0 ? 'loading="eager"' : 'loading="lazy"'; ?>>
+        </div>
+        <?php endforeach; ?>
     </div>
+    <div class="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80" aria-hidden="true"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-2/3 bg-amber-900/20 rounded-full blur-[150px] pointer-events-none"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         <nav aria-label="Breadcrumb" class="mb-8">
             <ol class="flex gap-2 text-[11px] font-mono text-paper/40 tracking-[0.15em]"
@@ -561,6 +572,21 @@ function resolveVentaInteriorImage(string $title): string {
     var floatingCta=document.getElementById('floatingCta'),ctaDismissed=false;
     document.getElementById('closeCta')?.addEventListener('click',function(){ctaDismissed=true;if(floatingCta)floatingCta.style.display='none';});
     window.addEventListener('scroll',function(){if(ctaDismissed||!floatingCta)return;if(window.scrollY>600){floatingCta.style.transform='translateY(0)';floatingCta.style.opacity='1';}else{floatingCta.style.transform='translateY(5rem)';floatingCta.style.opacity='0';}},{passive:true});
+
+    // Carrusel hero venta
+    (function(){
+        var ventaSlides = Array.from(document.querySelectorAll('.venta-slide'));
+        var ventaCurrent = 0;
+        function ventaGoTo(idx){
+            if(!ventaSlides.length) return;
+            ventaSlides[ventaCurrent].classList.remove('opacity-100');
+            ventaSlides[ventaCurrent].classList.add('opacity-0');
+            ventaCurrent = (idx + ventaSlides.length) % ventaSlides.length;
+            ventaSlides[ventaCurrent].classList.remove('opacity-0');
+            ventaSlides[ventaCurrent].classList.add('opacity-100');
+        }
+        if(ventaSlides.length > 1) setInterval(function(){ ventaGoTo(ventaCurrent + 1); }, 6000);
+    })();
 
 })();
 </script>

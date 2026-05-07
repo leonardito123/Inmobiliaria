@@ -34,7 +34,6 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
                  loading="<?php echo $si === 0 ? 'eager' : 'lazy'; ?>"
                  decoding="async">
             <div class="absolute inset-0 bg-gradient-to-br <?php echo $slide['overlay']; ?>"></div>
-            <div class="absolute inset-0 opacity-[0.04]" style="background-image:radial-gradient(circle at 1px 1px, #fff 1px, transparent 0); background-size:32px 32px;"></div>
             <div class="absolute top-0 right-0 w-1/2 h-2/3 <?php echo $slide['accent']; ?> rounded-full blur-[150px] pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gold/8 rounded-full blur-[100px] pointer-events-none"></div>
         </div>
@@ -69,15 +68,6 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
         </a>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20" role="tablist" aria-label="Navegacion del carrusel hero">
-        <?php foreach ($heroSlides as $si => $_): ?>
-        <button role="tab"
-                aria-selected="<?php echo $si === 0 ? 'true' : 'false'; ?>"
-                data-hero-slide="<?php echo $si; ?>"
-                class="hero-dot transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-gold <?php echo $si === 0 ? 'w-6 h-2 bg-gold' : 'w-2 h-2 bg-paper/40 hover:bg-paper/70'; ?>"
-                aria-label="Ir a slide <?php echo $si + 1; ?>"></button>
-        <?php endforeach; ?>
-    </div>
 </section>
 
 <section class="py-24 bg-ink text-paper" aria-label="Descripcion de la inmobiliaria">
@@ -445,20 +435,24 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
     var current = 0;
 
     function heroGoTo(idx) {
-        if (!slides.length || !dots.length) return;
+        if (!slides.length) return;
         slides[current].classList.remove('opacity-100');
         slides[current].classList.add('opacity-0');
-        dots[current].classList.remove('w-6', 'h-2', 'bg-gold');
-        dots[current].classList.add('w-2', 'h-2', 'bg-paper/40');
-        dots[current].setAttribute('aria-selected', 'false');
+        if (dots[current]) {
+            dots[current].classList.remove('w-6', 'h-2', 'bg-gold');
+            dots[current].classList.add('w-2', 'h-2', 'bg-paper/40');
+            dots[current].setAttribute('aria-selected', 'false');
+        }
 
         current = (idx + slides.length) % slides.length;
 
         slides[current].classList.remove('opacity-0');
         slides[current].classList.add('opacity-100');
-        dots[current].classList.remove('w-2', 'h-2', 'bg-paper/40');
-        dots[current].classList.add('w-6', 'h-2', 'bg-gold');
-        dots[current].setAttribute('aria-selected', 'true');
+        if (dots[current]) {
+            dots[current].classList.remove('w-2', 'h-2', 'bg-paper/40');
+            dots[current].classList.add('w-6', 'h-2', 'bg-gold');
+            dots[current].setAttribute('aria-selected', 'true');
+        }
     }
 
     dots.forEach(function (d) {
