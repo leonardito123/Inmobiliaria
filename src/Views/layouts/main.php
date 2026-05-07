@@ -150,37 +150,7 @@ $navLinks = [
 
             </div><!-- /derecha -->
 
-            <!-- Mobile toggle -->
-            <button id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"
-                    class="md:hidden ml-auto flex flex-col gap-1.5 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                <span class="block w-6 h-px bg-paper transition-all duration-300"></span>
-                <span class="block w-6 h-px bg-paper transition-all duration-300"></span>
-                <span class="block w-4 h-px bg-paper transition-all duration-300"></span>
-            </button>
-
         </div><!-- /nav-inner -->
-
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-white/10">
-            <ul class="flex flex-col divide-y divide-white/8">
-                <?php foreach ($navLinks as $item): ?>
-                <li>
-                    <a href="<?php echo htmlspecialchars($item['href']); ?>"
-                       data-i18n="<?php echo htmlspecialchars($item['i18n']); ?>"
-                       class="block px-6 py-4 text-xs font-mono tracking-[0.25em] uppercase text-paper/70 hover:text-gold hover:bg-white/5 transition-colors">
-                        <?php echo htmlspecialchars($item['label']); ?>
-                    </a>
-                </li>
-                <?php endforeach; ?>
-                <li>
-                    <a href="/contacto"
-                       data-i18n="nav.bookVisit"
-                       class="block px-6 py-4 text-xs font-mono tracking-[0.25em] uppercase text-gold">
-                        Agendar Visita
-                    </a>
-                </li>
-            </ul>
-        </div>
     </nav>
 
     <!-- Main Content -->
@@ -250,15 +220,6 @@ $navLinks = [
 
     <script>
     (function () {
-        var navToggle = document.getElementById('navToggle');
-        var mobileMenu = document.getElementById('mobileMenu');
-        if (navToggle && mobileMenu) {
-            navToggle.addEventListener('click', function () {
-                var isHidden = mobileMenu.classList.toggle('hidden');
-                navToggle.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
-            });
-        }
-
         var i18n = {
             es: {
                 'nav.home': 'Inicio',
