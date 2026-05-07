@@ -239,8 +239,8 @@ $personSchemas = array_map(fn($a) => [
      6. MANIFIESTO DE MARCA — scroll-reveal
      ══════════════════════════════════ -->
 <section class="py-24 bg-ink text-paper overflow-hidden" id="manifiesto" aria-label="Manifiesto de marca">
-    <div class="max-w-5xl mx-auto px-6">
-        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-6">06 · Manifiesto</p>
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-8">06 · Manifiesto</p>
         <?php
         $manifesto_lines = [
             'Creemos que cada hogar cuenta una historia.',
@@ -249,14 +249,14 @@ $personSchemas = array_map(fn($a) => [
             'Que el lujo es una experiencia, no solo un precio.',
         ];
         ?>
-        <div class="space-y-6 md:space-y-8 max-w-4xl">
+        <div class="space-y-6 md:space-y-8 max-w-5xl mx-auto">
             <?php foreach ($manifesto_lines as $line): ?>
-            <p class="text-3xl md:text-5xl font-serif font-bold leading-[1.12] text-paper/95">
+            <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold leading-[1.12] text-paper/95 mx-auto" style="text-wrap:balance;">
                 <?php echo escC($line); ?>
             </p>
             <?php endforeach; ?>
         </div>
-        <p class="text-paper/55 text-sm font-mono mt-10 tracking-[0.12em] uppercase">
+        <p class="text-paper/55 text-sm font-mono mt-12 tracking-[0.12em] uppercase">
             Havre Estates · <?php echo date('Y'); ?>
         </p>
     </div>
