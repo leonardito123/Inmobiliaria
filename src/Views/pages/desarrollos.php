@@ -28,26 +28,19 @@ $amenidades = [
 </style>
 
 <section class="relative min-h-[72vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Desarrollos">
-    <!-- CSS Particles (sin JS) -->
+    <!-- Imagen de fondo -->
     <div class="absolute inset-0" aria-hidden="true">
-        <?php
-        $pData = [
-            ['w'=>6,'h'=>6,'l'=>8,'t'=>20,'d'=>7,'delay'=>0],
-            ['w'=>4,'h'=>4,'l'=>20,'t'=>60,'d'=>9,'delay'=>1.5],
-            ['w'=>8,'h'=>8,'l'=>40,'t'=>30,'d'=>6,'delay'=>0.7],
-            ['w'=>3,'h'=>3,'l'=>60,'t'=>70,'d'=>11,'delay'=>2.2],
-            ['w'=>6,'h'=>6,'l'=>75,'t'=>15,'d'=>8,'delay'=>0.4],
-            ['w'=>5,'h'=>5,'l'=>88,'t'=>50,'d'=>7,'delay'=>1.1],
-            ['w'=>4,'h'=>4,'l'=>15,'t'=>85,'d'=>10,'delay'=>1.8],
-            ['w'=>7,'h'=>7,'l'=>52,'t'=>80,'d'=>6,'delay'=>0.2],
-        ];
-        foreach ($pData as $p): ?>
-        <div class="particle" style="width:<?php echo $p['w']; ?>px;height:<?php echo $p['h']; ?>px;left:<?php echo $p['l']; ?>%;top:<?php echo $p['t']; ?>%;animation-duration:<?php echo $p['d']; ?>s;animation-delay:<?php echo $p['delay']; ?>s"></div>
-        <?php endforeach; ?>
+        <img src="/images/hero/desarrollos-hero.jpg"
+             alt=""
+             class="w-full h-full object-cover"
+             loading="eager">
     </div>
 
-    <!-- Plano SVG de fondo decorativo -->
-    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+    <!-- Overlay degradado -->
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" aria-hidden="true"></div>
+
+    <!-- Plano SVG de fondo decorativo (sutil) -->
+    <div class="absolute inset-0 opacity-[0.06]" aria-hidden="true">
         <svg viewBox="0 0 800 600" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
             <rect x="50" y="50" width="200" height="300" fill="none" stroke="#c9a84c" stroke-width="1"/>
             <rect x="300" y="80" width="180" height="260" fill="none" stroke="#c9a84c" stroke-width="1"/>
@@ -56,8 +49,6 @@ $amenidades = [
             <line x1="250" y1="50" x2="250" y2="550" stroke="#c9a84c" stroke-width="0.5"/>
         </svg>
     </div>
-
-    <div class="absolute inset-0 bg-gradient-to-b from-ink/60 to-ink/90" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
         <nav aria-label="Breadcrumb" class="mb-6">
@@ -205,15 +196,21 @@ $amenidades = [
             <div id="cube360" class="relative" style="width:220px;height:220px;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1)">
                 <?php
                 $cube_faces = [
-                    ['rot' => 'rotateY(0deg) translateZ(110px)',   'bg' => 'from-accent/80 to-ink',    'label' => 'Sala'],
-                    ['rot' => 'rotateY(90deg) translateZ(110px)',  'bg' => 'from-gold/60 to-accent',   'label' => 'Cocina'],
-                    ['rot' => 'rotateY(180deg) translateZ(110px)', 'bg' => 'from-rust/70 to-ink',      'label' => 'Recámara'],
-                    ['rot' => 'rotateY(270deg) translateZ(110px)', 'bg' => 'from-emerald-600/60 to-ink','label' => 'Terraza'],
+                    ['rot' => 'rotateY(0deg) translateZ(110px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala'],
+                    ['rot' => 'rotateY(90deg) translateZ(110px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina'],
+                    ['rot' => 'rotateY(180deg) translateZ(110px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara'],
+                    ['rot' => 'rotateY(270deg) translateZ(110px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza'],
                 ];
                 foreach ($cube_faces as $face): ?>
-                <div class="absolute inset-0 rounded-xl bg-gradient-to-br <?php echo escD($face['bg']); ?> flex items-center justify-center border border-white/10 overflow-hidden"
+                <div class="absolute inset-0 rounded-xl overflow-hidden border border-white/10 flex items-end"
                      style="transform:<?php echo $face['rot']; ?>">
-                    <span class="font-serif font-bold text-2xl text-paper/90"><?php echo escD($face['label']); ?></span>
+                    <img src="<?php echo escD($face['img']); ?>"
+                         alt="<?php echo escD($face['label']); ?>"
+                         class="absolute inset-0 w-full h-full object-cover"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <span class="relative z-10 p-4 font-serif font-bold text-xl text-paper/90"><?php echo escD($face['label']); ?></span>
                 </div>
                 <?php endforeach; ?>
             </div>

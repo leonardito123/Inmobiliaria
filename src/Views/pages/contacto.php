@@ -56,11 +56,15 @@ $personSchemas = array_map(fn($a) => [
 </style>
 
 <section class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
-    <!-- Tipografía editorial de fondo -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
-        <span class="text-[18vw] font-serif font-black text-white/[0.03] leading-none tracking-tighter">HAVRE</span>
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0" aria-hidden="true">
+        <img src="/images/hero/contacto-hero.jpg"
+             alt=""
+             class="w-full h-full object-cover"
+             loading="eager">
     </div>
-    <div class="absolute inset-0 bg-gradient-to-b from-ink/30 to-ink/95" aria-hidden="true"></div>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
         <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s">01 · Contacto</p>
@@ -117,30 +121,49 @@ $personSchemas = array_map(fn($a) => [
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">03 · Equipo</p>
         <h2 class="text-3xl font-serif font-bold mb-10">Agentes especializados</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($agentsList as $agent): ?>
-            <article class="bg-paper border border-rule rounded-xl p-6 hover:shadow-lg transition"
+            <?php
+            $agentImgs = [
+                '/images/hero/contacto-oficina.jpg',
+                '/images/venta-interiores/interior-premium.jpg',
+                '/images/venta-interiores/interior-penthouse.jpg',
+            ];
+            foreach ($agentsList as $idx => $agent):
+                $agentImg = $agentImgs[$idx % count($agentImgs)];
+            ?>
+            <article class="bg-white border border-rule rounded-2xl overflow-hidden hover:shadow-xl transition-shadow"
                      itemscope itemtype="https://schema.org/Person">
-                <!-- Avatar -->
-                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-accent flex items-center justify-center text-paper font-serif font-bold text-xl mb-4" aria-hidden="true">
-                    <?php echo mb_substr($agent['name'] ?? 'A', 0, 1); ?>
+                <!-- Foto de portada -->
+                <div class="relative overflow-hidden" style="height:140px;">
+                    <img src="<?php echo escC($agentImg); ?>"
+                         alt=""
+                         class="w-full h-full object-cover"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <!-- Avatar inicial sobre la imagen -->
+                    <div class="absolute bottom-0 left-6 translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-br from-gold to-accent flex items-center justify-center text-paper font-serif font-bold text-xl border-2 border-white shadow" aria-hidden="true">
+                        <?php echo mb_substr($agent['name'] ?? 'A', 0, 1); ?>
+                    </div>
                 </div>
-                <h3 class="font-serif font-bold text-lg mb-0.5" itemprop="name"><?php echo escC($agent['name'] ?? ''); ?></h3>
-                <p class="text-muted text-sm mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
-                <div class="space-y-1 text-sm">
-                    <?php if ($agent['email'] ?? ''): ?>
-                    <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
+                <div class="pt-10 px-6 pb-6">
+                    <h3 class="font-serif font-bold text-lg mb-0.5" itemprop="name"><?php echo escC($agent['name'] ?? ''); ?></h3>
+                    <p class="text-muted text-sm mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
+                    <div class="space-y-1 text-sm">
+                        <?php if ($agent['email'] ?? ''): ?>
+                        <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
+                        <?php endif; ?>
+                        <?php if ($agent['phone'] ?? ''): ?>
+                        <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (!empty($agent['languages']) && is_array($agent['languages'])): ?>
+                    <div class="mt-3 flex gap-1 flex-wrap">
+                        <?php foreach ($agent['languages'] as $lang): ?>
+                        <span class="text-xs font-mono bg-rule px-2 py-0.5 rounded" itemprop="knowsLanguage"><?php echo escC(strtoupper($lang)); ?></span>
+                        <?php endforeach; ?>
+                    </div>
                     <?php endif; ?>
-                    <?php if ($agent['phone'] ?? ''): ?>
-                    <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
-                    <?php endif; ?>
                 </div>
-                <?php if (!empty($agent['languages']) && is_array($agent['languages'])): ?>
-                <div class="mt-3 flex gap-1 flex-wrap">
-                    <?php foreach ($agent['languages'] as $lang): ?>
-                    <span class="text-xs font-mono bg-rule px-2 py-0.5 rounded" itemprop="knowsLanguage"><?php echo escC(strtoupper($lang)); ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
             </article>
             <?php endforeach; ?>
         </div>
