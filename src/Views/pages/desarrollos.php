@@ -182,23 +182,28 @@ $amenidades = [
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">04 · Vista 360°</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Explora el espacio en 360°</h2>
 
-        <div id="cube360Wrap" class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:380px;perspective:1100px;">
+        <div id="cube360Wrap" class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:400px;perspective:1600px;perspective-origin:50% 28%;">
             <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
                  style="background:radial-gradient(circle at center, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.08) 24%, rgba(10,10,10,0) 62%);"></div>
             <!-- Carrusel 3D CSS puro -->
-            <div id="cube360" class="relative" style="width:260px;height:260px;transform-style:preserve-3d;transform:rotateX(-10deg) rotateY(-18deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1);filter:drop-shadow(0 24px 40px rgba(0,0,0,0.45));">
+            <div id="cube360" class="relative" style="width:240px;height:240px;transform-style:preserve-3d;transform:rotateX(30deg) rotateY(-32deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1);">
                 <?php
+                $cubeDepth = 120;
                 $cube_faces = [
-                    ['rot' => 'rotateY(0deg) translateZ(130px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala'],
-                    ['rot' => 'rotateY(90deg) translateZ(130px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina'],
-                    ['rot' => 'rotateY(180deg) translateZ(130px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara'],
-                    ['rot' => 'rotateY(270deg) translateZ(130px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza'],
+                    ['rot' => 'rotateY(0deg) translateZ(' . $cubeDepth . 'px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala',     'isImage' => true,  'shade' => 0.22],
+                    ['rot' => 'rotateY(90deg) translateZ(' . $cubeDepth . 'px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina',   'isImage' => true,  'shade' => 0.56],
+                    ['rot' => 'rotateY(180deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara', 'isImage' => true,  'shade' => 0.7],
+                    ['rot' => 'rotateY(270deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza',  'isImage' => true,  'shade' => 0.5],
+                    ['rot' => 'rotateX(90deg) translateZ(' . $cubeDepth . 'px)',  'bg'  => 'linear-gradient(180deg, rgba(216,188,96,.9), rgba(86,67,24,.96))', 'label' => 'Techo', 'isImage' => false],
+                    ['rot' => 'rotateX(-90deg) translateZ(' . $cubeDepth . 'px)', 'bg'  => 'linear-gradient(180deg, rgba(14,14,14,.98), rgba(34,28,18,.98))',   'label' => 'Base',  'isImage' => false],
                 ];
                 foreach ($cube_faces as $face): ?>
-                 <div class="absolute inset-0 rounded-2xl overflow-hidden border border-gold/15 flex items-end"
-                     style="transform:<?php echo $face['rot']; ?>;background-image:url('<?php echo escD($face['img']); ?>');background-size:cover;background-position:center;background-repeat:no-repeat;backface-visibility:hidden;">
-                    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.42) 0%, rgba(8,8,8,0.12) 45%, rgba(8,8,8,0.04) 100%);"></div>
-                    <span class="relative z-10 m-4 inline-flex items-center rounded-full border border-white/20 bg-black/35 px-4 py-1.5 font-serif font-bold text-lg text-paper"><?php echo escD($face['label']); ?></span>
+                <div class="absolute inset-0 overflow-hidden border border-gold/20 flex items-end"
+                     style="transform:<?php echo $face['rot']; ?>;<?php echo !empty($face['isImage']) ? 'background-image:url(\'' . escD($face['img']) . '\');background-size:cover;background-position:center;background-repeat:no-repeat;' : 'background:' . $face['bg'] . ';'; ?>backface-visibility:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);">
+                    <div class="absolute inset-0" style="background:<?php echo !empty($face['isImage']) ? 'linear-gradient(to top, rgba(8,8,8,' . $face['shade'] . ') 0%, rgba(8,8,8,' . max(0.08, $face['shade'] - 0.16) . ') 50%, rgba(8,8,8,0.04) 100%)' : 'linear-gradient(to top, rgba(8,8,8,0.28) 0%, rgba(8,8,8,0.06) 100%)'; ?>;"></div>
+                    <?php if (!empty($face['isImage'])): ?>
+                    <span class="relative z-10 m-3 inline-flex items-center rounded-full border border-white/20 bg-black/35 px-3 py-1 font-serif font-bold text-sm text-paper"><?php echo escD($face['label']); ?></span>
+                    <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -361,10 +366,10 @@ $amenidades = [
     // ── GALERÍA 360° ──────────────────────────────────────────────
     var cube  = document.getElementById('cube360');
     var cubeWrap = document.getElementById('cube360Wrap');
-    var angle = -18;
+    var angle = -45;
     var cubeTimer = null;
     function renderCube() {
-        if (cube) cube.style.transform = 'rotateX(-10deg) rotateY(' + angle + 'deg)';
+        if (cube) cube.style.transform = 'rotateX(30deg) rotateY(' + angle + 'deg)';
     }
     function stopCubeAuto() {
         if (cubeTimer) {
