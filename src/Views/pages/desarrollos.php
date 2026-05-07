@@ -22,32 +22,20 @@ $amenidades = [
 <!-- ══════════════════════════════════
      1. HERO — Partículas CSS puro (sin JS)
      ══════════════════════════════════ -->
-<style>
-@keyframes float-p{0%,100%{transform:translateY(0) scale(1);opacity:.5}50%{transform:translateY(-40px) scale(1.15);opacity:.9}}
-.particle{position:absolute;border-radius:50%;background:var(--color-gold,#c9a84c);animation:float-p linear infinite;pointer-events:none}
-</style>
-
 <section class="relative min-h-[72vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Desarrollos">
-    <!-- CSS Particles (sin JS) -->
+    <!-- Imagen de fondo -->
     <div class="absolute inset-0" aria-hidden="true">
-        <?php
-        $pData = [
-            ['w'=>6,'h'=>6,'l'=>8,'t'=>20,'d'=>7,'delay'=>0],
-            ['w'=>4,'h'=>4,'l'=>20,'t'=>60,'d'=>9,'delay'=>1.5],
-            ['w'=>8,'h'=>8,'l'=>40,'t'=>30,'d'=>6,'delay'=>0.7],
-            ['w'=>3,'h'=>3,'l'=>60,'t'=>70,'d'=>11,'delay'=>2.2],
-            ['w'=>6,'h'=>6,'l'=>75,'t'=>15,'d'=>8,'delay'=>0.4],
-            ['w'=>5,'h'=>5,'l'=>88,'t'=>50,'d'=>7,'delay'=>1.1],
-            ['w'=>4,'h'=>4,'l'=>15,'t'=>85,'d'=>10,'delay'=>1.8],
-            ['w'=>7,'h'=>7,'l'=>52,'t'=>80,'d'=>6,'delay'=>0.2],
-        ];
-        foreach ($pData as $p): ?>
-        <div class="particle" style="width:<?php echo $p['w']; ?>px;height:<?php echo $p['h']; ?>px;left:<?php echo $p['l']; ?>%;top:<?php echo $p['t']; ?>%;animation-duration:<?php echo $p['d']; ?>s;animation-delay:<?php echo $p['delay']; ?>s"></div>
-        <?php endforeach; ?>
+        <img src="/images/hero/desarrollos-hero.jpg"
+             alt=""
+             class="w-full h-full object-cover"
+             loading="eager">
     </div>
 
-    <!-- Plano SVG de fondo decorativo -->
-    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+    <!-- Overlay degradado -->
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" aria-hidden="true"></div>
+
+    <!-- Plano SVG de fondo decorativo (sutil) -->
+    <div class="absolute inset-0 opacity-[0.06]" aria-hidden="true">
         <svg viewBox="0 0 800 600" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
             <rect x="50" y="50" width="200" height="300" fill="none" stroke="#c9a84c" stroke-width="1"/>
             <rect x="300" y="80" width="180" height="260" fill="none" stroke="#c9a84c" stroke-width="1"/>
@@ -56,8 +44,6 @@ $amenidades = [
             <line x1="250" y1="50" x2="250" y2="550" stroke="#c9a84c" stroke-width="0.5"/>
         </svg>
     </div>
-
-    <div class="absolute inset-0 bg-gradient-to-b from-ink/60 to-ink/90" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
         <nav aria-label="Breadcrumb" class="mb-6">
@@ -73,11 +59,14 @@ $amenidades = [
                 </li>
             </ol>
         </nav>
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3">01 · Nuevos Desarrollos</p>
-        <h1 class="text-5xl md:text-7xl font-serif font-black leading-tight mb-4 max-w-4xl">
-            Arquitectura de <span class="text-gold italic">nueva generación</span>
+        <p id="desarrollosHeroKicker" class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
+        <h1 id="desarrollosHeroTitle" class="font-serif font-black leading-[0.94] mb-4 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+            <span class="anim-word" style="animation-delay:0.18s;">Arquitectura</span>
+            <span class="anim-word" style="animation-delay:0.28s;">de</span>
+            <span class="anim-word text-gold italic" style="animation-delay:0.4s;">nueva</span><br>
+            <span class="anim-word text-gold italic" style="animation-delay:0.52s;">generación</span>
         </h1>
-        <p class="text-paper/70 text-lg max-w-2xl">
+        <p id="desarrollosHeroDescription" class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Preventa, construcción y entrega en <?php echo escD($country_code ?? 'MX'); ?>. Plano interactivo, conteo regresivo y formulario de interés.
         </p>
     </div>
@@ -105,14 +94,7 @@ $amenidades = [
 <!-- ══════════════════════════════════
      3. PLANO INTERACTIVO + SCROLL-DRIVEN ANIMATIONS
      ══════════════════════════════════ -->
-<style>
-@supports (animation-timeline: scroll()) {
-    .scroll-reveal { animation: reveal-in linear both; animation-timeline: scroll(); animation-range: entry 0% entry 40%; }
-    @keyframes reveal-in { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: translateY(0); } }
-}
-</style>
-
-<section class="py-14 bg-paper" id="masterplan" aria-label="Plano interactivo del desarrollo">
+<section class="py-14 bg-paper text-ink" id="masterplan" aria-label="Plano interactivo del desarrollo">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">03 · Masterplan</p>
         <h2 class="text-3xl font-serif font-bold mb-10 scroll-reveal">Plano interactivo del conjunto</h2>
@@ -200,20 +182,28 @@ $amenidades = [
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">04 · Vista 360°</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Explora el espacio en 360°</h2>
 
-        <div class="relative flex items-center justify-center" style="height:320px;perspective:800px">
+        <div id="cube360Wrap" class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:400px;perspective:1600px;perspective-origin:50% 28%;">
+            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+                 style="background:radial-gradient(circle at center, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.08) 24%, rgba(10,10,10,0) 62%);"></div>
             <!-- Carrusel 3D CSS puro -->
-            <div id="cube360" class="relative" style="width:220px;height:220px;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1)">
+            <div id="cube360" class="relative" style="width:240px;height:240px;transform-style:preserve-3d;transform:rotateX(30deg) rotateY(-32deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1);">
                 <?php
+                $cubeDepth = 120;
                 $cube_faces = [
-                    ['rot' => 'rotateY(0deg) translateZ(110px)',   'bg' => 'from-accent/80 to-ink',    'label' => 'Sala'],
-                    ['rot' => 'rotateY(90deg) translateZ(110px)',  'bg' => 'from-gold/60 to-accent',   'label' => 'Cocina'],
-                    ['rot' => 'rotateY(180deg) translateZ(110px)', 'bg' => 'from-rust/70 to-ink',      'label' => 'Recámara'],
-                    ['rot' => 'rotateY(270deg) translateZ(110px)', 'bg' => 'from-emerald-600/60 to-ink','label' => 'Terraza'],
+                    ['rot' => 'rotateY(0deg) translateZ(' . $cubeDepth . 'px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala',     'isImage' => true,  'shade' => 0.22],
+                    ['rot' => 'rotateY(90deg) translateZ(' . $cubeDepth . 'px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina',   'isImage' => true,  'shade' => 0.56],
+                    ['rot' => 'rotateY(180deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara', 'isImage' => true,  'shade' => 0.7],
+                    ['rot' => 'rotateY(270deg) translateZ(' . $cubeDepth . 'px)', 'img' => '/images/hero/desarrollos-terraza.jpg',            'label' => 'Terraza',  'isImage' => true,  'shade' => 0.5],
+                    ['rot' => 'rotateX(90deg) translateZ(' . $cubeDepth . 'px)',  'bg'  => 'linear-gradient(180deg, rgba(216,188,96,.9), rgba(86,67,24,.96))', 'label' => 'Techo', 'isImage' => false],
+                    ['rot' => 'rotateX(-90deg) translateZ(' . $cubeDepth . 'px)', 'bg'  => 'linear-gradient(180deg, rgba(14,14,14,.98), rgba(34,28,18,.98))',   'label' => 'Base',  'isImage' => false],
                 ];
                 foreach ($cube_faces as $face): ?>
-                <div class="absolute inset-0 rounded-xl bg-gradient-to-br <?php echo escD($face['bg']); ?> flex items-center justify-center border border-white/10 overflow-hidden"
-                     style="transform:<?php echo $face['rot']; ?>">
-                    <span class="font-serif font-bold text-2xl text-paper/90"><?php echo escD($face['label']); ?></span>
+                <div class="absolute inset-0 overflow-hidden border border-gold/20 flex items-end"
+                     style="transform:<?php echo $face['rot']; ?>;<?php echo !empty($face['isImage']) ? 'background-image:url(\'' . escD($face['img']) . '\');background-size:cover;background-position:center;background-repeat:no-repeat;' : 'background:' . $face['bg'] . ';'; ?>backface-visibility:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);">
+                    <div class="absolute inset-0" style="background:<?php echo !empty($face['isImage']) ? 'linear-gradient(to top, rgba(8,8,8,' . $face['shade'] . ') 0%, rgba(8,8,8,' . max(0.08, $face['shade'] - 0.16) . ') 50%, rgba(8,8,8,0.04) 100%)' : 'linear-gradient(to top, rgba(8,8,8,0.28) 0%, rgba(8,8,8,0.06) 100%)'; ?>;"></div>
+                    <?php if (!empty($face['isImage'])): ?>
+                    <span class="relative z-10 m-3 inline-flex items-center rounded-full border border-white/20 bg-black/35 px-3 py-1 font-serif font-bold text-sm text-paper"><?php echo escD($face['label']); ?></span>
+                    <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -224,14 +214,14 @@ $amenidades = [
             <button id="cube360Prev" class="px-5 py-2 border border-white/20 text-paper rounded hover:bg-white/10 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold" aria-label="Cara anterior">‹ Anterior</button>
             <button id="cube360Next" class="px-5 py-2 border border-white/20 text-paper rounded hover:bg-white/10 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold" aria-label="Cara siguiente">Siguiente ›</button>
         </div>
-        <p class="text-center text-paper/40 text-xs mt-4 font-mono">Vista conceptual — recorridos reales disponibles previo cita</p>
+        <p class="text-center text-paper/55 text-xs mt-4 font-mono tracking-[0.14em] uppercase">Vista conceptual — recorridos reales disponibles previo cita</p>
     </div>
 </section>
 
 <!-- ══════════════════════════════════
      5. AMENIDADES — Iconos SVG animados
      ══════════════════════════════════ -->
-<section class="py-20 bg-white" id="amenidades" aria-label="Amenidades del desarrollo">
+<section class="py-20 bg-white text-ink" id="amenidades" aria-label="Amenidades del desarrollo">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">05 · Amenidades</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Amenidades de clase mundial</h2>
@@ -253,7 +243,7 @@ $amenidades = [
 <!-- ══════════════════════════════════
      6. FORMULARIO DE INTERÉS (Lead scoring)
      ══════════════════════════════════ -->
-<section class="py-20 bg-paper border-t border-rule" id="formulario-interes" aria-label="Formulario de interés">
+<section class="py-20 bg-paper border-t border-rule text-ink" id="formulario-interes" aria-label="Formulario de interés">
     <div class="max-w-2xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">06 · Registro</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Regístra tu interés</h2>
@@ -375,9 +365,31 @@ $amenidades = [
 
     // ── GALERÍA 360° ──────────────────────────────────────────────
     var cube  = document.getElementById('cube360');
-    var angle = 0;
-    document.getElementById('cube360Next')?.addEventListener('click', function () { angle += 90; if (cube) cube.style.transform = 'rotateY(' + angle + 'deg)'; });
-    document.getElementById('cube360Prev')?.addEventListener('click', function () { angle -= 90; if (cube) cube.style.transform = 'rotateY(' + angle + 'deg)'; });
+    var cubeWrap = document.getElementById('cube360Wrap');
+    var angle = -45;
+    var cubeTimer = null;
+    function renderCube() {
+        if (cube) cube.style.transform = 'rotateX(30deg) rotateY(' + angle + 'deg)';
+    }
+    function stopCubeAuto() {
+        if (cubeTimer) {
+            clearInterval(cubeTimer);
+            cubeTimer = null;
+        }
+    }
+    function startCubeAuto() {
+        if (!cube || cubeTimer) return;
+        cubeTimer = setInterval(function () {
+            if (cubeWrap && cubeWrap.matches(':hover')) return;
+            if (cubeWrap && cubeWrap.contains(document.activeElement)) return;
+            angle += 90;
+            renderCube();
+        }, 4200);
+    }
+    renderCube();
+    document.getElementById('cube360Next')?.addEventListener('click', function () { angle += 90; renderCube(); });
+    document.getElementById('cube360Prev')?.addEventListener('click', function () { angle -= 90; renderCube(); });
+    startCubeAuto();
 
     // ── LEAD SCORE INDICATOR ──────────────────────────────────────
     var form      = document.getElementById('leadForm');

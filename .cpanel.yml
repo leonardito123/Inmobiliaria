@@ -1,0 +1,14 @@
+deployment:
+  tasks:
+    - export APP_PATH=$HOME/apps/inmobiliaria/current
+    - export WEBROOT_PATH=$HOME/public_html
+    - /bin/mkdir -p $APP_PATH
+    - /usr/bin/rsync -a --delete --exclude='.git' --exclude='.cpanel.yml' ./ $APP_PATH/
+    - /bin/mkdir -p $APP_PATH/storage/cache $APP_PATH/storage/chat $APP_PATH/storage/geo
+    - /bin/chmod -R 775 $APP_PATH/storage || true
+    - if [ ! -f $APP_PATH/.env ] && [ -f $APP_PATH/.env.example ]; then /bin/cp $APP_PATH/.env.example $APP_PATH/.env; fi
+    - if command -v composer >/dev/null 2>&1; then composer --working-dir=$APP_PATH install --no-dev --optimize-autoloader; fi
+    - if command -v php >/dev/null 2>&1; then php $APP_PATH/scripts/db_migrate.php --path=$APP_PATH; fi
+    - /bin/mkdir -p $WEBROOT_PATH
+    - /usr/bin/rsync -a --delete --exclude='index.php' $APP_PATH/public/ $WEBROOT_PATH/
+    - /bin/bash $APP_PATH/scripts/cpanel_publish_index.sh $APP_PATH $WEBROOT_PATH

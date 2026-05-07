@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
-         bootstrap="tests/bootstrap.php"
-         cacheDirectory=".phpunit.cache"
-         failOnWarning="true"
-         failOnRisky="true">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd" bootstrap="tests/bootstrap.php" cacheDirectory=".phpunit.cache" failOnWarning="true" failOnRisky="true">
   <testsuites>
     <testsuite name="Unit">
       <directory>tests/Unit</directory>
@@ -13,13 +8,12 @@
       <directory>tests/Feature</directory>
     </testsuite>
   </testsuites>
-
-  <coverage>
+  <source>
     <include>
       <directory suffix=".php">src</directory>
     </include>
     <exclude>
       <directory>src/Views</directory>
     </exclude>
-  </coverage>
+  </source>
 </phpunit>

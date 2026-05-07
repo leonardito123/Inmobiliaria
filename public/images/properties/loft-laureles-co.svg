@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Loft Laureles">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1d4350"/><stop offset="100%" stop-color="#a43931"/></linearGradient></defs>
-  <rect width="1200" height="900" fill="url(#g)"/>
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Loft Laureles">
+  <defs><linearGradient id="g_loft-laureles-co" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1d4350"/><stop offset="100%" stop-color="#a43931"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g_loft-laureles-co)"/>
   <text x="600" y="150" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="700">Loft Laureles</text>
   <text x="600" y="210" text-anchor="middle" fill="#f3e9e8" font-family="Arial, sans-serif" font-size="24">Venta Moderna · Medellin</text>
 </svg>
+

@@ -1,611 +1,516 @@
 ﻿<?php
 /**
  * Home Landing Page
- *
- * Variables disponibles:
- * - $country         : Código del país (MX, CO, CL)
- * - $currency        : Moneda (MXN, COP, CLP)
- * - $phone           : Teléfono de contacto
- * - $featured_properties : Array de propiedades destacadas
- * - $newsletter_csrf_token : Token CSRF para newsletter
- * - $newsletter_status    : Estado de la suscripción
+ * Variables:
+ * - $country, $currency, $phone
+ * - $featured_properties
+ * - $newsletter_csrf_token, $newsletter_status
  */
 $countryName = match($country ?? 'MX') {
-    'CO'    => 'Colombia',
-    'CL'    => 'Chile',
-    default => 'México',
+    'CO' => 'Colombia',
+    'CL' => 'Chile',
+    default => 'Mexico',
 };
+$countryCode = strtoupper((string)($country ?? 'MX'));
 ?>
 
-<!-- ══════════════════════════════════
-     1. HERO — Split layout premium
-     ══════════════════════════════════ -->
-<section class="relative min-h-[100dvh] flex items-center overflow-hidden bg-ink text-paper" aria-label="Hero principal">
-
-    <!-- Background layers -->
-    <div class="absolute inset-0" aria-hidden="true">
-        <div class="absolute inset-0 bg-gradient-to-br from-[#050505] via-accent/40 to-[#050505]"></div>
-        <div class="absolute inset-0 opacity-[0.06] bg-[url('/images/hero-poster.svg')] bg-cover bg-center"></div>
-        <!-- Atmospheric glows -->
-        <div class="absolute top-0 right-0 w-[50vw] h-[60vh] bg-gold/5 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-0 left-0 w-[40vw] h-[50vh] bg-accent/10 rounded-full blur-[100px]"></div>
-        <!-- Subtle grid pattern -->
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 80px 80px;"></div>
+<section class="relative h-[100dvh] min-h-[580px] overflow-hidden bg-ink text-paper" aria-label="Hero principal"
+         data-geo-country="<?php echo htmlspecialchars($country ?? 'MX'); ?>">
+    <div id="heroCarousel" class="absolute inset-0">
+        <?php
+        $heroSlides = [
+            ['image' => '/images/hero/cdmx-hero-1.jpg', 'alt' => 'Skyline premium en Mexico City', 'overlay' => 'from-black/80 via-black/50 to-black/75', 'accent' => 'bg-amber-900/25'],
+            ['image' => '/images/hero/cdmx-hero-2.jpg', 'alt' => 'Arquitectura moderna para inversion', 'overlay' => 'from-black/75 via-[#0a1a2a]/45 to-black/78', 'accent' => 'bg-blue-900/25'],
+            ['image' => '/images/hero/cdmx-hero-3.jpg', 'alt' => 'Vista urbana nocturna', 'overlay' => 'from-black/82 via-black/55 to-black/80', 'accent' => 'bg-yellow-900/20'],
+            ['image' => '/images/hero/cdmx-hero-4.jpg', 'alt' => 'Ciudad y desarrollos premium', 'overlay' => 'from-black/78 via-[#150a1a]/45 to-black/76', 'accent' => 'bg-purple-900/15'],
+        ];
+        foreach ($heroSlides as $si => $slide):
+        ?>
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 <?php echo $si === 0 ? 'opacity-100' : 'opacity-0'; ?>"
+             role="group" aria-roledescription="slide" aria-label="Imagen <?php echo $si + 1; ?> de <?php echo count($heroSlides); ?>">
+            <img src="<?php echo htmlspecialchars($slide['image']); ?>"
+                 alt="<?php echo htmlspecialchars($slide['alt']); ?>"
+                 class="absolute inset-0 w-full h-full object-cover"
+                 loading="<?php echo $si === 0 ? 'eager' : 'lazy'; ?>"
+                 decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-br <?php echo $slide['overlay']; ?>"></div>
+            <div class="absolute top-0 right-0 w-1/2 h-2/3 <?php echo $slide['accent']; ?> rounded-full blur-[150px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gold/8 rounded-full blur-[100px] pointer-events-none"></div>
+        </div>
+        <?php endforeach; ?>
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-8 lg:px-16 py-32 lg:py-0 min-h-[100dvh] flex items-center">
-        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+        <p class="font-mono text-[11px] md:text-xs tracking-[0.22em] uppercase text-gold/90 mb-8 flex items-center gap-3 anim-copy" style="animation-delay:0.1s;">
+            <span>Inmobiliaria Premium</span>
+            <span class="text-gold/60" aria-hidden="true">·</span>
+            <span class="inline-flex items-center rounded-full border border-gold/45 bg-black/30 px-3 py-1 text-paper tracking-[0.12em]">
+                <?php echo htmlspecialchars($countryCode); ?> · <?php echo htmlspecialchars($countryName); ?>
+            </span>
+        </p>
 
-            <!-- ── Left content (7 cols) ── -->
-            <div class="lg:col-span-7">
-                <!-- Eyebrow with rule -->
-                <div class="flex items-center gap-5 mb-10" data-geo-country="<?php echo htmlspecialchars($country ?? 'MX'); ?>">
-                    <span class="block h-px w-10 bg-gold flex-shrink-0" aria-hidden="true"></span>
-                    <p class="text-gold font-mono text-[11px] tracking-[0.35em] uppercase">
-                        Inmobiliaria Premium &nbsp;·&nbsp; <?php echo htmlspecialchars($countryName); ?>
-                    </p>
-                </div>
+        <h1 id="homeHeroTitle" class="font-serif font-black leading-[0.94] mb-6 max-w-4xl"
+            style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 10px 35px rgba(0,0,0,.75);">
+            <span class="anim-word" style="animation-delay:0.16s;">Bienvenido</span>
+            <span class="anim-word" style="animation-delay:0.24s;">a</span><br>
+            <span class="anim-word text-gold" style="animation-delay:0.34s;">HAVRE</span>
+            <span class="anim-word" style="animation-delay:0.42s;">ESTATES</span>
+        </h1>
 
-                <!-- Display heading -->
-                <h1 class="font-serif font-black leading-[0.92] mb-8 max-w-2xl"
-                    style="font-size: clamp(3.2rem, 7.5vw, 5.8rem);">
-                    Propiedades<br>
-                    de Lujo en<br>
-                    <em class="text-gold not-italic"><?php echo htmlspecialchars($countryName); ?></em>
-                </h1>
+        <div class="w-24 h-px bg-gold mb-8 anim-copy" style="animation-delay:0.5s;" aria-hidden="true"></div>
 
-                <!-- Gold divider -->
-                <div class="w-14 h-[2px] bg-gold mb-10" aria-hidden="true"></div>
+        <p id="homeHeroDescription" class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.56s;">
+            Curamos residencias, inversión y experiencias inmobiliarias con criterio editorial, atención boutique y ejecución sin fricción en cada etapa.
+        </p>
 
-                <!-- Body -->
-                <p class="text-paper/65 mb-12 max-w-lg leading-relaxed font-light"
-                   style="font-size: clamp(1rem, 1.3vw, 1.15rem);">
-                    Selección exclusiva de inmuebles premium con GEO targeting,
-                    SEO avanzado y experiencia de clase mundial en 3 mercados.
-                </p>
+        <a href="/contacto"
+           class="inline-flex items-center gap-3 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300 mb-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold anim-copy"
+           style="animation-delay:0.62s;">
+            AGENDA UNA VISITA
+        </a>
 
-                <!-- CTAs -->
-                <div class="flex flex-wrap gap-4 mb-12">
-                    <a href="/venta"
-                       class="inline-flex items-center gap-3 px-10 py-4 bg-gold text-ink font-bold text-sm tracking-[0.1em] uppercase hover:bg-gold/85 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                        Ver Propiedades
-                        <span aria-hidden="true">→</span>
-                    </a>
-                    <a href="/contacto"
-                       class="inline-flex items-center gap-3 px-10 py-4 border border-paper/25 text-paper font-bold text-sm tracking-[0.1em] uppercase hover:border-paper/60 hover:bg-paper/8 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">
-                        Hablar con un Agente
-                    </a>
-                </div>
+        <a href="tel:<?php echo preg_replace('/\s+/', '', $phone ?? '+525541698259'); ?>"
+           class="text-paper/60 font-mono text-sm tracking-[0.2em] hover:text-gold transition-colors">
+            <?php echo htmlspecialchars($phone ?? '+52 55 4169 8259'); ?>
+        </a>
+    </div>
 
-                <!-- GEO phone -->
-                <p class="text-paper/30 font-mono text-xs tracking-[0.25em]">
-                    <span id="geoPhone"><?php echo htmlspecialchars($phone ?? '+52 55 4169 8259'); ?></span>
-                    &nbsp;&nbsp;/&nbsp;&nbsp;<?php echo htmlspecialchars($currency ?? 'MXN'); ?>
-                </p>
+</section>
+
+<section class="py-24 bg-ink text-paper" aria-label="Descripcion de la inmobiliaria">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+            <div class="aspect-[4/3] border border-white/8 overflow-hidden">
+                <img src="/images/properties/penthouse-reforma-mx.jpg" alt="Propiedades de lujo"
+                     class="w-full h-full object-cover opacity-85" loading="lazy"
+                     onerror="this.src='/images/properties/penthouse-reforma-mx.svg'">
             </div>
-
-            <!-- ── Right panel (5 cols) — Disponibilidad quick-stats ── -->
-            <div class="lg:col-span-5 hidden lg:flex justify-end">
-                <div class="w-full max-w-[360px] border border-white/10 bg-white/[0.03] backdrop-blur-sm p-8 space-y-0">
-                    <!-- Panel header -->
-                    <p class="font-mono text-[10px] text-paper/35 tracking-[0.4em] uppercase mb-8">Disponibilidad · <?php echo date('Y'); ?></p>
-
-                    <!-- Stats list -->
+            <div>
+                <h2 class="font-serif font-black uppercase tracking-[0.04em] leading-tight mb-6" style="font-size: clamp(1.6rem, 3.5vw, 2.8rem);">
+                    UBICACION EXCEPCIONAL<br>
+                    <span class="text-gold">EN EL CORAZON DE <?php echo mb_strtoupper(htmlspecialchars($countryName)); ?></span>
+                </h2>
+                <div class="w-14 h-px bg-gold mb-6" aria-hidden="true"></div>
+                <p class="text-paper/60 leading-relaxed mb-8 max-w-md">
+                    Nuestra ubicacion es una gran ventaja para inversion y estilo de vida.
+                </p>
+                <ul class="space-y-3">
                     <?php
-                    $heroStats = [
-                        ['label' => 'Propiedades activas', 'value' => '450+'],
-                        ['label' => 'Ciudades cubiertas', 'value' => '12'],
-                        ['label' => 'Países de operación', 'value' => '3'],
-                        ['label' => 'Años en el mercado', 'value' => '15'],
-                    ];
+                    $locationBullets = match($country ?? 'MX') {
+                        'CO' => ['A 5 min de El Poblado', 'Cerca de Zona Rosa', 'A 10 min de Chapinero', 'Conectado a transporte'],
+                        'CL' => ['A 5 min de Providencia', 'Cerca de Las Condes', 'A 10 min del centro', 'Acceso inmediato al metro'],
+                        default => ['A 5 min de Paseo de la Reforma', 'A 2 cuadras del Metrobus', 'A 2 cuadras del Metro Insurgentes', 'Cerca de Polanco y Condesa'],
+                    };
+                    foreach ($locationBullets as $bullet):
                     ?>
-                    <?php foreach ($heroStats as $i => $stat): ?>
-                    <div class="flex justify-between items-baseline py-5 <?php echo $i < count($heroStats) - 1 ? 'border-b border-white/8' : ''; ?>">
-                        <span class="text-paper/50 text-sm font-light"><?php echo htmlspecialchars($stat['label']); ?></span>
-                        <span class="text-gold font-serif font-black text-3xl leading-none"><?php echo htmlspecialchars($stat['value']); ?></span>
+                    <li class="flex items-start gap-3 text-paper/70 text-sm"><span class="text-gold mt-1 flex-shrink-0" aria-hidden="true">•</span><?php echo htmlspecialchars($bullet); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="order-2 lg:order-1">
+                <h2 class="font-serif font-black uppercase tracking-[0.04em] leading-tight mb-6" style="font-size: clamp(1.6rem, 3.5vw, 2.8rem);">
+                    PLANEANDO INVERTIR<br><span class="text-gold">EN BIENES RAICES?</span>
+                </h2>
+                <div class="w-14 h-px bg-gold mb-6" aria-hidden="true"></div>
+                <p class="text-paper/60 leading-relaxed mb-8 max-w-md">
+                    Seleccion exclusiva en venta, renta y desarrollos con plusvalia.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <?php $featureItems = [['icon' => '+', 'label' => 'Venta'], ['icon' => '◇', 'label' => 'Renta'], ['icon' => '◻', 'label' => 'Desarrollos'], ['icon' => '◎', 'label' => 'Asesoria 24/7']];
+                    foreach ($featureItems as $fi): ?>
+                    <div class="flex items-center gap-3 border border-white/10 p-4">
+                        <span class="text-gold text-xl leading-none" aria-hidden="true"><?php echo $fi['icon']; ?></span>
+                        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-paper/70"><?php echo $fi['label']; ?></span>
                     </div>
                     <?php endforeach; ?>
-
-                    <!-- CTA button -->
-                    <a href="/contacto"
-                       class="block mt-8 py-4 border border-gold/60 text-gold text-[11px] font-mono tracking-[0.35em] uppercase text-center hover:bg-gold hover:text-ink transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                        AGENDA UNA VISITA
-                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-paper/30" aria-hidden="true">
-        <span class="text-[10px] font-mono tracking-[0.4em] uppercase">Explorar</span>
-        <span class="block w-px h-10 bg-gradient-to-b from-paper/25 to-transparent"></span>
-    </div>
-</section>
-
-<!-- ══════════════════════════════════
-     2. BUSCADOR AJAX
-     ══════════════════════════════════ -->
-<section class="py-20 bg-paper border-b border-rule" id="search" aria-label="Buscador de propiedades">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <!-- Header row -->
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-            <div>
-                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">02 &nbsp;/&nbsp; Búsqueda</p>
-                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight text-ink">Encuentra tu<br>propiedad ideal</h2>
+            <div class="order-1 lg:order-2 aspect-[4/3] border border-white/8 overflow-hidden">
+                <img src="/images/properties/desarrollo-nova-polanco-mx.jpg" alt="Desarrollos premium"
+                     class="w-full h-full object-cover opacity-85" loading="lazy"
+                     onerror="this.src='/images/properties/desarrollo-nova-polanco-mx.svg'">
             </div>
-            <p class="text-muted text-sm max-w-xs leading-relaxed lg:text-right">Filtra por tipo, país, precio y metraje. Resultados en tiempo real.</p>
         </div>
-
-        <form id="searchForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" role="search" aria-label="Filtros de búsqueda">
-            <select name="type" class="px-5 py-4 border border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Tipo de propiedad">
-                <option value="">Tipo de propiedad</option>
-                <option value="venta">Venta</option>
-                <option value="renta">Renta</option>
-                <option value="desarrollo">Desarrollo</option>
-            </select>
-
-            <select name="country" class="px-5 py-4 border border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="País">
-                <option value="MX" <?php if (($country ?? 'MX') === 'MX') echo 'selected'; ?>>México</option>
-                <option value="CO" <?php if (($country ?? '') === 'CO') echo 'selected'; ?>>Colombia</option>
-                <option value="CL" <?php if (($country ?? '') === 'CL') echo 'selected'; ?>>Chile</option>
-            </select>
-
-            <input type="number" name="min_price" placeholder="Precio mínimo"
-                   class="px-5 py-4 border border-rule bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Precio mínimo">
-
-            <input type="number" name="max_sqm" placeholder="Metros cuadrados máx."
-                   class="px-5 py-4 border border-rule bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Metros cuadrados máximo">
-
-            <button type="submit"
-                    class="px-8 py-4 bg-ink text-paper font-bold text-sm tracking-[0.1em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                Buscar →
-            </button>
-        </form>
-
-        <!-- Resultados AJAX -->
-        <div id="searchResults" role="region" aria-live="polite" aria-label="Resultados de búsqueda"
-             class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-        </div>
-        <div id="searchLoader" aria-live="polite" class="mt-10 text-center text-muted hidden">
-            <span class="inline-block w-5 h-5 border-2 border-gold border-t-transparent rounded-full animate-spin mr-2" aria-hidden="true"></span>
-            Buscando propiedades…
-        </div>
-        <p id="searchEmpty" class="mt-10 text-center text-muted hidden">No se encontraron propiedades con esos filtros.</p>
     </div>
 </section>
 
-<!-- ══════════════════════════════════
-     3. CAROUSEL — Propiedades destacadas
-     ══════════════════════════════════ -->
-<section class="py-28 bg-white" id="destacadas" aria-label="Propiedades destacadas">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <div class="flex items-end justify-between mb-14">
-            <div>
-                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">03 &nbsp;/&nbsp; Destacadas</p>
-                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Propiedades Premium<br><em class="not-italic text-muted font-light" style="font-size:0.75em;">en <?php echo htmlspecialchars($countryName); ?></em></h2>
-            </div>
-            <div class="flex gap-3" role="group" aria-label="Controles del carrusel">
-                <button id="prevSlide" aria-label="Anterior propiedad"
-                        class="w-11 h-11 flex items-center justify-center border border-rule text-ink text-xl hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                    ‹
-                </button>
-                <button id="nextSlide" aria-label="Siguiente propiedad"
-                        class="w-11 h-11 flex items-center justify-center border border-rule text-ink text-xl hover:bg-ink hover:text-paper hover:border-ink transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                    ›
-                </button>
-            </div>
+<section class="relative overflow-hidden" aria-label="Banner de servicios">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#1a1208] to-[#050505]" aria-hidden="true"></div>
+    <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(ellipse at 60% 50%, #b8942a 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between px-8 lg:px-24 py-16 gap-8">
+        <h2 class="font-serif font-black uppercase tracking-[0.06em] text-paper leading-tight text-center md:text-left max-w-2xl" style="font-size: clamp(1.3rem, 3vw, 2.2rem);">
+            PROPIEDADES CON ACABADOS DE<br><span class="text-gold">LUJO, SEGURIDAD Y PLUSVALIA</span>
+        </h2>
+        <a href="/venta" class="flex-shrink-0 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300">VER PROPIEDADES</a>
+    </div>
+</section>
+
+<section class="py-24 bg-ink text-paper" id="propiedades" aria-label="Propiedades destacadas">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="text-center mb-16">
+            <h2 class="font-serif font-black uppercase tracking-[0.06em] mb-4" style="font-size: clamp(1.4rem, 3.5vw, 2.6rem);">BUSCANDO PROPIEDAD EN <?php echo mb_strtoupper(htmlspecialchars($countryName)); ?>?</h2>
+            <div class="w-16 h-px bg-gold mx-auto" aria-hidden="true"></div>
         </div>
 
         <?php if (!empty($featured_properties)): ?>
-        <!-- Carousel wrapper -->
-        <div id="carouselTrack" class="relative overflow-hidden" role="region" aria-label="Carrusel de propiedades" aria-roledescription="carousel">
-            <ul id="carouselList" class="flex transition-transform duration-500 ease-in-out gap-6" role="list">
-                <?php foreach ($featured_properties as $idx => $prop): ?>
-                <?php
-                    $slug = (string)($prop['slug'] ?? '');
-                    $imgSlug = $slug === 'depto-ñuñoa-cl' ? 'depto-nunoa-cl' : $slug;
-                    $imgUrl  = '/images/properties/' . $imgSlug . '.svg';
-                ?>
-                <li id="slide-<?php echo $idx; ?>"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label="<?php echo $idx + 1; ?> de <?php echo count($featured_properties); ?>"
-                    class="carousel-item flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-                    <div class="group bg-white border border-rule overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 h-full flex flex-col">
-                        <!-- Image -->
-                        <div class="aspect-[4/3] bg-gradient-to-br from-muted/15 to-rule overflow-hidden">
-                            <img src="<?php echo htmlspecialchars($imgUrl); ?>"
-                                 alt="<?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad destacada'); ?>"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                 loading="lazy"
-                                 onerror="this.src='/images/property-fallback.svg'">
-                        </div>
-                        <!-- Content -->
-                        <div class="p-7 flex flex-col flex-1">
-                            <h3 class="text-lg font-serif font-bold leading-snug mb-1"><?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?></h3>
-                            <p class="text-muted text-sm font-mono tracking-wide mb-5"><?php echo htmlspecialchars($prop['city'] ?? 'Ubicación'); ?></p>
-                            <div class="flex gap-5 mb-5 text-xs text-muted flex-wrap border-b border-rule pb-5">
-                                <?php if ($prop['bedrooms'] ?? 0): ?>
-                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo (int)$prop['bedrooms']; ?></strong> Habitaciones</span>
-                                <?php endif; ?>
-                                <?php if ($prop['bathrooms'] ?? 0): ?>
-                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo (int)$prop['bathrooms']; ?></strong> Baños</span>
-                                <?php endif; ?>
-                                <?php if ($prop['sqm'] ?? 0): ?>
-                                <span class="flex flex-col gap-0.5"><strong class="text-ink text-sm font-bold"><?php echo number_format($prop['sqm'], 0); ?></strong> m²</span>
-                                <?php endif; ?>
-                            </div>
-                            <div class="mt-auto">
-                                <p class="font-serif font-black text-gold leading-none" style="font-size:clamp(1.5rem,2.5vw,2rem);">
-                                    <?php echo number_format($prop['price'] ?? 0, 0, '.', ','); ?>
-                                    <span class="text-xs text-muted font-sans font-normal ml-1"><?php echo htmlspecialchars($prop['currency'] ?? $currency ?? 'MXN'); ?></span>
-                                </p>
-                            </div>
-                            <a href="/venta?id=<?php echo (int)($prop['id'] ?? 0); ?>"
-                               class="block mt-5 text-center py-3.5 bg-ink text-paper text-sm font-bold tracking-[0.08em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
-                                Ver Detalles
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-
-        <!-- Dots navigation -->
-        <div class="flex justify-center gap-2 mt-8" role="tablist" aria-label="Navegación del carrusel">
-            <?php foreach ($featured_properties as $idx => $prop): ?>
-            <button role="tab"
-                    aria-selected="<?php echo $idx === 0 ? 'true' : 'false'; ?>"
-                    aria-controls="slide-<?php echo $idx; ?>"
-                    data-slide="<?php echo $idx; ?>"
-                    class="carousel-dot h-[3px] transition-all duration-300 <?php echo $idx === 0 ? 'bg-gold w-8' : 'bg-rule w-4'; ?>"
-                    aria-label="Ir a la propiedad <?php echo $idx + 1; ?>">
-            </button>
-            <?php endforeach; ?>
-        </div>
-        <?php else: ?>
-        <p class="text-center text-muted py-12">No hay propiedades destacadas disponibles.</p>
-        <?php endif; ?>
-
-        <!-- Ver todas -->
-        <div class="mt-14 text-center">
-            <a href="/venta" class="inline-flex items-center gap-3 text-sm font-mono text-muted tracking-[0.2em] uppercase hover:text-ink transition-colors">
-                <span class="block h-px w-8 bg-current"></span>
-                Ver todas las propiedades
-                <span class="block h-px w-8 bg-current"></span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════════════════
-     4. MAPA LEAFLET — Clusters por ciudad
-     ══════════════════════════════════ -->
-<section class="py-28 bg-ink text-paper" id="mapa" aria-label="Mapa de propiedades">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <!-- Header split -->
-        <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
-            <div class="lg:col-span-7">
-                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">04 &nbsp;/&nbsp; Mapa</p>
-                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Propiedades<br>por ubicación</h2>
-            </div>
-            <div class="lg:col-span-5">
-                <p class="text-paper/50 leading-relaxed">Explora propiedades disponibles en los tres mercados de HAVRE ESTATES. Navega el mapa y haz clic en cualquier marcador para ver detalles.</p>
-            </div>
-        </div>
-
-        <!-- Map container with border treatment -->
-        <div class="border border-white/10 overflow-hidden">
-            <div id="propertyMap" style="height:520px;" role="application" aria-label="Mapa interactivo de propiedades">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════════════════
-     5. CONTADORES ANIMADOS
-     ══════════════════════════════════ -->
-<section class="py-28 bg-paper" id="metricas" aria-label="Métricas de la empresa">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <!-- Header centered -->
-        <div class="text-center mb-16">
-            <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">05 &nbsp;/&nbsp; Métricas</p>
-            <h2 class="text-4xl lg:text-5xl font-serif font-black">Números que hablan</h2>
-        </div>
-
-        <!-- Stats grid with separators -->
-        <div class="grid grid-cols-2 lg:grid-cols-4" id="statsGrid">
-            <?php
-            $statsItems = [
-                ['target'=>'450',   'suffix'=>'+',       'label'=>'Propiedades Listadas'],
-                ['target'=>'12000', 'suffix'=>'+',       'label'=>'Clientes Satisfechos'],
-                ['target'=>'15',    'suffix'=>' años',   'label'=>'En el Mercado'],
-                ['target'=>'3',     'suffix'=>' países', 'label'=>'Mercados Activos'],
-            ];
+        <div class="space-y-0">
+            <?php foreach ($featured_properties as $idx => $prop):
+                $slug = (string)($prop['slug'] ?? '');
+                $imgSlug = $slug === 'depto-ñuñoa-cl' ? 'depto-nunoa-cl' : $slug;
+                $imgJpg = '/images/properties/' . $imgSlug . '.jpg';
+                $imgSvg = '/images/properties/' . $imgSlug . '.svg';
+                $imgUrl = file_exists(ROOT_PATH . '/public' . $imgJpg) ? $imgJpg : $imgSvg;
+                $isEven = ($idx % 2 === 0);
             ?>
-            <?php foreach ($statsItems as $si => $stat): ?>
-            <div class="stat-block flex flex-col items-center justify-center py-14 px-6 text-center
-                        <?php echo $si < count($statsItems) - 1 ? 'border-r border-rule' : ''; ?>
-                        <?php echo $si < 2 ? 'border-b border-rule lg:border-b-0' : ''; ?>
-                        group hover:bg-ink/[0.03] transition-colors duration-300">
-                <p class="font-serif font-black text-gold mb-3 leading-none"
-                   style="font-size: clamp(3rem, 5vw, 4.5rem);"
-                   data-target="<?php echo $stat['target']; ?>"
-                   data-suffix="<?php echo $stat['suffix']; ?>"
-                   aria-label="<?php echo $stat['target'] . $stat['suffix'] . ' ' . $stat['label']; ?>">0</p>
-                <p class="font-mono text-xs text-muted tracking-[0.25em] uppercase"><?php echo $stat['label']; ?></p>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+            <article class="prop-card grid md:grid-cols-2 border-b border-white/8 last:border-b-0 opacity-0 translate-y-6"
+                     style="transition:opacity .6s ease <?php echo $idx * 120; ?>ms, transform .6s ease <?php echo $idx * 120; ?>ms"
+                     aria-label="<?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?>">
 
-<!-- ══════════════════════════════════
-     6. TESTIMONIOS — schema Review
-     ══════════════════════════════════ -->
-<!-- ══════════════════════════════════
-     6. TESTIMONIOS — schema Review
-     ══════════════════════════════════ -->
-<section class="py-28 bg-ink text-paper" id="testimonios" aria-label="Testimonios de clientes">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <!-- Header -->
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
-            <div>
-                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">06 &nbsp;/&nbsp; Testimonios</p>
-                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight">Lo que dicen<br>nuestros clientes</h2>
-            </div>
-            <p class="text-paper/40 text-sm max-w-xs leading-relaxed lg:text-right">Más de 12,000 familias e inversores confían en HAVRE ESTATES.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <?php
-            $testimonials = $testimonials ?? [
-                ['author'=>'María Fernández','title'=>'Compradora, CDMX','rating'=>5,'body'=>'El proceso fue increíblemente ágil. Encontramos el penthouse perfecto en menos de 3 semanas.'],
-                ['author'=>'Andrés Velásquez','title'=>'Inversionista, Bogotá','rating'=>5,'body'=>'La atención es de primer nivel y la plataforma me permitió comparar propiedades en tiempo real.'],
-                ['author'=>'Valentina Lagos','title'=>'Arrendataria, Santiago','rating'=>5,'body'=>'Excelente servicio. El chat en tiempo real con los agentes marcó la diferencia.'],
-            ];
-            ?>
-            <?php foreach ($testimonials as $t): ?>
-            <article class="border border-white/10 p-8 flex flex-col hover:border-gold/30 transition-colors duration-300" itemscope itemtype="https://schema.org/Review">
-                <!-- Decorative quote -->
-                <div class="text-gold/15 font-serif leading-none mb-4 select-none" style="font-size:5rem;" aria-hidden="true">"</div>
-                <!-- Stars -->
-                <div class="flex gap-1 mb-5" aria-label="Calificación <?php echo (int)$t['rating']; ?> de 5 estrellas">
-                    <?php for ($s = 0; $s < ($t['rating'] ?? 5); $s++): ?>
-                    <span class="text-gold text-sm" aria-hidden="true">★</span>
-                    <?php endfor; ?>
+                <!-- Imagen con overlay hover -->
+                <div class="<?php echo $isEven ? '' : 'md:order-2'; ?> aspect-[4/3] overflow-hidden relative group">
+                    <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?>"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108" loading="lazy"
+                         onerror="this.src='<?php echo htmlspecialchars($imgSvg); ?>'">
+                    <!-- Overlay dorado al hover -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
+                                opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <!-- Línea dorada inferior que crece -->
+                    <div class="absolute bottom-0 left-0 h-[2px] bg-gold w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+                    <!-- Tag ciudad -->
+                    <span class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-gold text-[9px] font-mono tracking-[0.3em] uppercase
+                                 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 delay-100">
+                        <?php echo htmlspecialchars($prop['city'] ?? ''); ?>
+                    </span>
                 </div>
-                <!-- Body -->
-                <blockquote class="text-paper/65 leading-relaxed flex-1 mb-8 text-[0.95rem]" itemprop="reviewBody">
-                    <?php echo htmlspecialchars($t['body']); ?>
-                </blockquote>
-                <!-- Author -->
-                <footer class="border-t border-white/10 pt-5">
-                    <p class="font-serif font-bold text-paper" itemprop="author" itemscope itemtype="https://schema.org/Person">
-                        <span itemprop="name"><?php echo htmlspecialchars($t['author']); ?></span>
+
+                <!-- Texto -->
+                <div class="<?php echo $isEven ? '' : 'md:order-1'; ?> flex flex-col justify-center px-10 py-12">
+                    <h3 class="font-serif font-black uppercase tracking-[0.04em] leading-tight mb-3"
+                        style="font-size: clamp(1.2rem, 2.5vw, 1.8rem);">
+                        <?php echo htmlspecialchars($prop['meta_title'] ?? 'Propiedad'); ?>
+                    </h3>
+                    <p class="text-gold font-mono text-[11px] tracking-[0.3em] uppercase mb-5">
+                        <?php echo htmlspecialchars($prop['city'] ?? ''); ?>
                     </p>
-                    <p class="text-xs text-paper/40 font-mono tracking-wide mt-1"><?php echo htmlspecialchars($t['title']); ?></p>
-                </footer>
+                    <div class="w-10 h-px bg-gold mb-6" aria-hidden="true"></div>
+                    <div class="flex flex-wrap gap-6 mb-6 text-sm text-paper/60">
+                        <?php if ($prop['bedrooms'] ?? 0): ?><span><?php echo (int)$prop['bedrooms']; ?> Recamaras</span><?php endif; ?>
+                        <?php if ($prop['bathrooms'] ?? 0): ?><span><?php echo (int)$prop['bathrooms']; ?> Banos</span><?php endif; ?>
+                        <?php if ($prop['sqm'] ?? 0): ?><span><?php echo number_format((float)$prop['sqm'], 0); ?> m2</span><?php endif; ?>
+                    </div>
+                    <p class="font-serif font-black text-gold mb-8" style="font-size: clamp(1.5rem, 3vw, 2.2rem);">
+                        <?php echo number_format((float)($prop['price'] ?? 0), 0, '.', ','); ?>
+                        <span class="text-xs text-paper/40 font-mono font-normal ml-1">
+                            <?php echo htmlspecialchars($prop['currency'] ?? $currency ?? 'MXN'); ?>
+                        </span>
+                    </p>
+                    <!-- Botón con shimmer -->
+                    <a href="/venta?id=<?php echo (int)($prop['id'] ?? 0); ?>"
+                       class="prop-btn self-start relative overflow-hidden px-8 py-4 border border-paper/30 text-paper text-[11px] font-mono tracking-[0.3em] uppercase hover:border-gold hover:text-gold transition-all duration-300">
+                        <span class="relative z-10">VER PROPIEDAD</span>
+                        <span class="shimmer-line absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/8 to-transparent"
+                              aria-hidden="true"></span>
+                    </a>
+                </div>
             </article>
             <?php endforeach; ?>
         </div>
+        <?php else: ?>
+        <p class="text-center text-paper/40 py-16 font-mono tracking-wide">No hay propiedades disponibles en este momento.</p>
+        <?php endif; ?>
     </div>
 </section>
 
-<!-- ══════════════════════════════════
-     7. NEWSLETTER
-     ══════════════════════════════════ -->
-<section class="py-28 bg-paper border-t border-rule" aria-label="Suscripción al newsletter">
-    <div class="max-w-7xl mx-auto px-8 lg:px-16">
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
-            <!-- Left copy -->
-            <div class="lg:col-span-5">
-                <p class="font-mono text-[11px] text-gold tracking-[0.35em] uppercase mb-3">07 &nbsp;/&nbsp; Newsletter</p>
-                <h2 class="text-4xl lg:text-5xl font-serif font-black leading-tight mb-5">Recibe propiedades<br>antes que nadie</h2>
-                <p class="text-muted leading-relaxed max-w-sm">Actualizaciones semanales por país, tipo de propiedad y rangos de precio. Sin spam.</p>
+<section class="bg-ink" aria-label="Galeria de propiedades">
+    <div class="grid md:grid-cols-3 overflow-hidden" id="gallery" aria-label="Galeria de imagenes">
+        <?php
+        $galleryImages = [
+            ['src' => '/images/properties/casa-lomas-mx.jpg', 'fallback' => '/images/properties/casa-lomas-mx.svg', 'alt' => 'Casa de lujo en Lomas'],
+            ['src' => '/images/properties/loft-laureles-co.jpg', 'fallback' => '/images/properties/loft-laureles-co.svg', 'alt' => 'Loft moderno en Laureles'],
+            ['src' => '/images/properties/apto-vitacura-cl.jpg', 'fallback' => '/images/properties/apto-vitacura-cl.svg', 'alt' => 'Apartamento en Vitacura'],
+        ];
+        foreach ($galleryImages as $img):
+        ?>
+        <div class="gallery-cell aspect-square overflow-hidden border-r border-b border-white/5 last:border-r-0 relative group"
+             aria-label="<?php echo htmlspecialchars($img['alt']); ?>">
+            <img src="<?php echo htmlspecialchars($img['src']); ?>" alt="<?php echo htmlspecialchars($img['alt']); ?>"
+                 class="w-full h-full object-cover opacity-75 group-hover:opacity-100 group-hover:scale-108 transition-all duration-700" loading="lazy"
+                 onerror="this.src='<?php echo htmlspecialchars($img['fallback']); ?>'">
+            <!-- Overlay con texto alt -->
+            <div class="absolute inset-0 flex items-end p-5 bg-gradient-to-t from-black/65 via-transparent to-transparent
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
+                <p class="text-paper/90 text-[10px] font-mono tracking-[0.25em] uppercase translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
+                    <?php echo htmlspecialchars($img['alt']); ?>
+                </p>
             </div>
-            <!-- Right form -->
-            <div class="lg:col-span-7">
-                <?php if (($newsletter_status ?? '') === 'ok'): ?>
-                    <div role="alert" class="p-6 border border-gold/40 bg-gold/5 text-gold font-mono text-sm tracking-wide">
-                        ✓ &nbsp;Suscripción confirmada. ¡Bienvenido a HAVRE ESTATES!
-                    </div>
-                <?php else: ?>
-                    <?php if (($newsletter_status ?? '') === 'invalid_email'): ?>
-                        <div role="alert" class="mb-4 p-4 border border-amber-400/40 bg-amber-50 text-amber-800 text-sm">Correo inválido. Verifica e intenta de nuevo.</div>
-                    <?php elseif (($newsletter_status ?? '') === 'rate_limited'): ?>
-                        <div role="alert" class="mb-4 p-4 border border-amber-400/40 bg-amber-50 text-amber-800 text-sm">Demasiados intentos. Espera antes de reintentar.</div>
-                    <?php elseif (($newsletter_status ?? '') === 'csrf_error'): ?>
-                        <div role="alert" class="mb-4 p-4 border border-red-300 bg-red-50 text-red-700 text-sm">Sesión inválida. Recarga la página.</div>
-                    <?php elseif (($newsletter_status ?? '') === 'server_error'): ?>
-                        <div role="alert" class="mb-4 p-4 border border-red-300 bg-red-50 text-red-700 text-sm">No se pudo registrar la suscripción.</div>
-                    <?php endif; ?>
-                    <form action="/newsletter/subscribe" method="POST"
-                          class="flex flex-col sm:flex-row gap-0 border border-rule overflow-hidden">
-                        <input type="hidden" name="csrf_token"
-                               value="<?php echo htmlspecialchars($newsletter_csrf_token ?? ''); ?>">
-                        <input type="text" name="name" placeholder="Nombre"
-                               class="flex-1 px-6 py-5 border-0 border-r border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold">
-                        <input type="email" name="email" required placeholder="tu@email.com"
-                               class="flex-1 px-6 py-5 border-0 border-r border-rule bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold">
-                        <button type="submit"
-                                class="px-8 py-5 bg-ink text-paper text-sm font-bold tracking-[0.1em] uppercase hover:bg-accent transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink whitespace-nowrap">
-                            Suscribirse →
-                        </button>
-                        <!-- Honeypot anti-spam -->
-                        <div class="hidden" aria-hidden="true">
-                            <label for="website">No llenar</label>
-                            <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
-                        </div>
-                    </form>
-                    <p class="mt-4 text-xs text-muted font-mono">Sin spam · Cancela cuando quieras</p>
-                <?php endif; ?>
+            <div class="absolute bottom-0 left-0 h-[2px] bg-gold w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="bg-black/80 backdrop-blur-sm py-12 text-center border-t border-white/5">
+        <p class="font-serif font-black uppercase tracking-[0.08em] text-paper mb-6" style="font-size: clamp(1.1rem, 2.5vw, 1.8rem);">LA INVERSION IDEAL PARA TU PATRIMONIO</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="tel:<?php echo preg_replace('/\s+/', '', $phone ?? '+525541698259'); ?>" class="px-8 py-3 border border-paper/30 text-paper text-[10px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300">LLAMANOS LAS 24 HORAS</a>
+            <a href="/contacto" class="px-8 py-3 bg-gold text-ink text-[10px] font-mono tracking-[0.35em] uppercase hover:bg-gold/80 transition-all duration-300">RESERVA UNA VISITA</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-ink text-paper" id="mapa" aria-label="Ubicacion de propiedades">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="text-center mb-10">
+            <h2 class="font-serif font-black uppercase tracking-[0.06em] mb-2" style="font-size: clamp(1.4rem, 3vw, 2.2rem);">HAVRE ESTATES</h2>
+            <p class="text-paper/40 font-mono text-xs tracking-[0.25em]"><?php echo $country === 'CO' ? 'El Poblado, Medellin, Colombia' : ($country === 'CL' ? 'Las Condes, Santiago, Chile' : 'Paseo de la Reforma 24, 06600 Ciudad de Mexico'); ?></p>
+        </div>
+
+        <div class="border border-white/8 overflow-hidden"><div id="propertyMap" style="height:460px;" role="application" aria-label="Mapa interactivo de propiedades"></div></div>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a href="https://maps.google.com/?q=Paseo+de+la+Reforma+24+CDMX" target="_blank" rel="noopener" class="text-paper/40 font-mono text-xs tracking-[0.2em] uppercase hover:text-gold transition-colors flex items-center gap-2"><span>⊕</span> Obtener indicaciones</a>
+            <div class="flex flex-wrap items-center justify-center sm:justify-end gap-3 text-[10px] font-mono tracking-[0.2em] text-paper/40 uppercase">
+                <span>Reserva ya con:</span>
+                <a href="https://www.lamudi.com.mx" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 border border-white/12 hover:border-gold/50 hover:text-gold transition-colors"><span class="text-gold" aria-hidden="true">◉</span>Lamudi</a>
+                <a href="https://www.inmuebles24.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 border border-white/12 hover:border-gold/50 hover:text-gold transition-colors"><span class="text-gold" aria-hidden="true">◉</span>Inmuebles24</a>
+                <a href="https://www.vivanuncios.com.mx" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 border border-white/12 hover:border-gold/50 hover:text-gold transition-colors"><span class="text-gold" aria-hidden="true">◉</span>Vivanuncios</a>
             </div>
         </div>
     </div>
 </section>
+
+<section class="py-16 bg-black border-t border-white/5" aria-label="Plataformas inmobiliarias">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <p class="font-mono text-[10px] tracking-[0.5em] uppercase text-paper/30 mb-10">PUBLICA CON NOSOTROS EN</p>
+        <div class="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
+            <?php $portals = [
+                ['name' => 'Lamudi', 'url' => 'https://www.lamudi.com.mx'],
+                ['name' => 'Inmuebles24', 'url' => 'https://www.inmuebles24.com'],
+                ['name' => 'Vivanuncios', 'url' => 'https://www.vivanuncios.com.mx'],
+                ['name' => 'MercadoLibre', 'url' => 'https://inmuebles.mercadolibre.com.mx'],
+                ['name' => 'Propiedades', 'url' => 'https://www.propiedades.com'],
+            ];
+            foreach ($portals as $portal): ?>
+            <a href="<?php echo htmlspecialchars($portal['url']); ?>" target="_blank" rel="noopener" class="font-serif font-black text-paper/20 hover:text-gold transition-colors duration-300 text-lg tracking-[0.08em] uppercase"><?php echo htmlspecialchars($portal['name']); ?></a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="py-14 bg-black border-t border-white/5" aria-label="Redes sociales">
+    <div class="max-w-lg mx-auto px-6 text-center">
+        <h2 class="font-serif font-black uppercase tracking-[0.1em] text-paper mb-2"
+            style="font-size: clamp(1.1rem, 2.5vw, 1.6rem);" data-i18n="social.title">Conectate con nosotros</h2>
+        <div class="w-12 h-px bg-gold mx-auto mb-10" aria-hidden="true"></div>
+
+        <div class="flex justify-center items-center gap-5">
+
+            <!-- Facebook -->
+            <a href="#" aria-label="Facebook de HAVRE ESTATES" rel="noopener"
+               class="social-icon group w-12 h-12 rounded-full border border-white/15 flex items-center justify-center
+                      text-paper/40 hover:text-gold hover:border-gold/60 hover:bg-gold/8
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(184,148,42,0.25)]">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="#" aria-label="Instagram de HAVRE ESTATES" rel="noopener"
+               class="social-icon group w-12 h-12 rounded-full border border-white/15 flex items-center justify-center
+                      text-paper/40 hover:text-gold hover:border-gold/60 hover:bg-gold/8
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(184,148,42,0.25)]">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+            </a>
+
+            <!-- TikTok -->
+            <a href="#" aria-label="TikTok de HAVRE ESTATES" rel="noopener"
+               class="social-icon group w-12 h-12 rounded-full border border-white/15 flex items-center justify-center
+                      text-paper/40 hover:text-gold hover:border-gold/60 hover:bg-gold/8
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(184,148,42,0.25)]">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.53V6.74a4.85 4.85 0 01-1.01-.05z"/>
+                </svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="#" aria-label="LinkedIn de HAVRE ESTATES" rel="noopener"
+               class="social-icon group w-12 h-12 rounded-full border border-white/15 flex items-center justify-center
+                      text-paper/40 hover:text-gold hover:border-gold/60 hover:bg-gold/8
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(184,148,42,0.25)]">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+            </a>
+
+            <!-- YouTube -->
+            <a href="#" aria-label="YouTube de HAVRE ESTATES" rel="noopener"
+               class="social-icon group w-12 h-12 rounded-full border border-white/15 flex items-center justify-center
+                      text-paper/40 hover:text-gold hover:border-gold/60 hover:bg-gold/8
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_18px_rgba(184,148,42,0.25)]">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<section class="relative overflow-hidden" aria-label="Suscripcion al newsletter">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0a0806] via-[#100e06] to-[#0a0a0a]" aria-hidden="true"></div>
+    <div class="absolute inset-0 opacity-[0.07]" style="background-image:radial-gradient(circle at 1px 1px, #b8942a 1px, transparent 0); background-size:40px 40px;" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 py-12 md:py-14 text-paper text-center">
+        <h2 class="font-serif font-black uppercase tracking-[0.08em] mb-3" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">Suscribirse</h2>
+        <div class="w-12 h-px bg-gold mx-auto mb-5" aria-hidden="true"></div>
+        <p class="text-paper/50 text-sm leading-relaxed max-w-xl mx-auto mb-7">Suscribete para recibir noticias sobre propiedades, inversiones y eventos exclusivos.</p>
+
+        <div class="max-w-3xl mx-auto">
+                <?php if (($newsletter_status ?? '') === 'ok'): ?>
+                <div role="alert" class="p-5 border border-gold/40 bg-gold/8 text-gold font-mono text-sm tracking-wide">OK - Suscripcion confirmada. Bienvenido a HAVRE ESTATES.</div>
+                <?php else: ?>
+                <form action="/newsletter/subscribe" method="POST" class="flex flex-col sm:flex-row gap-0 border border-white/15 overflow-hidden bg-black/20">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($newsletter_csrf_token ?? ''); ?>">
+                    <input type="email" name="email" required placeholder="Correo electronico" autocomplete="email" class="flex-1 px-5 py-3.5 bg-white/5 border-0 sm:border-r border-white/15 text-paper text-sm placeholder:text-paper/30 focus:outline-none focus:ring-2 focus:ring-gold">
+                    <button type="submit" class="px-6 py-3.5 sm:min-w-[180px] bg-paper/10 text-paper text-[10px] font-mono tracking-[0.32em] uppercase hover:bg-gold hover:text-ink transition-all duration-300">Registrarse</button>
+                    <div class="hidden" aria-hidden="true"><label for="website_hp">No llenar</label><input id="website_hp" type="text" name="website" tabindex="-1" autocomplete="off"></div>
+                </form>
+                <p class="mt-3 text-[11px] text-paper/25 font-mono tracking-wide">Sin spam · Cancela cuando quieras</p>
+                <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<style>
+/* ── Animaciones cards y galería ── */
+@keyframes shimmer-sweep {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+.prop-btn:hover .shimmer-line {
+    animation: shimmer-sweep .7s ease forwards;
+}
+.prop-card.is-visible,
+.gallery-cell.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+.gallery-cell {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .55s ease, transform .55s ease;
+}
+</style>
+
+<script>
+/* IntersectionObserver para fade-in en cards y galería */
+(function () {
+    if ('IntersectionObserver' in window) {
+        var cardObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    cardObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.prop-card, .gallery-cell').forEach(function (el, i) {
+            if (el.classList.contains('gallery-cell')) {
+                el.style.transitionDelay = (i % 3) * 100 + 'ms';
+            }
+            cardObs.observe(el);
+        });
+    } else {
+        document.querySelectorAll('.prop-card, .gallery-cell').forEach(function (el) {
+            el.classList.add('is-visible');
+        });
+    }
+})();
+</script>
 
 <script>
 (function () {
     'use strict';
 
-    // ── 1. CAROUSEL ──────────────────────────────────────────────────
-    const list   = document.getElementById('carouselList');
-    const items  = list ? Array.from(list.querySelectorAll('.carousel-item')) : [];
-    const dots   = Array.from(document.querySelectorAll('.carousel-dot'));
-    let current  = 0;
-    let autoPlay = null;
+    var slides = Array.from(document.querySelectorAll('.hero-slide'));
+    var dots = Array.from(document.querySelectorAll('[data-hero-slide]'));
+    var current = 0;
 
-    function goTo(idx) {
-        if (!list || !items.length) return;
-        // responsive: 1 col on mobile, 2 on sm, 3 on lg
-        const perView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
-        const maxIdx  = Math.max(0, items.length - perView);
-        current = Math.min(Math.max(idx, 0), maxIdx);
+    function heroGoTo(idx) {
+        if (!slides.length) return;
+        slides[current].classList.remove('opacity-100');
+        slides[current].classList.add('opacity-0');
+        if (dots[current]) {
+            dots[current].classList.remove('w-6', 'h-2', 'bg-gold');
+            dots[current].classList.add('w-2', 'h-2', 'bg-paper/40');
+            dots[current].setAttribute('aria-selected', 'false');
+        }
 
-        const itemW = items[0].getBoundingClientRect().width + 24; // 24 = gap-6
-        list.style.transform = 'translateX(-' + (current * itemW) + 'px)';
+        current = (idx + slides.length) % slides.length;
 
-        dots.forEach(function (d, i) {
-            d.setAttribute('aria-selected', String(i === current));
-            d.classList.toggle('bg-gold', i === current);
-            d.classList.toggle('w-4',     i === current);
-            d.classList.toggle('bg-rule', i !== current);
-        });
+        slides[current].classList.remove('opacity-0');
+        slides[current].classList.add('opacity-100');
+        if (dots[current]) {
+            dots[current].classList.remove('w-2', 'h-2', 'bg-paper/40');
+            dots[current].classList.add('w-6', 'h-2', 'bg-gold');
+            dots[current].setAttribute('aria-selected', 'true');
+        }
     }
 
-    document.getElementById('prevSlide')?.addEventListener('click', function () { goTo(current - 1); });
-    document.getElementById('nextSlide')?.addEventListener('click', function () { goTo(current + 1); });
     dots.forEach(function (d) {
-        d.addEventListener('click', function () { goTo(parseInt(d.dataset.slide, 10)); });
-    });
-
-    // Swipe gesture (nativo, sin librerías)
-    if (list) {
-        let touchStartX = 0;
-        list.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-        list.addEventListener('touchend', function (e) {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 50) { goTo(dx < 0 ? current + 1 : current - 1); }
-        }, { passive: true });
-    }
-
-    autoPlay = setInterval(function () { goTo(current + 1 < items.length ? current + 1 : 0); }, 5000);
-    document.getElementById('carouselTrack')?.addEventListener('mouseenter', function () { clearInterval(autoPlay); });
-    document.getElementById('carouselTrack')?.addEventListener('mouseleave', function () {
-        autoPlay = setInterval(function () { goTo(current + 1 < items.length ? current + 1 : 0); }, 5000);
-    });
-
-    // ── 2. CONTADORES ANIMADOS ────────────────────────────────────────
-    function animateCounter(el) {
-        const target = parseInt(el.dataset.target || '0', 10);
-        const suffix = el.dataset.suffix || '';
-        const dur    = 1600;
-        const start  = performance.now();
-
-        function format(n) {
-            if (target >= 1000) return n.toLocaleString('es-MX');
-            return String(n);
-        }
-
-        function step(now) {
-            const t = Math.min((now - start) / dur, 1);
-            const ease = 1 - Math.pow(1 - t, 3); // ease-out-cubic
-            el.textContent = format(Math.round(ease * target)) + (t >= 1 ? suffix : '');
-            if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-    }
-
-    const statsObserver = new IntersectionObserver(function (entries, obs) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('[data-target]').forEach(animateCounter);
-                obs.unobserve(entry.target);
-            }
+        d.addEventListener('click', function () {
+            heroGoTo(parseInt(d.dataset.heroSlide, 10));
         });
-    }, { threshold: 0.3 });
-
-    const statsGrid = document.getElementById('statsGrid');
-    if (statsGrid) statsObserver.observe(statsGrid);
-
-    // ── 3. BUSCADOR AJAX ─────────────────────────────────────────────
-    const searchForm    = document.getElementById('searchForm');
-    const searchResults = document.getElementById('searchResults');
-    const searchLoader  = document.getElementById('searchLoader');
-    const searchEmpty   = document.getElementById('searchEmpty');
-
-    function renderCard(p) {
-        return '<div class="bg-white border border-rule rounded-xl overflow-hidden">' +
-            '<img src="/images/properties/' + (p.slug || 'default') + '.svg" ' +
-                 'alt="' + (p.meta_title || 'Propiedad') + '" ' +
-                 'class="w-full aspect-video object-cover" loading="lazy">' +
-            '<div class="p-4">' +
-                '<h3 class="font-serif font-bold text-lg">' + (p.meta_title || '') + '</h3>' +
-                '<p class="text-muted text-sm mb-2">' + (p.city || '') + '</p>' +
-                '<p class="text-gold font-bold font-serif text-xl">' +
-                    Number(p.price || 0).toLocaleString('es-MX') + ' ' + (p.currency || '') +
-                '</p>' +
-            '</div>' +
-        '</div>';
-    }
-
-    searchForm?.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const params = new URLSearchParams(new FormData(searchForm));
-        searchResults.classList.add('hidden');
-        searchEmpty.classList.add('hidden');
-        searchLoader.classList.remove('hidden');
-
-        fetch('/api/properties/' + (params.get('country') || 'MX') + '?' + params.toString())
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-                searchLoader.classList.add('hidden');
-                if (!data || !data.length) {
-                    searchEmpty.classList.remove('hidden');
-                    return;
-                }
-                searchResults.innerHTML = data.map(renderCard).join('');
-                searchResults.classList.remove('hidden');
-            })
-            .catch(function () {
-                searchLoader.classList.add('hidden');
-                searchEmpty.classList.remove('hidden');
-            });
     });
 
-    // ── 4. MAPA LEAFLET ──────────────────────────────────────────────
-    const mapEl = document.getElementById('propertyMap');
-    if (mapEl && typeof L !== 'undefined') {
-        const geoCountry = document.querySelector('[data-geo-country]')?.dataset.geoCountry || 'MX';
-        const centerMap  = { MX: [23.6345, -102.5528], CO: [4.5709, -74.2973], CL: [-35.6751, -71.5430] };
-        const center     = centerMap[geoCountry] || centerMap.MX;
+    setInterval(function () { heroGoTo(current + 1); }, 5500);
 
-        const map = L.map('propertyMap', { scrollWheelZoom: false }).setView(center, 5);
+    function initMap() {
+        var mapEl = document.getElementById('propertyMap');
+        if (!mapEl || typeof L === 'undefined') {
+            return false;
+        }
+        if (mapEl.dataset.mapReady === '1') {
+            return true;
+        }
 
+        var geoNode = document.querySelector('[data-geo-country]');
+        var geoCountry = (geoNode && geoNode.dataset && geoNode.dataset.geoCountry) ? geoNode.dataset.geoCountry : 'MX';
+        var centers = { MX: [19.4326, -99.1332], CO: [6.2442, -75.5812], CL: [-33.4489, -70.6693] };
+        var center = centers[geoCountry] || centers.MX;
+
+        var map = L.map('propertyMap', { scrollWheelZoom: false }).setView(center, 12);
+        mapEl.dataset.mapReady = '1';
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             maxZoom: 18,
         }).addTo(map);
 
-        // Markers from API
         fetch('/api/properties/' + geoCountry)
             .then(function (r) { return r.json(); })
             .then(function (props) {
                 props.forEach(function (p) {
                     if (!p.lat || !p.lng) return;
                     L.marker([p.lat, p.lng])
-                        .bindPopup('<strong>' + (p.meta_title || 'Propiedad') + '</strong>' +
-                                   '<br>' + (p.city || '') +
-                                   '<br><span class="text-gold">' +
-                                   Number(p.price || 0).toLocaleString('es-MX') + ' ' + (p.currency || '') +
-                                   '</span>')
+                        .bindPopup('<strong>' + (p.meta_title || 'Propiedad') + '</strong><br>' + (p.city || '') + '<br>' + Number(p.price || 0).toLocaleString('es-MX') + ' ' + (p.currency || ''))
                         .addTo(map);
                 });
             })
             .catch(function () {});
+
+        return true;
+    }
+
+    if (!initMap()) {
+        window.addEventListener('load', function () {
+            initMap();
+        });
+        setTimeout(initMap, 450);
     }
 })();
 </script>

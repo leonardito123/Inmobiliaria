@@ -50,28 +50,26 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      1. HERO EDITORIAL — Tipografía animada
      ══════════════════════════════════ -->
-<style>
-@keyframes fade-up { from { opacity:0; transform:translateY(1.5rem); } to { opacity:1; transform:translateY(0); } }
-.anim-word { display:inline-block; animation:fade-up .6s ease both; }
-</style>
-
-<section class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
-    <!-- Tipografía editorial de fondo -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
-        <span class="text-[18vw] font-serif font-black text-white/[0.03] leading-none tracking-tighter">HAVRE</span>
+<section id="contactoHero" class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0" aria-hidden="true">
+        <img src="/images/hero/contacto-hero.jpg"
+             alt=""
+             class="w-full h-full object-cover"
+             loading="eager">
     </div>
-    <div class="absolute inset-0 bg-gradient-to-b from-ink/30 to-ink/95" aria-hidden="true"></div>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/25" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s">01 · Contacto</p>
-        <h1 class="font-serif font-black leading-tight mb-6 text-5xl md:text-7xl max-w-4xl">
-            <?php $words = ['Asesoría', 'inmobiliaria', 'en', 'tiempo', 'real'];
-            foreach ($words as $i => $w): ?>
-            <span class="anim-word" style="animation-delay:<?php echo 0.2 + $i * 0.1; ?>s"><?php echo escC($w); ?> </span>
-            <?php endforeach; ?>
+        <p id="contactoHeroKicker" class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Contacto</p>
+        <h1 id="contactoHeroTitle" class="font-serif font-black leading-[0.94] mb-6 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+            <span class="anim-word" style="animation-delay:0.18s;">Asesoría</span>
+            <span class="anim-word" style="animation-delay:0.28s;">inmobiliaria</span><br>
+            <span class="anim-word text-gold italic" style="animation-delay:0.42s;">en tiempo real</span>
         </h1>
-        <p class="text-paper/60 text-lg max-w-2xl anim-word" style="animation-delay:0.8s">
-            Chat SSE en vivo, red de agentes especializados y oficinas en 3 países. Sin tiempos de espera.
+        <p id="contactoHeroDescription" class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+            Atención consultiva, red de agentes especializados y oficinas en 3 países para acelerar cada decisión.
         </p>
     </div>
 </section>
@@ -79,7 +77,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      2. CANALES DE ATENCIÓN
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper border-b border-rule" aria-label="Canales de atención">
+<section class="py-14 bg-paper border-b border-rule text-ink" aria-label="Canales de atención">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">02 · Canales</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Cómo contactarnos</h2>
@@ -101,8 +99,8 @@ $personSchemas = array_map(fn($a) => [
                 <svg class="w-8 h-8 text-gold mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="<?php echo escC($ch['icon']); ?>"/>
                 </svg>
-                <p class="font-semibold text-sm"><?php echo escC($ch['title']); ?></p>
-                <p class="text-muted text-xs mt-1"><?php echo escC($ch['value']); ?></p>
+                <p class="font-serif font-bold text-base mb-1"><?php echo escC($ch['title']); ?></p>
+                <p class="text-muted text-sm leading-relaxed"><?php echo escC($ch['value']); ?></p>
             </a>
             <?php endforeach; ?>
         </div>
@@ -112,35 +110,54 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      3. GRID AGENTES + Person schema HTML
      ══════════════════════════════════ -->
-<section class="py-20 bg-white" id="agentes" aria-label="Nuestros agentes">
+<section class="py-20 bg-white text-ink" id="agentes" aria-label="Nuestros agentes">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">03 · Equipo</p>
         <h2 class="text-3xl font-serif font-bold mb-10">Agentes especializados</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($agentsList as $agent): ?>
-            <article class="bg-paper border border-rule rounded-xl p-6 hover:shadow-lg transition"
+            <?php
+            $agentImgs = [
+                '/images/hero/contacto-oficina.jpg',
+                '/images/venta-interiores/interior-premium.jpg',
+                '/images/venta-interiores/interior-penthouse.jpg',
+            ];
+            foreach ($agentsList as $idx => $agent):
+                $agentImg = $agentImgs[$idx % count($agentImgs)];
+            ?>
+            <article class="bg-white border border-rule rounded-2xl overflow-hidden hover:shadow-xl transition-shadow"
                      itemscope itemtype="https://schema.org/Person">
-                <!-- Avatar -->
-                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-accent flex items-center justify-center text-paper font-serif font-bold text-xl mb-4" aria-hidden="true">
-                    <?php echo mb_substr($agent['name'] ?? 'A', 0, 1); ?>
+                <!-- Foto de portada -->
+                <div class="relative overflow-hidden" style="height:140px;">
+                    <img src="<?php echo escC($agentImg); ?>"
+                         alt=""
+                         class="w-full h-full object-cover"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <!-- Avatar inicial sobre la imagen -->
+                    <div class="absolute bottom-0 left-6 translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-br from-gold to-accent flex items-center justify-center text-paper font-serif font-bold text-xl border-2 border-white shadow" aria-hidden="true">
+                        <?php echo mb_substr($agent['name'] ?? 'A', 0, 1); ?>
+                    </div>
                 </div>
-                <h3 class="font-serif font-bold text-lg mb-0.5" itemprop="name"><?php echo escC($agent['name'] ?? ''); ?></h3>
-                <p class="text-muted text-sm mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
-                <div class="space-y-1 text-sm">
-                    <?php if ($agent['email'] ?? ''): ?>
-                    <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
+                <div class="pt-10 px-6 pb-6">
+                    <h3 class="font-serif font-bold text-lg mb-0.5" itemprop="name"><?php echo escC($agent['name'] ?? ''); ?></h3>
+                    <p class="text-muted text-sm font-mono tracking-[0.08em] uppercase mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
+                    <div class="space-y-1 text-sm">
+                        <?php if ($agent['email'] ?? ''): ?>
+                        <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent font-mono text-[12px] tracking-[0.04em]" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
+                        <?php endif; ?>
+                        <?php if ($agent['phone'] ?? ''): ?>
+                        <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink font-mono text-[12px] tracking-[0.04em]" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
+                        <?php endif; ?>
+                    </div>
+                    <?php if (!empty($agent['languages']) && is_array($agent['languages'])): ?>
+                    <div class="mt-3 flex gap-1 flex-wrap">
+                        <?php foreach ($agent['languages'] as $lang): ?>
+                        <span class="text-xs font-mono bg-rule px-2 py-0.5 rounded" itemprop="knowsLanguage"><?php echo escC(strtoupper($lang)); ?></span>
+                        <?php endforeach; ?>
+                    </div>
                     <?php endif; ?>
-                    <?php if ($agent['phone'] ?? ''): ?>
-                    <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
-                    <?php endif; ?>
                 </div>
-                <?php if (!empty($agent['languages']) && is_array($agent['languages'])): ?>
-                <div class="mt-3 flex gap-1 flex-wrap">
-                    <?php foreach ($agent['languages'] as $lang): ?>
-                    <span class="text-xs font-mono bg-rule px-2 py-0.5 rounded" itemprop="knowsLanguage"><?php echo escC(strtoupper($lang)); ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
             </article>
             <?php endforeach; ?>
         </div>
@@ -150,7 +167,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      4. MAPA LEAFLET — Oficinas
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper" id="mapa-oficinas" aria-label="Mapa de oficinas">
+<section class="py-14 bg-paper text-ink" id="mapa-oficinas" aria-label="Mapa de oficinas">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">04 · Ubicaciones</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Nuestras oficinas</h2>
@@ -169,8 +186,8 @@ $personSchemas = array_map(fn($a) => [
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
             <?php foreach ($offices as $office): ?>
             <div class="bg-white border border-rule rounded-xl p-4">
-                <p class="font-serif font-bold"><?php echo escC($office['city']); ?></p>
-                <p class="text-muted text-sm mt-1"><?php echo escC($office['address']); ?></p>
+                <p class="font-serif font-bold text-lg"><?php echo escC($office['city']); ?></p>
+                <p class="text-muted text-sm leading-relaxed mt-1"><?php echo escC($office['address']); ?></p>
             </div>
             <?php endforeach; ?>
         </div>
@@ -180,7 +197,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      5. CHAT SSE (mantenido del original)
      ══════════════════════════════════ -->
-<section class="py-14 bg-white" id="chat-section" aria-label="Chat en tiempo real">
+<section class="py-14 bg-white text-ink" id="chat-section" aria-label="Chat en tiempo real">
     <div class="max-w-3xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">05 · Chat</p>
         <h2 class="text-3xl font-serif font-bold mb-6">Chat en tiempo real</h2>
@@ -197,19 +214,19 @@ $personSchemas = array_map(fn($a) => [
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label for="chatName" class="block text-xs font-semibold text-muted mb-1">Tu nombre</label>
+                        <label for="chatName" class="block text-[11px] font-mono tracking-[0.08em] uppercase text-muted mb-1">Tu nombre</label>
                         <input id="chatName" name="name" type="text" required placeholder="Ana García"
                                class="w-full px-3 py-2 border border-rule rounded text-sm focus:outline-none focus:ring-2 focus:ring-gold">
                     </div>
                     <div class="col-span-1 hidden sm:block"></div>
                 </div>
                 <div>
-                    <label for="chatMessage" class="block text-xs font-semibold text-muted mb-1">Mensaje</label>
+                    <label for="chatMessage" class="block text-[11px] font-mono tracking-[0.08em] uppercase text-muted mb-1">Mensaje</label>
                     <textarea id="chatMessage" name="message" rows="3" required placeholder="Escribe tu consulta…"
                               class="w-full px-3 py-2 border border-rule rounded text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
                 </div>
                 <button type="submit"
-                        class="w-full py-3 bg-ink text-paper font-bold rounded hover:bg-accent transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                        class="w-full py-3 bg-ink text-paper font-mono tracking-[0.2em] uppercase rounded hover:bg-accent transition text-[11px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                     Enviar mensaje →
                 </button>
             </form>
@@ -221,8 +238,8 @@ $personSchemas = array_map(fn($a) => [
      6. MANIFIESTO DE MARCA — scroll-reveal
      ══════════════════════════════════ -->
 <section class="py-24 bg-ink text-paper overflow-hidden" id="manifiesto" aria-label="Manifiesto de marca">
-    <div class="max-w-4xl mx-auto px-6">
-        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-4 opacity-0 reveal-item">06 · Manifiesto</p>
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <p class="text-gold font-mono text-xs tracking-widest uppercase mb-8">06 · Manifiesto</p>
         <?php
         $manifesto_lines = [
             'Creemos que cada hogar cuenta una historia.',
@@ -230,13 +247,16 @@ $personSchemas = array_map(fn($a) => [
             'Que la transparencia es la base de la confianza.',
             'Que el lujo es una experiencia, no solo un precio.',
         ];
-        foreach ($manifesto_lines as $i => $line): ?>
-        <p class="text-3xl md:text-5xl font-serif font-bold leading-snug mb-6 opacity-0 reveal-item" style="transition-delay:<?php echo $i * 0.15; ?>s">
-            <?php echo escC($line); ?>
-        </p>
-        <?php endforeach; ?>
-        <p class="text-paper/40 text-sm font-mono mt-10 opacity-0 reveal-item" style="transition-delay:0.6s">
-            — Havre Estates · <?php echo date('Y'); ?>
+        ?>
+        <div class="space-y-6 md:space-y-8 max-w-5xl mx-auto">
+            <?php foreach ($manifesto_lines as $line): ?>
+            <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold leading-[1.12] text-paper/95 mx-auto" style="text-wrap:balance;">
+                <?php echo escC($line); ?>
+            </p>
+            <?php endforeach; ?>
+        </div>
+        <p class="text-paper/55 text-sm font-mono mt-12 tracking-[0.12em] uppercase">
+            Havre Estates · <?php echo date('Y'); ?>
         </p>
     </div>
 </section>
@@ -244,10 +264,10 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      7. PRENSA Y MENCIONES
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper border-t border-rule" id="prensa" aria-label="Prensa y menciones">
+<section class="py-14 bg-paper border-t border-rule text-ink" id="prensa" aria-label="Prensa y menciones">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">07 · Prensa</p>
-        <h2 class="text-2xl font-serif font-bold mb-8">Nos han mencionado en</h2>
+        <h2 class="text-3xl font-serif font-bold mb-8">Nos han mencionado en</h2>
         <div class="flex flex-wrap items-center gap-10">
             <?php foreach ($prensa as $p): ?>
             <a href="<?php echo escC($p['url']); ?>" target="_blank" rel="noopener noreferrer"
@@ -329,7 +349,12 @@ $personSchemas = array_map(fn($a) => [
     // ── MAPA LEAFLET — OFICINAS ───────────────────────────────────
     var mapEl    = document.getElementById('officesMap');
     var dataEl   = document.getElementById('officesData');
-    if (mapEl && dataEl && window.L) {
+    var mapReady = false;
+
+    function initOfficesMap() {
+        if (mapReady || !mapEl || !dataEl || !window.L) return;
+        mapReady = true;
+
         var offices = JSON.parse(dataEl.textContent || '[]');
         var map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true });
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -344,6 +369,12 @@ $personSchemas = array_map(fn($a) => [
             bounds.push([o.lat, o.lng]);
         });
         if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    if (window.L) {
+        initOfficesMap();
+    } else {
+        window.addEventListener('load', initOfficesMap, { once: true });
     }
 
     // ── SCROLL-REVEAL (manifiesto) ────────────────────────────────

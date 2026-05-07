@@ -1,7 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Andes View Suites">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0f2027"/><stop offset="100%" stop-color="#203a43"/></linearGradient></defs>
-  <rect width="1200" height="900" fill="url(#g)"/>
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Andes View Suites">
+  <defs><linearGradient id="g_desarrollo-andes-view-cl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0f2027"/><stop offset="100%" stop-color="#203a43"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g_desarrollo-andes-view-cl)"/>
   <path d="M160 640 L340 420 L500 610 L670 360 L840 610 L1040 460 L1040 760 L160 760 Z" fill="rgba(212,201,176,0.22)"/>
   <text x="600" y="150" text-anchor="middle" fill="#f5f0e8" font-family="Arial, sans-serif" font-size="48" font-weight="700">Andes View Suites</text>
   <text x="600" y="210" text-anchor="middle" fill="#d4c9b0" font-family="Arial, sans-serif" font-size="24">Desarrollo con Vista · Santiago</text>
 </svg>
+
