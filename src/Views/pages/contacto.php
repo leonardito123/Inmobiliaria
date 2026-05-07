@@ -100,8 +100,8 @@ $personSchemas = array_map(fn($a) => [
                 <svg class="w-8 h-8 text-gold mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="<?php echo escC($ch['icon']); ?>"/>
                 </svg>
-                <p class="font-semibold text-sm"><?php echo escC($ch['title']); ?></p>
-                <p class="text-muted text-xs mt-1"><?php echo escC($ch['value']); ?></p>
+                <p class="font-serif font-bold text-base mb-1"><?php echo escC($ch['title']); ?></p>
+                <p class="text-muted text-sm leading-relaxed"><?php echo escC($ch['value']); ?></p>
             </a>
             <?php endforeach; ?>
         </div>
@@ -142,13 +142,13 @@ $personSchemas = array_map(fn($a) => [
                 </div>
                 <div class="pt-10 px-6 pb-6">
                     <h3 class="font-serif font-bold text-lg mb-0.5" itemprop="name"><?php echo escC($agent['name'] ?? ''); ?></h3>
-                    <p class="text-muted text-sm mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
+                    <p class="text-muted text-sm font-mono tracking-[0.08em] uppercase mb-3" itemprop="jobTitle"><?php echo escC($agent['job_title'] ?? ''); ?></p>
                     <div class="space-y-1 text-sm">
                         <?php if ($agent['email'] ?? ''): ?>
-                        <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
+                        <p><a href="mailto:<?php echo escC($agent['email']); ?>" class="text-accent hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-accent font-mono text-[12px] tracking-[0.04em]" itemprop="email"><?php echo escC($agent['email']); ?></a></p>
                         <?php endif; ?>
                         <?php if ($agent['phone'] ?? ''): ?>
-                        <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
+                        <p><a href="tel:<?php echo escC(preg_replace('/\s+/', '', $agent['phone'])); ?>" class="text-muted hover:text-ink font-mono text-[12px] tracking-[0.04em]" itemprop="telephone"><?php echo escC($agent['phone']); ?></a></p>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($agent['languages']) && is_array($agent['languages'])): ?>
@@ -187,8 +187,8 @@ $personSchemas = array_map(fn($a) => [
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
             <?php foreach ($offices as $office): ?>
             <div class="bg-white border border-rule rounded-xl p-4">
-                <p class="font-serif font-bold"><?php echo escC($office['city']); ?></p>
-                <p class="text-muted text-sm mt-1"><?php echo escC($office['address']); ?></p>
+                <p class="font-serif font-bold text-lg"><?php echo escC($office['city']); ?></p>
+                <p class="text-muted text-sm leading-relaxed mt-1"><?php echo escC($office['address']); ?></p>
             </div>
             <?php endforeach; ?>
         </div>
@@ -215,19 +215,19 @@ $personSchemas = array_map(fn($a) => [
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label for="chatName" class="block text-xs font-semibold text-muted mb-1">Tu nombre</label>
+                        <label for="chatName" class="block text-[11px] font-mono tracking-[0.08em] uppercase text-muted mb-1">Tu nombre</label>
                         <input id="chatName" name="name" type="text" required placeholder="Ana García"
                                class="w-full px-3 py-2 border border-rule rounded text-sm focus:outline-none focus:ring-2 focus:ring-gold">
                     </div>
                     <div class="col-span-1 hidden sm:block"></div>
                 </div>
                 <div>
-                    <label for="chatMessage" class="block text-xs font-semibold text-muted mb-1">Mensaje</label>
+                    <label for="chatMessage" class="block text-[11px] font-mono tracking-[0.08em] uppercase text-muted mb-1">Mensaje</label>
                     <textarea id="chatMessage" name="message" rows="3" required placeholder="Escribe tu consulta…"
                               class="w-full px-3 py-2 border border-rule rounded text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
                 </div>
                 <button type="submit"
-                        class="w-full py-3 bg-ink text-paper font-bold rounded hover:bg-accent transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
+                        class="w-full py-3 bg-ink text-paper font-mono tracking-[0.2em] uppercase rounded hover:bg-accent transition text-[11px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink">
                     Enviar mensaje →
                 </button>
             </form>
@@ -265,7 +265,7 @@ $personSchemas = array_map(fn($a) => [
 <section class="py-14 bg-paper border-t border-rule text-ink" id="prensa" aria-label="Prensa y menciones">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">07 · Prensa</p>
-        <h2 class="text-2xl font-serif font-bold mb-8">Nos han mencionado en</h2>
+        <h2 class="text-3xl font-serif font-bold mb-8">Nos han mencionado en</h2>
         <div class="flex flex-wrap items-center gap-10">
             <?php foreach ($prensa as $p): ?>
             <a href="<?php echo escC($p['url']); ?>" target="_blank" rel="noopener noreferrer"
