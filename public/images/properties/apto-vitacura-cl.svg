@@ -1,7 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Apartamento Vitacura">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2b5876"/><stop offset="100%" stop-color="#4e4376"/></linearGradient></defs>
-  <rect width="1200" height="900" fill="url(#g)"/>
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Apartamento Vitacura">
+  <defs><linearGradient id="g_apto-vitacura-cl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2b5876"/><stop offset="100%" stop-color="#4e4376"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#g_apto-vitacura-cl)"/>
   <rect x="170" y="260" width="860" height="420" rx="18" fill="rgba(255,255,255,0.10)"/>
   <text x="600" y="150" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="46" font-weight="700">Apartamento Vitacura</text>
   <text x="600" y="205" text-anchor="middle" fill="#e3deef" font-family="Arial, sans-serif" font-size="24">Alta Plusvalia · Santiago</text>
 </svg>
+
