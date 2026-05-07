@@ -64,11 +64,11 @@ $amenidades = [
                 </li>
             </ol>
         </nav>
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3">01 · Nuevos Desarrollos</p>
-        <h1 class="text-5xl md:text-7xl font-serif font-black leading-tight mb-4 max-w-4xl">
+        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3" style="text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
+        <h1 class="text-5xl md:text-7xl font-serif font-black leading-tight mb-4 max-w-4xl" style="text-shadow:0 4px 18px rgba(0,0,0,0.45);">
             Arquitectura de <span class="text-gold italic">nueva generación</span>
         </h1>
-        <p class="text-paper/70 text-lg max-w-2xl">
+        <p class="text-paper/85 text-lg max-w-2xl" style="text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Preventa, construcción y entrega en <?php echo escD($country_code ?? 'MX'); ?>. Plano interactivo, conteo regresivo y formulario de interés.
         </p>
     </div>
@@ -103,7 +103,7 @@ $amenidades = [
 }
 </style>
 
-<section class="py-14 bg-paper" id="masterplan" aria-label="Plano interactivo del desarrollo">
+<section class="py-14 bg-paper text-ink" id="masterplan" aria-label="Plano interactivo del desarrollo">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">03 · Masterplan</p>
         <h2 class="text-3xl font-serif font-bold mb-10 scroll-reveal">Plano interactivo del conjunto</h2>
@@ -228,7 +228,7 @@ $amenidades = [
 <!-- ══════════════════════════════════
      5. AMENIDADES — Iconos SVG animados
      ══════════════════════════════════ -->
-<section class="py-20 bg-white" id="amenidades" aria-label="Amenidades del desarrollo">
+<section class="py-20 bg-white text-ink" id="amenidades" aria-label="Amenidades del desarrollo">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">05 · Amenidades</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Amenidades de clase mundial</h2>
@@ -250,7 +250,7 @@ $amenidades = [
 <!-- ══════════════════════════════════
      6. FORMULARIO DE INTERÉS (Lead scoring)
      ══════════════════════════════════ -->
-<section class="py-20 bg-paper border-t border-rule" id="formulario-interes" aria-label="Formulario de interés">
+<section class="py-20 bg-paper border-t border-rule text-ink" id="formulario-interes" aria-label="Formulario de interés">
     <div class="max-w-2xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">06 · Registro</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Regístra tu interés</h2>

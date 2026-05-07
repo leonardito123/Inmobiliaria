@@ -64,17 +64,17 @@ $personSchemas = array_map(fn($a) => [
              loading="eager">
     </div>
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/25" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s">01 · Contacto</p>
-        <h1 class="font-serif font-black leading-tight mb-6 text-5xl md:text-7xl max-w-4xl">
+        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Contacto</p>
+        <h1 class="font-serif font-black leading-tight mb-6 text-5xl md:text-7xl max-w-4xl" style="text-shadow:0 4px 18px rgba(0,0,0,0.45);">
             <?php $words = ['Asesoría', 'inmobiliaria', 'en', 'tiempo', 'real'];
             foreach ($words as $i => $w): ?>
             <span class="anim-word" style="animation-delay:<?php echo 0.2 + $i * 0.1; ?>s"><?php echo escC($w); ?> </span>
             <?php endforeach; ?>
         </h1>
-        <p class="text-paper/60 text-lg max-w-2xl anim-word" style="animation-delay:0.8s">
+        <p class="text-paper/85 text-lg max-w-2xl anim-word" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Chat SSE en vivo, red de agentes especializados y oficinas en 3 países. Sin tiempos de espera.
         </p>
     </div>
@@ -83,7 +83,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      2. CANALES DE ATENCIÓN
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper border-b border-rule" aria-label="Canales de atención">
+<section class="py-14 bg-paper border-b border-rule text-ink" aria-label="Canales de atención">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">02 · Canales</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Cómo contactarnos</h2>
@@ -116,7 +116,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      3. GRID AGENTES + Person schema HTML
      ══════════════════════════════════ -->
-<section class="py-20 bg-white" id="agentes" aria-label="Nuestros agentes">
+<section class="py-20 bg-white text-ink" id="agentes" aria-label="Nuestros agentes">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">03 · Equipo</p>
         <h2 class="text-3xl font-serif font-bold mb-10">Agentes especializados</h2>
@@ -173,7 +173,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      4. MAPA LEAFLET — Oficinas
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper" id="mapa-oficinas" aria-label="Mapa de oficinas">
+<section class="py-14 bg-paper text-ink" id="mapa-oficinas" aria-label="Mapa de oficinas">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">04 · Ubicaciones</p>
         <h2 class="text-3xl font-serif font-bold mb-8">Nuestras oficinas</h2>
@@ -203,7 +203,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      5. CHAT SSE (mantenido del original)
      ══════════════════════════════════ -->
-<section class="py-14 bg-white" id="chat-section" aria-label="Chat en tiempo real">
+<section class="py-14 bg-white text-ink" id="chat-section" aria-label="Chat en tiempo real">
     <div class="max-w-3xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">05 · Chat</p>
         <h2 class="text-3xl font-serif font-bold mb-6">Chat en tiempo real</h2>
@@ -267,7 +267,7 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      7. PRENSA Y MENCIONES
      ══════════════════════════════════ -->
-<section class="py-14 bg-paper border-t border-rule" id="prensa" aria-label="Prensa y menciones">
+<section class="py-14 bg-paper border-t border-rule text-ink" id="prensa" aria-label="Prensa y menciones">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1">07 · Prensa</p>
         <h2 class="text-2xl font-serif font-bold mb-8">Nos han mencionado en</h2>
