@@ -90,7 +90,7 @@ $navLinks = [
     </div>
 
     <!-- ── NAVIGATION ────────────────────────────────────────────── -->
-    <nav id="mainNav" class="bg-ink/90 backdrop-blur-sm text-paper py-4 sticky top-0 z-50 border-b border-white/8 transition-all duration-300">
+    <nav id="mainNav" class="bg-ink backdrop-blur-sm text-paper py-4 sticky top-0 z-50 border-b border-white/8 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 lg:px-16 flex items-center gap-8">
 
             <!-- Logo — extremo izquierdo -->
