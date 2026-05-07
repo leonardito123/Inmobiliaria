@@ -50,11 +50,6 @@ $personSchemas = array_map(fn($a) => [
 <!-- ══════════════════════════════════
      1. HERO EDITORIAL — Tipografía animada
      ══════════════════════════════════ -->
-<style>
-@keyframes fade-up { from { opacity:0; transform:translateY(1.5rem); } to { opacity:1; transform:translateY(0); } }
-.anim-word { display:inline-block; animation:fade-up .6s ease both; }
-</style>
-
 <section class="relative min-h-[65vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Contacto">
     <!-- Imagen de fondo -->
     <div class="absolute inset-0" aria-hidden="true">
@@ -68,7 +63,7 @@ $personSchemas = array_map(fn($a) => [
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
         <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-word" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Contacto</p>
-        <h1 class="font-serif font-black leading-tight mb-6 text-5xl md:text-7xl max-w-4xl" style="text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+        <h1 class="font-serif font-black leading-[0.94] mb-6 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
             <?php $words = ['Asesoría', 'inmobiliaria', 'en', 'tiempo', 'real'];
             foreach ($words as $i => $w): ?>
             <span class="anim-word" style="animation-delay:<?php echo 0.2 + $i * 0.1; ?>s"><?php echo escC($w); ?> </span>

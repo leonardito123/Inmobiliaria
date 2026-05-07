@@ -41,7 +41,7 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
     </div>
 
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <p class="font-mono text-[11px] md:text-xs tracking-[0.22em] uppercase text-gold/90 mb-8 flex items-center gap-3">
+        <p class="font-mono text-[11px] md:text-xs tracking-[0.22em] uppercase text-gold/90 mb-8 flex items-center gap-3 anim-copy" style="animation-delay:0.1s;">
             <span>Inmobiliaria Premium</span>
             <span class="text-gold/60" aria-hidden="true">·</span>
             <span class="inline-flex items-center rounded-full border border-gold/45 bg-black/30 px-3 py-1 text-paper tracking-[0.12em]">
@@ -49,16 +49,19 @@ $countryCode = strtoupper((string)($country ?? 'MX'));
             </span>
         </p>
 
-        <h1 class="font-serif font-black uppercase tracking-[0.04em] leading-[0.95] mb-6 px-5 py-3 bg-black/40 ring-1 ring-white/15"
-            style="font-size: clamp(2.8rem, 8vw, 6.5rem); text-shadow: 0 10px 35px rgba(0,0,0,.75);">
-            Bienvenido a<br>
-            <span class="text-gold">HAVRE</span>&nbsp;ESTATES
+        <h1 class="font-serif font-black leading-[0.94] mb-6 max-w-4xl"
+            style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 10px 35px rgba(0,0,0,.75);">
+            <span class="anim-word" style="animation-delay:0.16s;">Bienvenido</span>
+            <span class="anim-word" style="animation-delay:0.24s;">a</span><br>
+            <span class="anim-word text-gold" style="animation-delay:0.34s;">HAVRE</span>
+            <span class="anim-word" style="animation-delay:0.42s;">ESTATES</span>
         </h1>
 
-        <div class="w-24 h-px bg-gold mb-8" aria-hidden="true"></div>
+        <div class="w-24 h-px bg-gold mb-8 anim-copy" style="animation-delay:0.5s;" aria-hidden="true"></div>
 
         <a href="/contacto"
-           class="inline-flex items-center gap-3 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300 mb-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+           class="inline-flex items-center gap-3 px-10 py-4 border border-paper/50 text-paper text-[11px] font-mono tracking-[0.35em] uppercase hover:bg-paper hover:text-ink transition-all duration-300 mb-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold anim-copy"
+           style="animation-delay:0.62s;">
             AGENDA UNA VISITA
         </a>
 

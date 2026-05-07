@@ -100,17 +100,20 @@ function resolveVentaInteriorImage(string $title): string {
                 </li>
             </ol>
         </nav>
-        <p class="font-mono text-[11px] tracking-[0.28em] uppercase text-gold/90 mb-5 flex items-center gap-3">
+        <p class="font-mono text-[11px] tracking-[0.28em] uppercase text-gold/90 mb-5 flex items-center gap-3 anim-copy" style="animation-delay:0.1s;">
             <span>01 · Propiedades en Venta</span>
             <span class="text-gold/40" aria-hidden="true">·</span>
             <span class="border border-gold/40 px-3 py-0.5 text-paper/80 tracking-[0.12em]"><?php echo escHtml($countryLabel); ?></span>
         </p>
-        <h1 class="font-serif font-black uppercase tracking-[0.03em] leading-[0.92] text-paper mb-6"
-            style="font-size:clamp(2.4rem,6vw,5rem);text-shadow:0 8px 30px rgba(0,0,0,.8);">
-            Propiedades<br><span class="text-gold">Premium en Venta</span>
+        <h1 class="font-serif font-black leading-[0.94] text-paper mb-6 max-w-4xl"
+            style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 8px 30px rgba(0,0,0,.8);">
+            <span class="anim-word" style="animation-delay:0.18s;">Propiedades</span><br>
+            <span class="anim-word text-gold" style="animation-delay:0.3s;">Premium</span>
+            <span class="anim-word" style="animation-delay:0.4s;">en</span>
+            <span class="anim-word" style="animation-delay:0.5s;">Venta</span>
         </h1>
-        <div class="w-20 h-px bg-gold mb-6" aria-hidden="true"></div>
-        <p class="text-paper/55 text-sm max-w-xl leading-relaxed font-light">
+        <div class="w-20 h-px bg-gold mb-6 anim-copy" style="animation-delay:0.58s;" aria-hidden="true"></div>
+        <p class="text-paper/70 text-sm max-w-xl leading-relaxed font-light anim-copy" style="animation-delay:0.68s;">
             Selección exclusiva de viviendas, penthouses y desarrollos con plusvalía en <?php echo escHtml($countryLabel); ?>.
         </p>
     </div>

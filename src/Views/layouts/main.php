@@ -78,6 +78,32 @@ $navLinks = [
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin="anonymous"></script>
 
+    <style>
+    @keyframes hero-fade-up {
+        from { opacity: 0; transform: translateY(1.25rem); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim-word {
+        display: inline-block;
+        opacity: 0;
+        animation: hero-fade-up .65s ease both;
+    }
+
+    .anim-copy {
+        opacity: 0;
+        animation: hero-fade-up .7s ease both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .anim-word,
+        .anim-copy {
+            opacity: 1;
+            animation: none;
+        }
+    }
+    </style>
+
     <script type="module" src="<?php echo htmlspecialchars($mainJsAsset); ?>"></script>
 </head>
 <body class="font-sans bg-ink text-paper">

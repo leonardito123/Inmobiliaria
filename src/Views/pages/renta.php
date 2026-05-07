@@ -100,11 +100,16 @@ $temporadas = [
     <div class="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/40 to-ink/80" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-paper">
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3">01 · Renta Premium</p>
-        <h1 class="text-5xl md:text-6xl font-serif font-black leading-tight mb-4 max-w-3xl">
-            Tu próximo hogar, <span class="text-gold italic">sin compromiso</span>
+        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;">01 · Renta Premium</p>
+        <h1 class="font-serif font-black leading-[0.94] mb-4 max-w-4xl"
+            style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 8px 30px rgba(0,0,0,.45);">
+            <span class="anim-word" style="animation-delay:0.18s;">Tu</span>
+            <span class="anim-word" style="animation-delay:0.26s;">próximo</span>
+            <span class="anim-word" style="animation-delay:0.34s;">hogar,</span><br>
+            <span class="anim-word text-gold italic" style="animation-delay:0.46s;">sin</span>
+            <span class="anim-word text-gold italic" style="animation-delay:0.56s;">compromiso</span>
         </h1>
-        <p class="text-paper/70 text-lg max-w-xl mb-8">
+        <p class="text-paper/82 text-lg max-w-xl mb-8 anim-copy" style="animation-delay:0.68s;">
             Renta mensual y vacacional en <?php echo escR($country_code ?? 'MX'); ?>. Selecciona fechas, elige huéspedes y reserva al instante.
         </p>
         <a href="#multistep" class="inline-block px-8 py-4 bg-gold text-ink font-bold rounded-full hover:bg-gold/90 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">
@@ -423,7 +428,7 @@ $temporadas = [
                     ?>
                     <article class="group rounded-2xl overflow-hidden border border-black/10 bg-white shadow-[0_12px_40px_rgba(15,15,15,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(15,15,15,0.12)]"
                              itemscope itemtype="https://schema.org/Accommodation">
-                        <div class="relative overflow-hidden aspect-[16/10]">
+                        <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
                             <img src="<?php echo escR($cardImg); ?>"
                                  alt="<?php echo escR($prop['meta_title'] ?? 'Propiedad en renta'); ?>"
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

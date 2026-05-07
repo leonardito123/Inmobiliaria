@@ -22,11 +22,6 @@ $amenidades = [
 <!-- ══════════════════════════════════
      1. HERO — Partículas CSS puro (sin JS)
      ══════════════════════════════════ -->
-<style>
-@keyframes float-p{0%,100%{transform:translateY(0) scale(1);opacity:.5}50%{transform:translateY(-40px) scale(1.15);opacity:.9}}
-.particle{position:absolute;border-radius:50%;background:var(--color-gold,#c9a84c);animation:float-p linear infinite;pointer-events:none}
-</style>
-
 <section class="relative min-h-[72vh] flex items-end pb-20 overflow-hidden bg-ink" aria-label="Hero Desarrollos">
     <!-- Imagen de fondo -->
     <div class="absolute inset-0" aria-hidden="true">
@@ -64,11 +59,14 @@ $amenidades = [
                 </li>
             </ol>
         </nav>
-        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3" style="text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
-        <h1 class="text-5xl md:text-7xl font-serif font-black leading-tight mb-4 max-w-4xl" style="text-shadow:0 4px 18px rgba(0,0,0,0.45);">
-            Arquitectura de <span class="text-gold italic">nueva generación</span>
+        <p class="text-gold font-mono text-xs tracking-[0.25em] uppercase mb-3 anim-copy" style="animation-delay:0.1s;text-shadow:0 2px 10px rgba(0,0,0,0.45);">01 · Nuevos Desarrollos</p>
+        <h1 class="font-serif font-black leading-[0.94] mb-4 max-w-4xl" style="font-size:clamp(3rem,7vw,6rem);text-shadow:0 4px 18px rgba(0,0,0,0.45);">
+            <span class="anim-word" style="animation-delay:0.18s;">Arquitectura</span>
+            <span class="anim-word" style="animation-delay:0.28s;">de</span>
+            <span class="anim-word text-gold italic" style="animation-delay:0.4s;">nueva</span><br>
+            <span class="anim-word text-gold italic" style="animation-delay:0.52s;">generación</span>
         </h1>
-        <p class="text-paper/85 text-lg max-w-2xl" style="text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+        <p class="text-paper/85 text-lg max-w-2xl anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Preventa, construcción y entrega en <?php echo escD($country_code ?? 'MX'); ?>. Plano interactivo, conteo regresivo y formulario de interés.
         </p>
     </div>
@@ -96,13 +94,6 @@ $amenidades = [
 <!-- ══════════════════════════════════
      3. PLANO INTERACTIVO + SCROLL-DRIVEN ANIMATIONS
      ══════════════════════════════════ -->
-<style>
-@supports (animation-timeline: scroll()) {
-    .scroll-reveal { animation: reveal-in linear both; animation-timeline: scroll(); animation-range: entry 0% entry 40%; }
-    @keyframes reveal-in { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: translateY(0); } }
-}
-</style>
-
 <section class="py-14 bg-paper text-ink" id="masterplan" aria-label="Plano interactivo del desarrollo">
     <div class="max-w-7xl mx-auto px-6">
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">03 · Masterplan</p>
