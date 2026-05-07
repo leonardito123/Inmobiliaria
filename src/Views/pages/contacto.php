@@ -69,7 +69,7 @@ $personSchemas = array_map(fn($a) => [
             <span class="anim-word" style="animation-delay:<?php echo 0.2 + $i * 0.1; ?>s"><?php echo escC($w); ?> </span>
             <?php endforeach; ?>
         </h1>
-        <p class="text-paper/85 text-lg max-w-2xl anim-word" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+        <p class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.8s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Chat SSE en vivo, red de agentes especializados y oficinas en 3 países. Sin tiempos de espera.
         </p>
     </div>

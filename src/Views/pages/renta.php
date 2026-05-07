@@ -109,7 +109,7 @@ $temporadas = [
             <span class="anim-word text-gold italic" style="animation-delay:0.46s;">sin</span>
             <span class="anim-word text-gold italic" style="animation-delay:0.56s;">compromiso</span>
         </h1>
-        <p class="text-paper/82 text-lg max-w-xl mb-8 anim-copy" style="animation-delay:0.68s;">
+        <p class="text-paper/82 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.68s;">
             Renta mensual y vacacional en <?php echo escR($country_code ?? 'MX'); ?>. Selecciona fechas, elige huéspedes y reserva al instante.
         </p>
         <a href="#multistep" class="inline-block px-8 py-4 bg-gold text-ink font-bold rounded-full hover:bg-gold/90 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-paper">

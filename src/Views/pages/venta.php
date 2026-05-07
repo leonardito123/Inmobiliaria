@@ -113,7 +113,7 @@ function resolveVentaInteriorImage(string $title): string {
             <span class="anim-word" style="animation-delay:0.5s;">Venta</span>
         </h1>
         <div class="w-20 h-px bg-gold mb-6 anim-copy" style="animation-delay:0.58s;" aria-hidden="true"></div>
-        <p class="text-paper/70 text-sm max-w-xl leading-relaxed font-light anim-copy" style="animation-delay:0.68s;">
+        <p class="text-paper/78 text-base md:text-lg max-w-2xl leading-relaxed mb-8 font-light anim-copy" style="animation-delay:0.68s;">
             Selección exclusiva de viviendas, penthouses y desarrollos con plusvalía en <?php echo escHtml($countryLabel); ?>.
         </p>
     </div>

@@ -66,7 +66,7 @@ $amenidades = [
             <span class="anim-word text-gold italic" style="animation-delay:0.4s;">nueva</span><br>
             <span class="anim-word text-gold italic" style="animation-delay:0.52s;">generación</span>
         </h1>
-        <p class="text-paper/85 text-lg max-w-2xl anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
+        <p class="text-paper/85 text-base md:text-lg max-w-2xl leading-relaxed mb-8 anim-copy" style="animation-delay:0.66s;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
             Preventa, construcción y entrega en <?php echo escD($country_code ?? 'MX'); ?>. Plano interactivo, conteo regresivo y formulario de interés.
         </p>
     </div>
@@ -182,26 +182,23 @@ $amenidades = [
         <p class="text-gold font-mono text-xs tracking-widest uppercase mb-1 scroll-reveal">04 · Vista 360°</p>
         <h2 class="text-3xl font-serif font-bold mb-12 scroll-reveal">Explora el espacio en 360°</h2>
 
-        <div class="relative flex items-center justify-center" style="height:320px;perspective:800px">
+        <div class="relative flex items-center justify-center overflow-hidden rounded-2xl" style="height:380px;perspective:1100px;">
+            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+                 style="background:radial-gradient(circle at center, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0.08) 24%, rgba(10,10,10,0) 62%);"></div>
             <!-- Carrusel 3D CSS puro -->
-            <div id="cube360" class="relative" style="width:220px;height:220px;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1)">
+            <div id="cube360" class="relative" style="width:260px;height:260px;transform-style:preserve-3d;transform:rotateX(-10deg) rotateY(-18deg);transition:transform 0.8s cubic-bezier(.4,0,.2,1);filter:drop-shadow(0 24px 40px rgba(0,0,0,0.45));">
                 <?php
                 $cube_faces = [
-                    ['rot' => 'rotateY(0deg) translateZ(110px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala'],
-                    ['rot' => 'rotateY(90deg) translateZ(110px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina'],
-                    ['rot' => 'rotateY(180deg) translateZ(110px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara'],
-                    ['rot' => 'rotateY(270deg) translateZ(110px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza'],
+                    ['rot' => 'rotateY(0deg) translateZ(130px)',   'img' => '/images/venta-interiores/interior-premium.jpg',    'label' => 'Sala'],
+                    ['rot' => 'rotateY(90deg) translateZ(130px)',  'img' => '/images/venta-interiores/interior-penthouse.jpg',  'label' => 'Cocina'],
+                    ['rot' => 'rotateY(180deg) translateZ(130px)', 'img' => '/images/venta-interiores/interior-loft.jpg',       'label' => 'Recámara'],
+                    ['rot' => 'rotateY(270deg) translateZ(130px)', 'img' => '/images/hero/desarrollos-construccion.jpg',        'label' => 'Terraza'],
                 ];
                 foreach ($cube_faces as $face): ?>
-                <div class="absolute inset-0 rounded-xl overflow-hidden border border-white/10 flex items-end"
-                     style="transform:<?php echo $face['rot']; ?>">
-                    <img src="<?php echo escD($face['img']); ?>"
-                         alt="<?php echo escD($face['label']); ?>"
-                         class="absolute inset-0 w-full h-full object-cover"
-                         loading="lazy"
-                         onerror="this.onerror=null;this.style.display='none'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <span class="relative z-10 p-4 font-serif font-bold text-xl text-paper/90"><?php echo escD($face['label']); ?></span>
+                 <div class="absolute inset-0 rounded-2xl overflow-hidden border border-gold/15 flex items-end"
+                     style="transform:<?php echo $face['rot']; ?>;background-image:url('<?php echo escD($face['img']); ?>');background-size:cover;background-position:center;background-repeat:no-repeat;backface-visibility:hidden;">
+                    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.42) 0%, rgba(8,8,8,0.12) 45%, rgba(8,8,8,0.04) 100%);"></div>
+                    <span class="relative z-10 m-4 inline-flex items-center rounded-full border border-white/20 bg-black/35 px-4 py-1.5 font-serif font-bold text-lg text-paper"><?php echo escD($face['label']); ?></span>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -212,7 +209,7 @@ $amenidades = [
             <button id="cube360Prev" class="px-5 py-2 border border-white/20 text-paper rounded hover:bg-white/10 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold" aria-label="Cara anterior">‹ Anterior</button>
             <button id="cube360Next" class="px-5 py-2 border border-white/20 text-paper rounded hover:bg-white/10 transition text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold" aria-label="Cara siguiente">Siguiente ›</button>
         </div>
-        <p class="text-center text-paper/40 text-xs mt-4 font-mono">Vista conceptual — recorridos reales disponibles previo cita</p>
+        <p class="text-center text-paper/55 text-xs mt-4 font-mono tracking-[0.14em] uppercase">Vista conceptual — recorridos reales disponibles previo cita</p>
     </div>
 </section>
 
@@ -363,9 +360,13 @@ $amenidades = [
 
     // ── GALERÍA 360° ──────────────────────────────────────────────
     var cube  = document.getElementById('cube360');
-    var angle = 0;
-    document.getElementById('cube360Next')?.addEventListener('click', function () { angle += 90; if (cube) cube.style.transform = 'rotateY(' + angle + 'deg)'; });
-    document.getElementById('cube360Prev')?.addEventListener('click', function () { angle -= 90; if (cube) cube.style.transform = 'rotateY(' + angle + 'deg)'; });
+    var angle = -18;
+    function renderCube() {
+        if (cube) cube.style.transform = 'rotateX(-10deg) rotateY(' + angle + 'deg)';
+    }
+    renderCube();
+    document.getElementById('cube360Next')?.addEventListener('click', function () { angle += 90; renderCube(); });
+    document.getElementById('cube360Prev')?.addEventListener('click', function () { angle -= 90; renderCube(); });
 
     // ── LEAD SCORE INDICATOR ──────────────────────────────────────
     var form      = document.getElementById('leadForm');
