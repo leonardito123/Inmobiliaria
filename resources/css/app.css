@@ -4,6 +4,34 @@
 @source "../../src/Views/**/*.php";
 @import "tailwindcss";
 
+/* Responsive Mobile Menu - Force override with specificity */
+@media (max-width: 767px) {
+  /* Hide ALL desktop menus and language controls on mobile */
+  ul[class*="items-center"][class*="flex-1"][class*="justify-center"] {
+    display: none !important;
+  }
+  
+  /* Hide desktop language/CTA section */
+  div[class*="flex-shrink-0"][class*="gap-5"] {
+    display: none !important;
+  }
+  
+  /* Show hamburger button */
+  #mobileMenuButton {
+    display: inline-flex !important;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Hide mobile elements on desktop */
+  #mobileMenuButton {
+    display: none !important;
+  }
+  #mobileMenuPanel {
+    display: none !important;
+  }
+}
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
