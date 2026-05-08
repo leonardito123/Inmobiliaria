@@ -110,14 +110,14 @@ $navLinks = [
 
     <!-- â”€â”€ TOP INFO BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div class="bg-black text-paper/60 text-xs font-mono tracking-[0.15em] py-2 text-center border-b border-white/5">
-        <span>Paseo de la Reforma 24, Col. JuÃ¡rez, CDMX, C.P. 06600</span>
-        <span class="mx-4 text-white/20">|</span>
+        <span class="hidden md:inline">Paseo de la Reforma 24, Col. Juárez, CDMX, C.P. 06600</span>
+        <span class="hidden md:inline mx-4 text-white/20">|</span>
         <a href="tel:+525541698259" class="hover:text-gold transition-colors">(52) 55 4169 8259</a>
     </div>
 
     <!-- â”€â”€ NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <nav id="mainNav" class="bg-ink backdrop-blur-sm text-paper py-4 sticky top-0 z-50 border-b border-white/8 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 lg:px-16 flex items-center gap-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 flex items-center gap-4 md:gap-8">
 
             <!-- Logo â€” extremo izquierdo -->
             <a href="/" class="text-lg font-serif font-black tracking-[0.1em] uppercase hover:text-gold transition-colors flex-shrink-0">
@@ -146,6 +146,24 @@ $navLinks = [
                 </li>
                 <?php endforeach; ?>
             </ul>
+
+            <!-- Boton menu movil -->
+            <button
+                type="button"
+                id="mobileMenuButton"
+                class="md:hidden ml-auto inline-flex items-center justify-center w-11 h-11 border border-white/20 text-paper hover:text-gold hover:border-gold transition-colors"
+                aria-controls="mobileMenuPanel"
+                aria-expanded="false"
+                aria-label="Abrir menu"
+            >
+                <span class="sr-only">Abrir menu</span>
+                <svg id="mobileMenuIconOpen" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+                </svg>
+                <svg id="mobileMenuIconClose" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
 
             <!-- Derecha: selector idioma + CTA â€” extremo derecho -->
             <div class="hidden md:flex items-center gap-5 flex-shrink-0">
@@ -177,6 +195,49 @@ $navLinks = [
             </div><!-- /derecha -->
 
         </div><!-- /nav-inner -->
+
+        <!-- Panel menu movil -->
+        <div id="mobileMenuPanel" class="md:hidden hidden border-t border-white/10 mt-4 transition-all duration-300 ease-out transform origin-top" style="max-height: 0; overflow: hidden; opacity: 0;">
+            <div class="px-6 py-5 space-y-4 bg-black/40 backdrop-blur-sm">
+                <ul class="space-y-1">
+                    <?php foreach ($navLinks as $item):
+                        $isActive = ($currentPath === $item['href']);
+                    ?>
+                    <li>
+                        <a
+                            href="<?php echo htmlspecialchars($item['href']); ?>"
+                            data-i18n="<?php echo htmlspecialchars($item['i18n']); ?>"
+                            class="mobile-menu-link block px-3 py-3 text-[12px] font-mono tracking-[0.18em] uppercase transition-colors <?php echo $isActive ? 'text-gold bg-gold/10' : 'text-paper/80 hover:text-paper hover:bg-white/5'; ?>"
+                        >
+                            <?php echo htmlspecialchars($item['label']); ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <div class="lang-switcher flex items-center border border-white/15 divide-x divide-white/10 overflow-hidden w-fit"
+                     role="group" aria-label="Selector de idioma movil">
+                    <button type="button" data-lang-switch="es"
+                            class="lang-switch px-3 py-2 text-[10px] font-mono tracking-[0.25em] uppercase transition-all duration-200 text-paper/45 hover:text-paper hover:bg-white/5">
+                        ES
+                    </button>
+                    <button type="button" data-lang-switch="en"
+                            class="lang-switch px-3 py-2 text-[10px] font-mono tracking-[0.25em] uppercase transition-all duration-200 text-paper/45 hover:text-paper hover:bg-white/5">
+                        EN
+                    </button>
+                    <button type="button" data-lang-switch="fr"
+                            class="lang-switch px-3 py-2 text-[10px] font-mono tracking-[0.25em] uppercase transition-all duration-200 text-paper/45 hover:text-paper hover:bg-white/5">
+                        FR
+                    </button>
+                </div>
+
+                <a href="/contacto"
+                   data-i18n="nav.bookVisit"
+                   class="mobile-menu-link inline-flex items-center justify-center w-full min-h-[44px] px-5 py-2.5 border border-gold text-gold text-[10px] font-mono tracking-[0.28em] uppercase whitespace-nowrap hover:bg-gold hover:text-ink transition-all duration-300">
+                    Agendar Visita
+                </a>
+            </div>
+        </div>
     </nav>
 
     <!-- Main Content -->
@@ -1062,6 +1123,106 @@ $navLinks = [
                 applyLanguage(payload.lang, { skipPersist: false, skipBroadcast: true });
             });
         }
+
+        var mobileMenuButton = document.getElementById('mobileMenuButton');
+        var mobileMenuPanel = document.getElementById('mobileMenuPanel');
+        var mobileMenuIconOpen = document.getElementById('mobileMenuIconOpen');
+        var mobileMenuIconClose = document.getElementById('mobileMenuIconClose');
+
+        // Responsive display handler - fixes media query issues
+        function updateResponsiveDisplay() {
+            var mediaQuery = window.matchMedia('(max-width: 767px)');
+            var isMobile = mediaQuery.matches;
+            var desktopNav = document.querySelector('ul.hidden[class*="flex-1"]');
+            var desktopControls = document.querySelector('div.hidden[class*="gap-5"][class*="flex-shrink"]');
+
+            if (isMobile) {
+                // Mobile view
+                if (mobileMenuButton) mobileMenuButton.style.display = 'inline-flex';
+                if (desktopNav) desktopNav.style.display = 'none';
+                if (desktopControls) desktopControls.style.display = 'none';
+            } else {
+                // Desktop view
+                if (mobileMenuButton) mobileMenuButton.style.display = 'none';
+                if (mobileMenuPanel) {
+                    mobileMenuPanel.style.display = 'none';
+                    mobileMenuPanel.classList.add('hidden');
+                }
+                if (desktopNav) desktopNav.style.display = 'flex';
+                if (desktopControls) desktopControls.style.display = 'flex';
+            }
+        }
+
+        // Initial call
+        updateResponsiveDisplay();
+
+        // Listen to window resize
+        window.addEventListener('resize', function () {
+            updateResponsiveDisplay();
+        });
+
+        function closeMobileMenu() {
+            if (!mobileMenuPanel || !mobileMenuButton) {
+                return;
+            }
+
+            mobileMenuPanel.style.maxHeight = '0';
+            mobileMenuPanel.style.opacity = '0';
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+
+            if (mobileMenuIconOpen) mobileMenuIconOpen.classList.remove('hidden');
+            if (mobileMenuIconClose) mobileMenuIconClose.classList.add('hidden');
+
+            setTimeout(function () {
+                mobileMenuPanel.classList.add('hidden');
+            }, 300);
+        }
+
+        function openMobileMenu() {
+            if (!mobileMenuPanel || !mobileMenuButton) {
+                return;
+            }
+
+            mobileMenuPanel.classList.remove('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+
+            setTimeout(function () {
+                mobileMenuPanel.style.maxHeight = '600px';
+                mobileMenuPanel.style.opacity = '1';
+            }, 10);
+
+            if (mobileMenuIconOpen) mobileMenuIconOpen.classList.add('hidden');
+            if (mobileMenuIconClose) mobileMenuIconClose.classList.remove('hidden');
+        }
+
+        if (mobileMenuButton && mobileMenuPanel) {
+            mobileMenuButton.addEventListener('click', function () {
+                var expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                if (expanded) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileMenuPanel.querySelectorAll('.mobile-menu-link').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    closeMobileMenu();
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+        }
     })();
     </script>
 
@@ -1077,4 +1238,5 @@ $navLinks = [
 
 </body>
 </html>
+
 
